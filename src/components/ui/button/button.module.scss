@@ -1,0 +1,17 @@
+@import 'src/styles/mixins';
+
+.primary {
+  @include button-default;
+
+  background-color: var(--color-accent-500);
+}
+
+.secondary {
+  @include button-default;
+
+  background-color: var(--color-dark-300);
+}
+
+.fullWidth {
+  width: 100%;
+}
