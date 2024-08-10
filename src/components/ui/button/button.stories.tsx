@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { FiLogOut } from 'react-icons/fi'
+
 import { Button } from './button'
 
 const meta = {
@@ -27,19 +29,28 @@ export const Secondary: Story = {
   },
 }
 
-export const FullWidth: Story = {
+export const PrimaryWithIcon: Story = {
   args: {
-    children: 'Full Width Primary Button',
+    children: (
+      <>
+        <FiLogOut />
+        Primary Button
+      </>
+    ),
     disabled: false,
-    fullWidth: true,
     variant: 'primary',
   },
 }
 
-export const AsLink: Story = {
+export const SecondaryWithIcon: Story = {
   args: {
-    as: 'a',
-    children: 'Link that looks like a button',
-    variant: 'primary',
+    children: (
+      <>
+        <FiLogOut />
+        Secondary Button
+      </>
+    ),
+    disabled: false,
+    variant: 'secondary',
   },
 }

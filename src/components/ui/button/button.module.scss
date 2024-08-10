@@ -1,15 +1,71 @@
-@import 'src/styles/mixins';
+@mixin button {
+  all: unset;
+
+  cursor: pointer;
+
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 6px 28px;
+
+  font-family: inherit;
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-m);
+
+  border-radius: 4px;
+
+  transition: all 0.3s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-info-500);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--color-light-900);
+  }
+}
 
 .primary {
-  @include button-default;
+  @include button;
 
   background-color: var(--color-accent-500);
+  box-shadow: 0 4px 18px 0 var(--color-accent-900);
+
+  &:hover {
+    background-color: var(--color-accent-300);
+  }
+
+  &:active {
+    background-color: var(--color-accent-700);
+  }
+
+  &:disabled {
+    background-color: var(--color-accent-900);
+  }
 }
 
 .secondary {
-  @include button-default;
+  @include button;
 
   background-color: var(--color-dark-300);
+  box-shadow: 0 4px 4px 0 hsl(212deg 11% 34% / 13%);
+
+  &:hover {
+    background-color: var(--color-dark-100);
+  }
+
+  &:active {
+    background-color: var(--color-dark-500);
+  }
+
+  &:disabled {
+    background-color: var(--color-dark-700);
+  }
 }
 
 .fullWidth {
