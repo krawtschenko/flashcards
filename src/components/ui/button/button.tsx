@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementType } from 'react'
 
 import clsx from 'clsx'
 
@@ -6,7 +6,6 @@ import style from './button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
-  children: ReactNode
   fullWidth?: boolean
   variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>

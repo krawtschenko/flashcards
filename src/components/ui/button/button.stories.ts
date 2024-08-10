@@ -3,15 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Button } from './button'
 
 const meta = {
-  argTypes: {
-    variant: {
-      control: { type: 'radio' },
-      options: ['primary', 'secondary'],
-    },
-  },
   component: Button,
   tags: ['autodocs'],
-  title: 'Components/Button',
+  title: 'Components/UI/Button',
 } satisfies Meta<typeof Button>
 
 export default meta
