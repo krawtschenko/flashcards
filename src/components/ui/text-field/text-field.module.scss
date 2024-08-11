@@ -1,0 +1,100 @@
+.textField {
+  .label {
+    color: var(--color-dark-100);
+  }
+
+  .inputContainer {
+    position: relative;
+
+    display: flex;
+    column-gap: 9px;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 6px 12px;
+
+    border: 1px solid var(--color-dark-300);
+    border-radius: 2px;
+
+    &:hover {
+      background-color: var(--color-dark-700);
+    }
+
+    &:has(input:focus) {
+      border: 1px solid var(--color-info-700);
+    }
+
+    .searchIcon {
+      font-size: 20px;
+      color: var(--color-dark-100);
+    }
+
+    &:has(input[data-value='true']) {
+      border: 1px solid var(--color-light-100);
+
+      .searchIcon {
+        color: var(--color-light-100);
+      }
+    }
+
+    .input {
+      all: unset;
+      width: 100%;
+      color: var(--color-light-100);
+      background-color: inherit;
+
+      &::placeholder {
+        color: var(--color-dark-100);
+      }
+    }
+
+    .eyeIcon {
+      cursor: pointer;
+      height: 16px;
+      font-size: 16px;
+    }
+
+    .clearIcon {
+      cursor: pointer;
+      right: 12px;
+    }
+
+    &.error {
+      border: 1px solid var(--color-danger-300) !important;
+
+      input {
+        color: var(--color-danger-300);
+
+        &::placeholder {
+          color: var(--color-danger-300);
+        }
+      }
+    }
+  }
+
+  &[aria-disabled='true'] {
+    .label {
+      color: var(--color-dark-300);
+    }
+
+    .inputContainer {
+      &:hover {
+        background-color: transparent;
+      }
+
+      .input {
+        &::placeholder {
+          color: var(--color-dark-300);
+        }
+      }
+
+      .eyeIcon {
+        cursor: default;
+      }
+
+      * {
+        color: var(--color-dark-300);
+      }
+    }
+  }
+}

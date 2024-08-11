@@ -6,7 +6,7 @@ import { themes } from '@storybook/theming'
 
 const preview: Preview = {
   parameters: {
-    layout: 'centered',
+    // layout: 'centered',
     docs: {
       theme: themes.dark,
     },
