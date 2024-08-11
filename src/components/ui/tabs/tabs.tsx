@@ -1,0 +1,39 @@
+import { ComponentProps } from 'react'
+
+import * as TabsRadix from '@radix-ui/react-tabs'
+import clsx from 'clsx'
+
+import style from './tabs.module.scss'
+
+import { Typography } from '../typography/typography'
+
+type TabsProps = {
+  className?: string
+  data: Data
+  title?: string
+} & ComponentProps<typeof TabsRadix.Root>
+
+type Data = { disabled?: boolean; name: string; value: string }[]
+
+export const Tabs = ({ className, data, defaultValue, title }: TabsProps) => {
+  return (
+    <TabsRadix.Root className={clsx(style.tabsRoot, className)} defaultValue={defaultValue}>
+      <Typography className={style.title} variant={'body2'}>
+        {title}
+      </Typography>
+
+      <TabsRadix.List className={style.tabsList}>
+        {data.map(({ disabled, name, value }, index) => (
+          <TabsRadix.Trigger
+            className={style.tabsTrigger}
+            disabled={disabled}
+            key={index}
+            value={value}
+          >
+            {name}
+          </TabsRadix.Trigger>
+        ))}
+      </TabsRadix.List>
+    </TabsRadix.Root>
+  )
+}

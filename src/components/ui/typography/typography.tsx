@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react'
+import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
 import clsx from 'clsx'
 
@@ -6,6 +6,7 @@ import style from './typography.module.scss'
 
 export type TypographyProps<T extends ElementType = 'span'> = {
   as?: T
+  children: ReactNode
   color?: 'black' | 'blue' | 'red' | 'white'
   variant: Variant
 } & ComponentPropsWithoutRef<T>
