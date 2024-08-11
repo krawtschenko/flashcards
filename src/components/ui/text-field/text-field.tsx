@@ -8,7 +8,6 @@ import style from './text-field.module.scss'
 import { Typography } from '../typography/typography'
 
 type TextFieldProps = {
-  disabled?: boolean
   error?: string
   label?: string
   variant?: 'password' | 'search'
