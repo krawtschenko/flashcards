@@ -11,14 +11,14 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const dataPrimary = [
+const options = [
   { name: 'Sunday', value: '1' },
   { name: 'Monday', value: '2' },
   { name: 'Thursday', value: '3' },
   { name: 'Wednesday', value: '4' },
 ]
 
-const dataPrimaryWithDisabled = [
+const optionsWithDisabled = [
   { name: 'Sunday', value: '1' },
   { name: 'Monday', value: '2' },
   { name: 'Thursday', value: '3' },
@@ -26,9 +26,9 @@ const dataPrimaryWithDisabled = [
 ]
 
 export const Primary: Story = {
-  args: { data: dataPrimary, defaultValue: '3', title: 'Title' },
+  args: { defaultValue: '3', options: options, title: 'Title' },
 }
 
 export const PrimaryWithDisabled: Story = {
-  args: { data: dataPrimaryWithDisabled, defaultValue: '3', title: 'Title' },
+  args: { defaultValue: '3', options: optionsWithDisabled, title: 'Title' },
 }

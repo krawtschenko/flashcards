@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { FiSearch } from 'react-icons/fi'
+
 import { TextField } from './text-field'
 
 const meta = {
@@ -20,9 +22,9 @@ export const Error: Story = {
 }
 
 export const Search: Story = {
-  args: { disabled: false, label: 'Search', placeholder: 'Placeholder', variant: 'search' },
+  args: { disabled: false, icon: <FiSearch />, label: 'Search', placeholder: 'Placeholder' },
 }
 
 export const Password: Story = {
-  args: { disabled: false, label: 'Password', placeholder: 'Placeholder', variant: 'password' },
+  args: { disabled: false, label: 'Password', placeholder: 'Placeholder', type: 'password' },
 }

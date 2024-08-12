@@ -9,7 +9,6 @@ import style from './checkbox.module.scss'
 import { Typography } from '../typography/typography'
 
 type CheckboxProps = {
-  className?: string
   label?: string
 } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 

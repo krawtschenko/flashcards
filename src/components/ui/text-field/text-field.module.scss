@@ -25,6 +25,7 @@
     }
 
     .searchIcon {
+      height: 20px;
       font-size: 20px;
       color: var(--color-dark-100);
     }
@@ -48,15 +49,10 @@
       }
     }
 
+    .clearIcon,
     .eyeIcon {
-      cursor: pointer;
-      height: 16px;
-      font-size: 16px;
-    }
-
-    .clearIcon {
-      cursor: pointer;
-      right: 12px;
+      padding: unset;
+      background-color: transparent;
     }
 
     &.error {

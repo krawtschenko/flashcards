@@ -1,31 +1,24 @@
-import { ComponentPropsWithoutRef, useState } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, useState } from 'react'
 
 import clsx from 'clsx'
-import { FiEye, FiEyeOff, FiSearch, FiX } from 'react-icons/fi'
+import { FiEye, FiEyeOff, FiX } from 'react-icons/fi'
 
 import style from './text-field.module.scss'
 
+import { Button } from '../button/button'
 import { Typography } from '../typography/typography'
 
 type TextFieldProps = {
   error?: string
+  icon?: ReactNode
   label?: string
-  variant?: 'password' | 'search'
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = (props: TextFieldProps) => {
-  const { className, disabled, error, label, variant, ...rest } = props
+  const { className, disabled, error, icon, label, type, ...rest } = props
 
   const [value, setValue] = useState<string>('')
   const [showPassword, setShowPassword] = useState<boolean>(false)
-
-  const generateType = () => {
-    if (variant === 'password' && !showPassword) {
-      return 'password'
-    } else {
-      return 'text'
-    }
-  }
 
   const handleTogglePassword = () => {
     if (!disabled) {
@@ -42,26 +35,28 @@ export const TextField = (props: TextFieldProps) => {
       )}
 
       <div className={clsx(style.inputContainer, error && style.error)}>
-        {variant === 'search' && <FiSearch className={style.searchIcon} />}
+        {icon && <div className={style.searchIcon}>{icon}</div>}
 
         <input
           className={style.input}
           data-value={value && 'true'}
           disabled={disabled}
           onChange={event => setValue(event.currentTarget.value)}
-          type={generateType()}
+          type={showPassword ? 'text' : type}
           value={value}
           {...rest}
         />
 
-        {variant === 'password' && (
-          <div className={style.eyeIcon} onClick={handleTogglePassword}>
+        {type === 'password' && value && (
+          <Button className={style.eyeIcon} onClick={handleTogglePassword}>
             {showPassword ? <FiEye /> : <FiEyeOff />}
-          </div>
+          </Button>
         )}
 
-        {variant === 'search' && value && (
-          <FiX className={style.clearIcon} onClick={() => setValue('')} />
+        {icon && value && (
+          <Button className={style.clearIcon} onClick={() => setValue('')}>
+            <FiX />
+          </Button>
         )}
       </div>
 

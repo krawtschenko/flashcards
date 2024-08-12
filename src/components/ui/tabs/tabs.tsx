@@ -8,14 +8,13 @@ import style from './tabs.module.scss'
 import { Typography } from '../typography/typography'
 
 type TabsProps = {
-  className?: string
-  data: Data
+  options: Options
   title?: string
 } & ComponentProps<typeof TabsRadix.Root>
 
-type Data = { disabled?: boolean; name: string; value: string }[]
+type Options = { disabled?: boolean; name: string; value: string }[]
 
-export const Tabs = ({ className, data, defaultValue, title }: TabsProps) => {
+export const Tabs = ({ className, defaultValue, options, title }: TabsProps) => {
   return (
     <TabsRadix.Root className={clsx(style.tabsRoot, className)} defaultValue={defaultValue}>
       <Typography className={style.title} variant={'body2'}>
@@ -23,7 +22,7 @@ export const Tabs = ({ className, data, defaultValue, title }: TabsProps) => {
       </Typography>
 
       <TabsRadix.List className={style.tabsList}>
-        {data.map(({ disabled, name, value }, index) => (
+        {options.map(({ disabled, name, value }, index) => (
           <TabsRadix.Trigger
             className={style.tabsTrigger}
             disabled={disabled}
