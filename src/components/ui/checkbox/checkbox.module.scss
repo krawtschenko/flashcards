@@ -60,6 +60,7 @@
   }
 
   .label {
+    cursor: pointer;
     padding-left: 29px;
   }
 
@@ -86,6 +87,7 @@
     }
 
     .label {
+      cursor: not-allowed;
       color: var(--color-dark-100);
     }
   }

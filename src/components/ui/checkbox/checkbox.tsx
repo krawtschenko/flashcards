@@ -21,6 +21,7 @@ export const Checkbox = ({ className, disabled, label, ...rest }: CheckboxProps)
           className={style.checkboxRoot}
           defaultChecked
           disabled={disabled}
+          id={'r1'}
         >
           <CheckboxRadix.Indicator className={style.checkboxIndicator}>
             <FiCheck />
@@ -29,7 +30,7 @@ export const Checkbox = ({ className, disabled, label, ...rest }: CheckboxProps)
       </div>
 
       {label && (
-        <Typography className={style.label} variant={'body2'}>
+        <Typography as={'label'} className={style.label} htmlFor={'r1'} variant={'body2'}>
           {label}
         </Typography>
       )}

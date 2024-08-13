@@ -8,11 +8,11 @@ import style from './tabs.module.scss'
 import { Typography } from '../typography/typography'
 
 type TabsProps = {
-  options: Options
+  options: Options[]
   title?: string
 } & ComponentProps<typeof TabsRadix.Root>
 
-type Options = { disabled?: boolean; name: string; value: string }[]
+type Options = { disabled?: boolean; name: string; value: string }
 
 export const Tabs = ({ className, defaultValue, options, title, ...rest }: TabsProps) => {
   return (
