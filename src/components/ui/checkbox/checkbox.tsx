@@ -12,11 +12,16 @@ type CheckboxProps = {
   label?: string
 } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
-export const Checkbox = ({ className, disabled, label }: CheckboxProps) => {
+export const Checkbox = ({ className, disabled, label, ...rest }: CheckboxProps) => {
   return (
     <div aria-disabled={disabled} className={clsx(style.checkbox, className)}>
       <div className={style.checkboxWrap}>
-        <CheckboxRadix.Root className={style.checkboxRoot} defaultChecked disabled={disabled}>
+        <CheckboxRadix.Root
+          {...rest}
+          className={style.checkboxRoot}
+          defaultChecked
+          disabled={disabled}
+        >
           <CheckboxRadix.Indicator className={style.checkboxIndicator}>
             <FiCheck />
           </CheckboxRadix.Indicator>

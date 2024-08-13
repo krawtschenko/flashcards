@@ -14,9 +14,13 @@ type TabsProps = {
 
 type Options = { disabled?: boolean; name: string; value: string }[]
 
-export const Tabs = ({ className, defaultValue, options, title }: TabsProps) => {
+export const Tabs = ({ className, defaultValue, options, title, ...rest }: TabsProps) => {
   return (
-    <TabsRadix.Root className={clsx(style.tabsRoot, className)} defaultValue={defaultValue}>
+    <TabsRadix.Root
+      {...rest}
+      className={clsx(style.tabsRoot, className)}
+      defaultValue={defaultValue}
+    >
       <Typography className={style.title} variant={'body2'}>
         {title}
       </Typography>
