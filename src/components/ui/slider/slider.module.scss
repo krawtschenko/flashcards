@@ -86,7 +86,8 @@
         border-color: var(--color-dark-500);
       }
 
-      * {
+      .sliderTrack,
+      .sliderThumb {
         cursor: not-allowed;
       }
     }
