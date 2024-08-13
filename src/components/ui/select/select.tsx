@@ -1,79 +1,70 @@
-import React from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
 
-import * as Select from '@radix-ui/react-select'
+import * as SelectRadix from '@radix-ui/react-select'
 import clsx from 'clsx'
-import { FiCheck, FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { FiChevronDown } from 'react-icons/fi'
 
-import './select.css'
+import style from './select.module.scss'
 
-export const SelectDemo = () => (
-  <Select.Root>
-    <Select.Trigger aria-label={'Food'} className={'SelectTrigger'}>
-      <Select.Value placeholder={'Select a fruit…'} />
-      <Select.Icon className={'SelectIcon'}>
-        <FiChevronDown />
-      </Select.Icon>
-    </Select.Trigger>
-    <Select.Portal>
-      <Select.Content className={'SelectContent'}>
-        <Select.ScrollUpButton className={'SelectScrollButton'}>
-          <FiChevronUp />
-        </Select.ScrollUpButton>
-        <Select.Viewport className={'SelectViewport'}>
-          <Select.Group>
-            <Select.Label className={'SelectLabel'}>Fruits</Select.Label>
-            <SelectItem value={'apple'}>Apple</SelectItem>
-            <SelectItem value={'banana'}>Banana</SelectItem>
-            <SelectItem value={'blueberry'}>Blueberry</SelectItem>
-            <SelectItem value={'grapes'}>Grapes</SelectItem>
-            <SelectItem value={'pineapple'}>Pineapple</SelectItem>
-          </Select.Group>
+import { Typography } from '../typography/typography'
 
-          <Select.Separator className={'SelectSeparator'} />
+type SelectProps = { items: Items[]; label?: string } & ComponentPropsWithoutRef<
+  typeof SelectRadix.Root
+>
 
-          <Select.Group>
-            <Select.Label className={'SelectLabel'}>Vegetables</Select.Label>
-            <SelectItem value={'aubergine'}>Aubergine</SelectItem>
-            <SelectItem value={'broccoli'}>Broccoli</SelectItem>
-            <SelectItem disabled value={'carrot'}>
-              Carrot
-            </SelectItem>
-            <SelectItem value={'courgette'}>Courgette</SelectItem>
-            <SelectItem value={'leek'}>Leek</SelectItem>
-          </Select.Group>
+type Items = {
+  name: string
+  value: string
+}
 
-          <Select.Separator className={'SelectSeparator'} />
-
-          <Select.Group>
-            <Select.Label className={'SelectLabel'}>Meat</Select.Label>
-            <SelectItem value={'beef'}>Beef</SelectItem>
-            <SelectItem value={'chicken'}>Chicken</SelectItem>
-            <SelectItem value={'lamb'}>Lamb</SelectItem>
-            <SelectItem value={'pork'}>Pork</SelectItem>
-          </Select.Group>
-        </Select.Viewport>
-        <Select.ScrollDownButton className={'SelectScrollButton'}>
+export const Select = ({ disabled, items, label, ...rest }: SelectProps) => {
+  return (
+    <SelectRadix.Root disabled={disabled} {...rest}>
+      {label && (
+        <Typography
+          className={clsx(style.label, disabled && style.labelDisabled)}
+          variant={'body2'}
+        >
+          {label}
+        </Typography>
+      )}
+      <SelectRadix.Trigger aria-label={'Food'} className={style.selectTrigger}>
+        <SelectRadix.Value placeholder={items[0].name} />
+        <SelectRadix.Icon className={style.selectIcon}>
           <FiChevronDown />
-        </Select.ScrollDownButton>
-      </Select.Content>
-    </Select.Portal>
-  </Select.Root>
-)
+        </SelectRadix.Icon>
+      </SelectRadix.Trigger>
+
+      <SelectRadix.Portal>
+        <SelectRadix.Content className={style.selectContent} position={'popper'} sideOffset={-1}>
+          <SelectRadix.Viewport className={style.selectViewport}>
+            <SelectRadix.Group>
+              {items.map(({ name, value }) => (
+                <SelectItem key={value} value={value}>
+                  {name}
+                </SelectItem>
+              ))}
+            </SelectRadix.Group>
+          </SelectRadix.Viewport>
+        </SelectRadix.Content>
+      </SelectRadix.Portal>
+    </SelectRadix.Root>
+  )
+}
 
 type SelectItemProps = {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
-} & React.ComponentPropsWithoutRef<typeof Select.Item>
+} & ComponentPropsWithoutRef<typeof SelectRadix.Item>
 
-const SelectItem = React.forwardRef<React.ElementRef<typeof Select.Item>, SelectItemProps>(
-  ({ children, className, ...props }, forwardedRef) => {
+const SelectItem = forwardRef<ElementRef<typeof SelectRadix.Item>, SelectItemProps>(
+  (props, ref) => {
+    const { children, className, ...rest } = props
+
     return (
-      <Select.Item className={clsx('SelectItem', className)} {...props} ref={forwardedRef}>
-        <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator className={'SelectItemIndicator'}>
-          <FiCheck />
-        </Select.ItemIndicator>
-      </Select.Item>
+      <SelectRadix.Item className={clsx(style.selectItem, className)} {...rest} ref={ref}>
+        <SelectRadix.ItemText>{children}</SelectRadix.ItemText>
+      </SelectRadix.Item>
     )
   }
 )
