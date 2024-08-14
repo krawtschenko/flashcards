@@ -2,9 +2,18 @@ button {
   all: unset;
 }
 
-.iconButton {
-  cursor: pointer;
+.avatarButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
 
+  img {
+    width: 100%;
+    border-radius: 100%;
+  }
+}
+
+.iconButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,6 +29,11 @@ button {
   &:hover {
     color: var(--color-accent-500);
   }
+}
+
+.avatarButton,
+.iconButton {
+  cursor: pointer;
 
   &:focus {
     box-shadow: 0 0 0 2px var(--color-info-700);
@@ -36,20 +50,14 @@ button {
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 
-  &[data-side='top'] {
-    animation-name: slide-down-and-fade;
+  &[data-state='open'] {
+    animation-name: slide-open;
+    animation-duration: 0.5s;
   }
 
-  &[data-side='right'] {
-    animation-name: slide-left-and-fade;
-  }
-
-  &[data-side='bottom'] {
-    animation-name: slide-up-and-fade;
-  }
-
-  &[data-side='left'] {
-    animation-name: slide-right-and-fade;
+  &[data-state='closed'] {
+    animation-name: slide-closed;
+    animation-duration: 0.5s;
   }
 
   .dropdownMenuArrowWrap {
@@ -72,10 +80,28 @@ button {
   }
 
   .dropdownMenuLabel {
-    padding-left: 25px;
-    font-size: 12px;
-    line-height: 25px;
-    color: orange;
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--color-dark-500);
+
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 100%;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      .email {
+        color: var(--color-dark-100);
+      }
+    }
   }
 
   .dropdownMenuItem {
@@ -84,9 +110,10 @@ button {
     position: relative;
 
     display: flex;
+    column-gap: 6px;
     align-items: center;
 
-    padding: 10px 12px;
+    padding: 12px 0;
 
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-regular);
@@ -104,50 +131,22 @@ button {
   }
 }
 
-@keyframes slide-up-and-fade {
+@keyframes slide-open {
   from {
-    transform: translateY(2px);
     opacity: 0;
   }
 
   to {
-    transform: translateY(0);
     opacity: 1;
   }
 }
 
-@keyframes slide-right-and-fade {
+@keyframes slide-closed {
   from {
-    transform: translateX(-2px);
-    opacity: 0;
+    opacity: 1;
   }
 
   to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-down-and-fade {
-  from {
-    transform: translateY(-2px);
     opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-left-and-fade {
-  from {
-    transform: translateX(2px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
   }
 }

@@ -1,16 +1,36 @@
 import { Meta } from '@storybook/react'
 
-import { DropdownItem, DropdownMenu } from './dropdownMenu'
+import avatar from '../../../assets/images/avatar.png'
+import { DropdownItem, DropdownLabel, DropdownMenu } from './dropdownMenu'
 
-export default {
+const meta = {
   component: DropdownMenu,
+  tags: ['autodocs'],
   title: 'Components/UI/DropdownMenu',
 } as Meta<typeof DropdownMenu>
 
-export const Primary = {
+export default meta
+
+export const Default = {
   render: () => {
     return (
       <DropdownMenu>
+        <DropdownItem>One</DropdownItem>
+        <DropdownItem>Two</DropdownItem>
+        <DropdownItem>Three</DropdownItem>
+        <DropdownItem>Four</DropdownItem>
+      </DropdownMenu>
+    )
+  },
+}
+
+const personalInfo = { avatar, email: 'eugene@example.com', name: 'Eugene' }
+
+export const WithPersonalInfo = {
+  render: () => {
+    return (
+      <DropdownMenu avatar={avatar}>
+        <DropdownLabel personalInfo={personalInfo} />
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
         <DropdownItem>Three</DropdownItem>
