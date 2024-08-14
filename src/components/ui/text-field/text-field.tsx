@@ -61,7 +61,7 @@ export const TextField = (props: TextFieldProps) => {
       </div>
 
       {error && (
-        <Typography color={'red'} variant={'caption'}>
+        <Typography className={style.errorMessage} variant={'caption'}>
           {error}
         </Typography>
       )}

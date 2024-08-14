@@ -22,14 +22,14 @@ export const AllTypography = {
 
       <Typography variant={'caption'}>Caption</Typography>
       <Typography variant={'overline'}>Overline</Typography>
-      <Typography color={'blue'} variant={'link1'}>
+      <Typography style={{ color: '#4c8dff' }} variant={'link1'}>
         Link 1
       </Typography>
-      <Typography color={'blue'} variant={'link2'}>
+      <Typography style={{ color: '#4c8dff' }} variant={'link2'}>
         Link 2
       </Typography>
 
-      <Typography color={'red'} variant={'body1'}>
+      <Typography style={{ color: '#f23d61' }} variant={'body1'}>
         Error Body 1
       </Typography>
     </div>

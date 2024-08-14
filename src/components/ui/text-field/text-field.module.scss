@@ -68,6 +68,10 @@
     }
   }
 
+  .errorMessage {
+    color: var(--color-danger-300);
+  }
+
   &[aria-disabled='true'] {
     .label {
       color: var(--color-dark-300);

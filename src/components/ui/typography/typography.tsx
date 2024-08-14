@@ -7,7 +7,6 @@ import style from './typography.module.scss'
 export type TypographyProps<T extends ElementType = 'span'> = {
   as?: T
   children: ReactNode
-  color?: 'black' | 'blue' | 'red' | 'white'
   variant: Variant
 } & ComponentPropsWithoutRef<T>
 
@@ -26,7 +25,7 @@ type Variant =
   | 'subtitle2'
 
 export const Typography = <T extends ElementType = 'span'>(props: TypographyProps<T>) => {
-  const { as: Component = 'span', className, color = 'white', variant, ...rest } = props
+  const { as: Component = 'span', className, variant, ...rest } = props
 
-  return <Component className={clsx(style[variant], style[color], className)} {...rest} />
+  return <Component className={clsx(style[variant], className)} {...rest} />
 }
