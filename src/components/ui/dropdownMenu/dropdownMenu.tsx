@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as DropdownMenuRadix from '@radix-ui/react-dropdown-menu'
+import clsx from 'clsx'
 import { FiMoreVertical } from 'react-icons/fi'
 
 import style from './dropdownMenu.module.scss'
@@ -38,11 +39,11 @@ export const DropdownMenu = ({ children, ...rest }: DropdownMenuProps) => {
   )
 }
 
-type DropdownItemProps = {} & ComponentPropsWithoutRef<typeof DropdownMenuRadix.Item>
+export const DropdownItem = (props: ComponentPropsWithoutRef<typeof DropdownMenuRadix.Item>) => {
+  const { children, className, ...rest } = props
 
-export const DropdownItem = ({ children, ...rest }: DropdownItemProps) => {
   return (
-    <DropdownMenuRadix.Item {...rest} className={style.dropdownMenuItem}>
+    <DropdownMenuRadix.Item {...rest} className={clsx(style.dropdownMenuItem, className)}>
       {children}
     </DropdownMenuRadix.Item>
   )
