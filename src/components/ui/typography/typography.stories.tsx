@@ -2,10 +2,13 @@ import { Meta } from '@storybook/react'
 
 import { Typography } from './typography'
 
-export default {
+const meta = {
   component: Typography,
+  tags: ['autodocs'],
   title: 'Components/UI/Typography',
 } as Meta<typeof Typography>
+
+export default meta
 
 export const AllTypography = {
   render: () => (
