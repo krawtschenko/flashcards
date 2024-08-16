@@ -19,29 +19,47 @@ export const Pagination = (props: PaginationProps) => {
     props
 
   const getPagination = () => {
-    const delta = 2
     const range = []
     const pages = []
 
-    for (
-      let i = Math.max(2, currentPage - delta);
-      i <= Math.min(totalPages - 1, currentPage + delta);
-      i++
-    ) {
-      range.push(i)
+    // Если текущая страница от 1 до 3, показываем первые 5 страниц
+    if (currentPage <= 3) {
+      for (let i = 2; i <= Math.min(5, totalPages - 1); i++) {
+        range.push(i)
+      }
+    } else {
+      // Для страницы 4 и выше, показываем 1, ..., предыдущая, текущая, следующая, ...
+      for (
+        let i = Math.max(3, currentPage - 1);
+        i <= Math.min(totalPages - 1, currentPage + 1);
+        i++
+      ) {
+        range.push(i)
+      }
     }
 
-    if (currentPage - delta > 2) {
+    // Всегда показываем первую страницу
+    pages.push(1)
+
+    // Добавляем "..." перед диапазоном, если текущая страница больше 3
+    if (currentPage > 3) {
       pages.push('...')
     }
 
+    // Вставляем вычисленный диапазон страниц
     pages.push(...range)
 
-    if (currentPage + delta < totalPages - 1) {
+    // Добавляем "..." после диапазона, если есть промежуток до последней страницы
+    if (currentPage + 2 < totalPages - 1) {
       pages.push('...')
     }
 
-    return totalPages === 1 ? [1] : [1, ...pages, totalPages]
+    // Всегда показываем последнюю страницу
+    if (totalPages > 1) {
+      pages.push(totalPages)
+    }
+
+    return pages
   }
 
   const handlePageClick = (page: '...' | number) => {
@@ -54,6 +72,7 @@ export const Pagination = (props: PaginationProps) => {
     <div className={clsx(style.pagination, className)}>
       {/* Previous Button */}
       <button
+        className={clsx(currentPage === 1 && style.arrowDisabled)}
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
         type={'button'}
@@ -76,6 +95,7 @@ export const Pagination = (props: PaginationProps) => {
 
       {/* Next Button */}
       <button
+        className={clsx(currentPage === totalPages && style.arrowDisabled)}
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
         type={'button'}
@@ -84,10 +104,11 @@ export const Pagination = (props: PaginationProps) => {
       </button>
 
       {/* Items per page dropdown */}
-      <div className={'items-per-page'}>
+      <div className={style.itemsPerPage}>
         <span>Show</span>
 
         <Select
+          className={style.select}
           onValueChange={value => onItemsPerPageChange(Number(value))}
           value={itemsPerPage.toString()}
         >
