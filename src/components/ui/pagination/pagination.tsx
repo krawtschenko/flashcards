@@ -22,42 +22,50 @@ export const Pagination = (props: PaginationProps) => {
     const range = []
     const pages = []
 
-    // Если текущая страница от 1 до 3, показываем первые 5 страниц
-    if (currentPage <= 3) {
-      for (let i = 2; i <= Math.min(5, totalPages - 1); i++) {
+    // Если страниц меньше или равно 5, показываем все
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i)
+      }
+    } else if (currentPage <= 4) {
+      // Если текущая страница от 1 до 4, показываем первые несколько страниц
+      for (let i = 1; i <= 5; i++) {
         range.push(i)
       }
+      pages.push(...range)
+      if (totalPages > 5) {
+        pages.push('...')
+        pages.push(totalPages)
+      }
+    } else if (currentPage >= totalPages - 2) {
+      // Если текущая страница близка к последней, показываем последние страницы
+      for (let i = totalPages - 4; i <= totalPages; i++) {
+        range.push(i)
+      }
+      pages.push(1)
+      pages.push('...')
+      pages.push(...range)
     } else {
-      // Для страницы 4 и выше, показываем 1, ..., предыдущая, текущая, следующая, ...
-      for (
-        let i = Math.max(3, currentPage - 1);
-        i <= Math.min(totalPages - 1, currentPage + 1);
-        i++
-      ) {
+      // Страница в середине диапазона
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
         range.push(i)
       }
-    }
-
-    // Всегда показываем первую страницу
-    pages.push(1)
-
-    // Добавляем "..." перед диапазоном, если текущая страница больше 3
-    if (currentPage > 3) {
+      pages.push(1)
       pages.push('...')
-    }
-
-    // Вставляем вычисленный диапазон страниц
-    pages.push(...range)
-
-    // Добавляем "..." после диапазона, если есть промежуток до последней страницы
-    if (currentPage + 2 < totalPages - 1) {
+      pages.push(...range)
       pages.push('...')
-    }
-
-    // Всегда показываем последнюю страницу
-    if (totalPages > 1) {
       pages.push(totalPages)
     }
+
+    // // Убедимся, что страница не начинается с "..." если это не требуется
+    // if (pages[0] === '...') {
+    //   pages.shift()
+    // }
+    //
+    // // Убедимся, что страница не заканчивается на "..." если это не требуется
+    // if (pages[pages.length - 1] === '...') {
+    //   pages.pop()
+    // }
 
     return pages
   }
@@ -72,7 +80,7 @@ export const Pagination = (props: PaginationProps) => {
     <div className={clsx(style.pagination, className)}>
       {/* Previous Button */}
       <button
-        className={clsx(currentPage === 1 && style.arrowDisabled)}
+        className={clsx(style.button, currentPage === 1 && style.arrowDisabled)}
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
         type={'button'}
@@ -83,7 +91,7 @@ export const Pagination = (props: PaginationProps) => {
       {/* Display page numbers */}
       {getPagination().map((page, index) => (
         <button
-          className={clsx(page === currentPage && style.active)}
+          className={clsx(style.button, page === currentPage && style.active)}
           disabled={page === '...'}
           key={index}
           onClick={() => handlePageClick(Number(page))}
@@ -95,7 +103,7 @@ export const Pagination = (props: PaginationProps) => {
 
       {/* Next Button */}
       <button
-        className={clsx(currentPage === totalPages && style.arrowDisabled)}
+        className={clsx(style.button, currentPage === totalPages && style.arrowDisabled)}
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
         type={'button'}
@@ -104,22 +112,20 @@ export const Pagination = (props: PaginationProps) => {
       </button>
 
       {/* Items per page dropdown */}
-      <div className={style.itemsPerPage}>
-        <span>Show</span>
+      <span>Show</span>
 
-        <Select
-          className={style.select}
-          onValueChange={value => onItemsPerPageChange(Number(value))}
-          value={itemsPerPage.toString()}
-        >
-          <SelectItem value={'5'}>5</SelectItem>
-          <SelectItem value={'10'}>10</SelectItem>
-          <SelectItem value={'30'}>30</SelectItem>
-          <SelectItem value={'50'}>50</SelectItem>
-          <SelectItem value={'100'}>100</SelectItem>
-        </Select>
-        <span>per page</span>
-      </div>
+      <Select
+        className={style.select}
+        onValueChange={value => onItemsPerPageChange(Number(value))}
+        value={itemsPerPage.toString()}
+      >
+        <SelectItem value={'5'}>5</SelectItem>
+        <SelectItem value={'10'}>10</SelectItem>
+        <SelectItem value={'30'}>30</SelectItem>
+        <SelectItem value={'50'}>50</SelectItem>
+        <SelectItem value={'100'}>100</SelectItem>
+      </Select>
+      <span>per page</span>
     </div>
   )
 }

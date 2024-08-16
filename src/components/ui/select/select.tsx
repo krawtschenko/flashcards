@@ -16,32 +16,30 @@ export const Select = (props: SelectProps) => {
   const { children, className, disabled, label, ...rest } = props
 
   return (
-    <div className={clsx(style.selectWrap, className)}>
-      <SelectRadix.Root disabled={disabled} {...rest}>
-        {label && (
-          <Typography
-            className={clsx(style.label, disabled && style.labelDisabled)}
-            variant={'body2'}
-          >
-            {label}
-          </Typography>
-        )}
-        <SelectRadix.Trigger aria-label={'Food'} className={style.selectTrigger}>
-          <SelectRadix.Value placeholder={rest.value} />
-          <SelectRadix.Icon className={style.selectIcon}>
-            <FiChevronDown />
-          </SelectRadix.Icon>
-        </SelectRadix.Trigger>
+    <SelectRadix.Root disabled={disabled} {...rest}>
+      {label && (
+        <Typography
+          className={clsx(style.label, disabled && style.labelDisabled)}
+          variant={'body2'}
+        >
+          {label}
+        </Typography>
+      )}
+      <SelectRadix.Trigger aria-label={'Food'} className={clsx(style.selectTrigger, className)}>
+        <SelectRadix.Value placeholder={rest.value} />
+        <SelectRadix.Icon className={style.selectIcon}>
+          <FiChevronDown />
+        </SelectRadix.Icon>
+      </SelectRadix.Trigger>
 
-        <SelectRadix.Portal>
-          <SelectRadix.Content className={style.selectContent} position={'popper'} sideOffset={-1}>
-            <SelectRadix.Viewport className={style.selectViewport}>
-              <SelectRadix.Group>{children}</SelectRadix.Group>
-            </SelectRadix.Viewport>
-          </SelectRadix.Content>
-        </SelectRadix.Portal>
-      </SelectRadix.Root>
-    </div>
+      <SelectRadix.Portal>
+        <SelectRadix.Content className={style.selectContent} position={'popper'} sideOffset={-1}>
+          <SelectRadix.Viewport className={style.selectViewport}>
+            <SelectRadix.Group>{children}</SelectRadix.Group>
+          </SelectRadix.Viewport>
+        </SelectRadix.Content>
+      </SelectRadix.Portal>
+    </SelectRadix.Root>
   )
 }
 

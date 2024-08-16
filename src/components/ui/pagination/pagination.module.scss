@@ -3,23 +3,19 @@
   column-gap: 5px;
   align-items: center;
 
-  button,
-  .itemsPerPage {
-    display: flex;
-    align-items: center;
-
-    font-size: var(--font-size-s);
-    font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-m);
-  }
-
-  button {
+  .button {
     cursor: pointer;
 
+    display: flex;
+    align-items: center;
     justify-content: center;
 
     min-width: 24px;
     height: 24px;
+
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-m);
 
     background: none;
     border: none;
@@ -52,16 +48,7 @@
     }
   }
 
-  .itemsPerPage {
-    column-gap: 7px;
-    justify-content: space-between;
-
-    .select {
-      width: 50px;
-    }
-
-    span:last-child {
-      margin-left: 26px;
-    }
+  .select {
+    width: 44px;
   }
 }
