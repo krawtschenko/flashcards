@@ -14,14 +14,31 @@ export default meta
 
 export const Primary = {
   render: () => {
-    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(5)
+    const totalItems = 100
+
+    // Calculate total number of pages
+    const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+    // Page change handler
+    const handlePageChange = (page: number) => {
+      setCurrentPage(page)
+    }
+
+    // Items per page change handler
+    const handleItemsPerPageChange = (newItemsPerPage: number) => {
+      setItemsPerPage(newItemsPerPage)
+      setCurrentPage(1) // Сбрасываем на первую страницу при изменении количества элементов
+    }
 
     return (
       <Pagination
         currentPage={currentPage}
-        onPageChange={setCurrentPage}
-        pageSize={5}
-        totalCount={100}
+        itemsPerPage={itemsPerPage}
+        onItemsPerPageChange={handleItemsPerPageChange}
+        onPageChange={handlePageChange}
+        totalPages={totalPages}
       />
     )
   },

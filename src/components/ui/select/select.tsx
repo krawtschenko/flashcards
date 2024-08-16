@@ -13,7 +13,7 @@ type SelectProps = { className?: string; label?: string } & ComponentPropsWithou
 >
 
 export const Select = (props: SelectProps) => {
-  const { children, className, disabled, label, onValueChange, value, ...rest } = props
+  const { children, className, disabled, label, ...rest } = props
 
   return (
     <div className={clsx(style.selectWrap, className)}>
@@ -27,7 +27,7 @@ export const Select = (props: SelectProps) => {
           </Typography>
         )}
         <SelectRadix.Trigger aria-label={'Food'} className={style.selectTrigger}>
-          <SelectRadix.Value placeholder={value} />
+          <SelectRadix.Value placeholder={rest.value} />
           <SelectRadix.Icon className={style.selectIcon}>
             <FiChevronDown />
           </SelectRadix.Icon>

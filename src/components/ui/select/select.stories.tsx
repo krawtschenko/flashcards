@@ -25,3 +25,17 @@ export const Primary = {
     )
   },
 }
+
+export const Disabled = {
+  render: () => {
+    const [value, setValue] = useState('Sunday')
+
+    return (
+      <Select disabled onValueChange={setValue} value={value}>
+        <SelectItem value={'Sunday'}>Sunday</SelectItem>
+        <SelectItem value={'Monday'}>Monday</SelectItem>
+        <SelectItem value={'Tuesday'}>Tuesday</SelectItem>
+      </Select>
+    )
+  },
+}

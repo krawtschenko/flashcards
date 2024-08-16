@@ -1,82 +1,104 @@
 import clsx from 'clsx'
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 import style from './pagination.module.scss'
 
-import { usePagination } from './usePagination'
+import { Select, SelectItem } from '../select/select'
 
 type PaginationProps = {
   className?: string
   currentPage: number
+  itemsPerPage: number
+  onItemsPerPageChange: (items: number) => void
   onPageChange: (page: number) => void
-  pageSize: number
-  siblingCount?: number
-  totalCount: number
+  totalPages: number
 }
 
 export const Pagination = (props: PaginationProps) => {
-  const { className, currentPage, onPageChange, pageSize, siblingCount = 1, totalCount } = props
+  const { className, currentPage, itemsPerPage, onItemsPerPageChange, onPageChange, totalPages } =
+    props
 
-  const paginationRange = usePagination({
-    currentPage,
-    pageSize,
-    siblingCount,
-    totalCount,
-  })
+  const getPagination = () => {
+    const delta = 2
+    const range = []
+    const pages = []
 
-  if (paginationRange) {
-    // If there are less than 2 times in pagination range we shall not render the component
-    if (currentPage === 0 || paginationRange.length < 2) {
-      return null
+    for (
+      let i = Math.max(2, currentPage - delta);
+      i <= Math.min(totalPages - 1, currentPage + delta);
+      i++
+    ) {
+      range.push(i)
     }
 
-    const onNext = () => {
-      onPageChange(currentPage + 1)
+    if (currentPage - delta > 2) {
+      pages.push('...')
     }
 
-    const onPrevious = () => {
-      onPageChange(currentPage - 1)
+    pages.push(...range)
+
+    if (currentPage + delta < totalPages - 1) {
+      pages.push('...')
     }
 
-    const lastPage = paginationRange[paginationRange.length - 1]
-
-    return (
-      <ul className={clsx(style.paginationContainer)}>
-        {/* Left navigation arrow */}
-        <li
-          className={clsx(style.paginationItem, currentPage === 1 && style.disabled)}
-          onClick={onPrevious}
-        >
-          <div className={clsx(style.arrow, style.left)} />
-        </li>
-        {paginationRange.map((pageNumber, index) => {
-          // If the pageItem is a DOT, render the DOTS unicode character
-          if (pageNumber === '...') {
-            return (
-              <li className={clsx(style.paginationItem, style.dots)} key={index}>
-                &#8230;
-              </li>
-            )
-          }
-
-          // Render our Page Pills
-          return (
-            <li
-              className={clsx(style.paginationItem, pageNumber === currentPage && style.selected)}
-              key={index}
-              onClick={() => onPageChange(Number(pageNumber))}
-            >
-              {pageNumber}
-            </li>
-          )
-        })}
-        {/*  Right Navigation arrow */}
-        <li
-          className={clsx(style.paginationItem, currentPage === lastPage && style.disabled)}
-          onClick={onNext}
-        >
-          <div className={clsx(style.arrow, style.right)} />
-        </li>
-      </ul>
-    )
+    return totalPages === 1 ? [1] : [1, ...pages, totalPages]
   }
+
+  const handlePageClick = (page: '...' | number) => {
+    if (page !== currentPage && page !== '...') {
+      onPageChange(page)
+    }
+  }
+
+  return (
+    <div className={clsx(style.pagination, className)}>
+      {/* Previous Button */}
+      <button
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+        type={'button'}
+      >
+        <FiChevronLeft />
+      </button>
+
+      {/* Display page numbers */}
+      {getPagination().map((page, index) => (
+        <button
+          className={clsx(page === currentPage && style.active)}
+          disabled={page === '...'}
+          key={index}
+          onClick={() => handlePageClick(Number(page))}
+          type={'button'}
+        >
+          {page}
+        </button>
+      ))}
+
+      {/* Next Button */}
+      <button
+        disabled={currentPage === totalPages}
+        onClick={() => onPageChange(currentPage + 1)}
+        type={'button'}
+      >
+        <FiChevronRight />
+      </button>
+
+      {/* Items per page dropdown */}
+      <div className={'items-per-page'}>
+        <span>Show</span>
+
+        <Select
+          onValueChange={value => onItemsPerPageChange(Number(value))}
+          value={itemsPerPage.toString()}
+        >
+          <SelectItem value={'5'}>5</SelectItem>
+          <SelectItem value={'10'}>10</SelectItem>
+          <SelectItem value={'30'}>30</SelectItem>
+          <SelectItem value={'50'}>50</SelectItem>
+          <SelectItem value={'100'}>100</SelectItem>
+        </Select>
+        <span>per page</span>
+      </div>
+    </div>
+  )
 }
