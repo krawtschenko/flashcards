@@ -12,10 +12,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const options = [
-  { id: '1', name: 'Sunday' },
-  { id: '2', name: 'Monday' },
-  { id: '3', name: 'Thursday' },
-  { id: '4', name: 'Wednesday' },
+  { label: 'Sunday', value: '1' },
+  { label: 'Monday', value: '2' },
+  { label: 'Thursday', value: '3' },
+  { label: 'Wednesday', value: '4' },
 ]
 
 export const Primary: Story = {

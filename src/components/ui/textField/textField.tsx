@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, ReactNode, useState } from 'react'
 import clsx from 'clsx'
 import { FiEye, FiEyeOff, FiX } from 'react-icons/fi'
 
-import style from './text-field.module.scss'
+import style from './textField.module.scss'
 
 import { Button } from '../button/button'
 import { Typography } from '../typography/typography'

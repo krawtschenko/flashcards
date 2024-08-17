@@ -11,7 +11,7 @@ type RadioGroupProps = { options: Options[] } & ComponentPropsWithoutRef<
   typeof RadioGroupRadix.Root
 >
 
-type Options = { id: string; name: string }
+type Options = { label: string; value: string }
 
 export const RadioGroup = (props: RadioGroupProps) => {
   const { className, disabled, options, ...rest } = props
@@ -23,16 +23,16 @@ export const RadioGroup = (props: RadioGroupProps) => {
       disabled={disabled}
       {...rest}
     >
-      {options.map(({ id, name }) => (
-        <div key={id} style={{ alignItems: 'center', display: 'flex' }}>
+      {options.map(({ label, value }) => (
+        <div key={value} style={{ alignItems: 'center', display: 'flex' }}>
           <div className={style.itemWrap}>
-            <RadioGroupRadix.Item className={style.radioGroupItem} id={id} value={name}>
+            <RadioGroupRadix.Item className={style.radioGroupItem} id={value} value={value}>
               <RadioGroupRadix.Indicator className={style.radioGroupIndicator} />
             </RadioGroupRadix.Item>
           </div>
 
-          <Typography as={'label'} className={style.label} htmlFor={id} variant={'body2'}>
-            {name}
+          <Typography as={'label'} className={style.label} htmlFor={value} variant={'body2'}>
+            {label}
           </Typography>
         </div>
       ))}

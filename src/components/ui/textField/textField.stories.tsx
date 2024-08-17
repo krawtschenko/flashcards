@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { FiSearch } from 'react-icons/fi'
 
-import { TextField } from './text-field'
+import { TextField } from './textField'
 
 const meta = {
   component: TextField,
