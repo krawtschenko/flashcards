@@ -5,6 +5,7 @@ import clsx from 'clsx'
 
 import style from './radioGroup.module.scss'
 
+import { useGenerateId } from '../../../common/hooks/useGenerateId'
 import { Typography } from '../typography/typography'
 
 export const RadioGroup = (props: ComponentPropsWithoutRef<typeof RadioGroupRadix.Root>) => {
@@ -28,15 +29,17 @@ type RadioGroupItemProps = {
 }
 
 export const RadioGroupItem = ({ label, value }: RadioGroupItemProps) => {
+  const generatedId = useGenerateId()
+
   return (
     <div key={value} style={{ alignItems: 'center', display: 'flex' }}>
       <div className={style.itemWrap}>
-        <RadioGroupRadix.Item className={style.radioGroupItem} id={value} value={value}>
+        <RadioGroupRadix.Item className={style.radioGroupItem} id={generatedId} value={value}>
           <RadioGroupRadix.Indicator className={style.radioGroupIndicator} />
         </RadioGroupRadix.Item>
       </div>
 
-      <Typography as={'label'} className={style.label} htmlFor={value} variant={'body2'}>
+      <Typography as={'label'} className={style.label} htmlFor={generatedId} variant={'body2'}>
         {label}
       </Typography>
     </div>

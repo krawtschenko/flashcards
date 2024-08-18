@@ -6,13 +6,16 @@ import { FiCheck } from 'react-icons/fi'
 
 import style from './checkbox.module.scss'
 
+import { useGenerateId } from '../../../common/hooks/useGenerateId'
 import { Typography } from '../typography/typography'
 
 type CheckboxProps = {
   label?: string
 } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
-export const Checkbox = ({ className, disabled, label, ...rest }: CheckboxProps) => {
+export const Checkbox = ({ className, disabled, id, label, ...rest }: CheckboxProps) => {
+  const generatedId = useGenerateId(id)
+
   return (
     <div aria-disabled={disabled} className={clsx(style.checkbox, className)}>
       <div className={style.checkboxWrap}>
@@ -21,7 +24,7 @@ export const Checkbox = ({ className, disabled, label, ...rest }: CheckboxProps)
           className={style.checkboxRoot}
           defaultChecked
           disabled={disabled}
-          id={'r1'}
+          id={generatedId}
         >
           <CheckboxRadix.Indicator className={style.checkboxIndicator}>
             <FiCheck />
@@ -30,7 +33,7 @@ export const Checkbox = ({ className, disabled, label, ...rest }: CheckboxProps)
       </div>
 
       {label && (
-        <Typography as={'label'} className={style.label} htmlFor={'r1'} variant={'body2'}>
+        <Typography as={'label'} className={style.label} htmlFor={generatedId} variant={'body2'}>
           {label}
         </Typography>
       )}
