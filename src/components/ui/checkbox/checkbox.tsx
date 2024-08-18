@@ -9,7 +9,7 @@ import style from './checkbox.module.scss'
 import { useGenerateId } from '../../../common/hooks/useGenerateId'
 import { Typography } from '../typography/typography'
 
-type CheckboxProps = {
+export type CheckboxProps = {
   label?: string
 } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
@@ -22,7 +22,6 @@ export const Checkbox = ({ className, disabled, id, label, ...rest }: CheckboxPr
         <CheckboxRadix.Root
           {...rest}
           className={style.checkboxRoot}
-          defaultChecked
           disabled={disabled}
           id={generatedId}
         >

@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Card } from './card'
+import { LoginForm, LoginFormValues } from './loginForm'
 
 const meta = {
-  component: Card,
+  component: LoginForm,
   tags: ['autodocs'],
-  title: 'UI/Card',
-} satisfies Meta<typeof Card>
+  title: 'Layout/LoginForm',
+} satisfies Meta<typeof LoginForm>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    style: { height: '528px', width: '420px' },
+    onSubmit: console.log,
   },
 }

@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode, useState } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, forwardRef, useState } from 'react'
 
 import clsx from 'clsx'
 import { FiEye, FiEyeOff, FiX } from 'react-icons/fi'
@@ -13,12 +13,12 @@ type TextFieldProps = {
   error?: string
   icon?: ReactNode
   label?: string
+  onClearValue?: () => void
 } & ComponentPropsWithoutRef<'input'>
 
-export const TextField = (props: TextFieldProps) => {
-  const { className, disabled, error, icon, id, label, type, ...rest } = props
+export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
+  const { className, disabled, error, icon, id, label, onClearValue, type, value, ...rest } = props
 
-  const [value, setValue] = useState<string>('')
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const generatedId = useGenerateId(id)
@@ -45,7 +45,7 @@ export const TextField = (props: TextFieldProps) => {
           data-value={value && 'true'}
           disabled={disabled}
           id={generatedId}
-          onChange={event => setValue(event.currentTarget.value)}
+          ref={ref}
           type={showPassword ? 'text' : type}
           value={value}
           {...rest}
@@ -58,7 +58,7 @@ export const TextField = (props: TextFieldProps) => {
         )}
 
         {icon && value && (
-          <Button className={style.clearIcon} onClick={() => setValue('')}>
+          <Button className={style.clearIcon} onClick={onClearValue}>
             <FiX />
           </Button>
         )}
@@ -71,4 +71,4 @@ export const TextField = (props: TextFieldProps) => {
       )}
     </div>
   )
-}
+})
