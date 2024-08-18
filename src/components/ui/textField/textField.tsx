@@ -9,7 +9,7 @@ import { useGenerateId } from '../../../common/hooks/useGenerateId'
 import { Button } from '../button/button'
 import { Typography } from '../typography/typography'
 
-type TextFieldProps = {
+export type TextFieldProps = {
   error?: string
   icon?: ReactNode
   label?: string
@@ -41,6 +41,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
         {icon && <div className={style.searchIcon}>{icon}</div>}
 
         <input
+          autoComplete={'on'}
           className={style.input}
           data-value={value && 'true'}
           disabled={disabled}
@@ -52,7 +53,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, re
         />
 
         {type === 'password' && value && (
-          <Button className={style.eyeIcon} onClick={handleTogglePassword}>
+          <Button className={style.eyeIcon} onClick={handleTogglePassword} type={'button'}>
             {showPassword ? <FiEye /> : <FiEyeOff />}
           </Button>
         )}

@@ -1,0 +1,36 @@
+.card {
+  width: 420px;
+
+  .form {
+    margin-top: 26px;
+
+    .password {
+      margin-top: 24px;
+    }
+
+    .checkbox {
+      margin-top: 20px;
+    }
+
+    .forgotLink {
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .buttonSubmit {
+      margin-top: 60px;
+    }
+  }
+
+  .text {
+    margin-top: 20px;
+    color: var(--color-light-900);
+  }
+
+  .link {
+    cursor: pointer;
+    margin-top: 10px;
+    color: var(--color-accent-500);
+    text-decoration: underline;
+  }
+}
