@@ -14,7 +14,7 @@ export default meta
 export const Default = {
   render: () => {
     return (
-      <DropdownMenu>
+      <DropdownMenu variant={'icon'}>
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
         <DropdownItem>Three</DropdownItem>
@@ -29,7 +29,7 @@ const personalInfo = { avatar, email: 'eugene@example.com', name: 'Eugene' }
 export const WithPersonalInfo = {
   render: () => {
     return (
-      <DropdownMenu avatar={avatar}>
+      <DropdownMenu avatar={avatar} variant={'avatar'}>
         <DropdownLabel personalInfo={personalInfo} />
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
