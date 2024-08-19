@@ -1,0 +1,27 @@
+.card {
+  width: 420px;
+
+  .form {
+    margin-top: 26px;
+
+    .password {
+      margin-top: 24px;
+    }
+
+    .buttonSubmit {
+      margin-top: 55px;
+    }
+  }
+
+  .text {
+    margin-top: 20px;
+    color: var(--color-light-900);
+  }
+
+  .link {
+    cursor: pointer;
+    margin-top: 10px;
+    color: var(--color-accent-500);
+    text-decoration: underline;
+  }
+}

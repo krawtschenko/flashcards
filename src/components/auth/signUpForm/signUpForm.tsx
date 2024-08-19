@@ -3,37 +3,44 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import style from './loginForm.module.scss'
+import style from './signUpForm.module.scss'
 
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
-import { ControlledCheckbox } from '../../ui/checkbox/controlledCheckbox'
 import { ControlledTextField } from '../../ui/textField/controlledTextField'
 import { Typography } from '../../ui/typography/typography'
 
-const loginSchema = z.object({
-  email: z.string().min(1, 'Required').email(),
-  password: z.string().min(1, 'Required'),
-  rememberMe: z.boolean().optional(),
-})
-
-export type LoginFormValues = z.infer<typeof loginSchema>
-type LoginFormProps = { onSubmit: () => void }
-
-export const LoginForm = ({ onSubmit }: LoginFormProps) => {
-  const { control, handleSubmit } = useForm<LoginFormValues>({
-    defaultValues: {
-      email: '',
-      password: '',
-      rememberMe: false,
+const signUpSchema = z
+  .object({
+    confirmPassword: z.string().min(1, 'Required').min(3).max(30),
+    email: z.string().min(1, 'Required').email(),
+    password: z.string().min(1, 'Required').min(3).max(30),
+  })
+  .refine(
+    values => {
+      return values.password === values.confirmPassword
     },
-    resolver: zodResolver(loginSchema),
+    {
+      message: 'Passwords must match!',
+      path: ['confirmPassword'],
+    }
+  )
+
+export type SignUpFormValues = z.infer<typeof signUpSchema>
+type SignUpFormProps = {
+  onSubmit: () => void
+}
+
+export const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
+  const { control, handleSubmit } = useForm<SignUpFormValues>({
+    defaultValues: { confirmPassword: '', email: '', password: '' },
+    resolver: zodResolver(signUpSchema),
   })
 
   return (
     <Card className={style.card}>
       <Typography className={style.title} position={'center'} variant={'h1'}>
-        Sign In
+        Sign Up
       </Typography>
 
       <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
@@ -47,24 +54,21 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
           type={'password'}
         />
 
-        <ControlledCheckbox
-          className={style.checkbox}
+        <ControlledTextField
+          className={style.password}
           control={control}
-          label={'Remember me'}
-          name={'rememberMe'}
+          label={'Confirm Password'}
+          name={'confirmPassword'}
+          type={'password'}
         />
 
-        <Typography as={'a'} className={style.forgotLink} position={'end'} variant={'body2'}>
-          Forgot Password?
-        </Typography>
-
         <Button className={style.buttonSubmit} fullWidth>
-          Sign In
+          Sign Up
         </Button>
       </form>
 
       <Typography className={style.text} position={'center'} variant={'body2'}>
-        Do not have an account?
+        Already have an account?
       </Typography>
 
       <Typography as={'a'} className={style.link} position={'center'} variant={'subtitle1'}>
