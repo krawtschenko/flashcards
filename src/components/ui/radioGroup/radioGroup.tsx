@@ -41,21 +41,3 @@ export const RadioGroup = (props: RadioGroupProps) => {
     </RadioGroupRadix.Root>
   )
 }
-
-// export const RadioGroupItem = (props: ComponentPropsWithoutRef<typeof RadioGroupRadix.Item>) => {
-//   const generatedId = useGenerateId()
-
-//   return (
-//     <div style={{ alignItems: 'center', display: 'flex' }}>
-//       <div className={style.itemWrap}>
-//         <RadioGroupRadix.Item className={style.radioGroupItem} id={generatedId} value={value}>
-//           <RadioGroupRadix.Indicator className={style.radioGroupIndicator} />
-//         </RadioGroupRadix.Item>
-//       </div>
-
-//       <Typography as={'label'} className={style.label} htmlFor={generatedId} variant={'body2'}>
-//         {label}
-//       </Typography>
-//     </div>
-//   )
-// }

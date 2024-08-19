@@ -1,0 +1,26 @@
+.header {
+  width: 100%;
+  padding-block: 12px;
+  background-color: var(--color-dark-700);
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo {
+      cursor: pointer;
+      height: 36px;
+    }
+
+    .info {
+      display: flex;
+      column-gap: 14px;
+      align-items: center;
+
+      .name {
+        border-bottom: 1px dashed;
+      }
+    }
+  }
+}

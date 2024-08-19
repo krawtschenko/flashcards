@@ -6,20 +6,25 @@ import { FiMoreVertical } from 'react-icons/fi'
 
 import style from './dropdownMenu.module.scss'
 
+import altAvatar from '../../../assets/images/avatar.png'
 import { Typography } from '../typography/typography'
 
-type DropdownMenuProps = { avatar?: string } & ComponentPropsWithoutRef<
+type DropdownMenuProps = { avatar?: string; variant: 'avatar' | 'icon' } & ComponentPropsWithoutRef<
   typeof DropdownMenuRadix.Root
 >
 
-export const DropdownMenu = ({ avatar, children, ...rest }: DropdownMenuProps) => {
-  const triggerClassName = avatar ? style.avatarButton : style.iconButton
+export const DropdownMenu = ({ avatar, children, variant, ...rest }: DropdownMenuProps) => {
+  const triggerClassName = variant === 'avatar' ? style.avatarButton : style.iconButton
 
   return (
     <DropdownMenuRadix.Root {...rest}>
       <DropdownMenuRadix.Trigger asChild>
         <button aria-label={'Customise options'} className={triggerClassName} type={'button'}>
-          {avatar ? <img alt={'avatar'} src={avatar} /> : <FiMoreVertical />}
+          {variant === 'avatar' ? (
+            <img alt={'avatar'} src={avatar ?? altAvatar} />
+          ) : (
+            <FiMoreVertical />
+          )}
         </button>
       </DropdownMenuRadix.Trigger>
 
@@ -64,7 +69,7 @@ export const DropdownLabel = (props: DropdownLabelProps) => {
 
   return (
     <DropdownMenuRadix.Label className={style.dropdownMenuLabel} {...rest}>
-      <img alt={'avatar'} src={avatar} />
+      <img alt={'avatar'} src={avatar ?? altAvatar} />
       <div className={style.text}>
         <Typography variant={'subtitle2'}>{name}</Typography>
         <Typography className={style.email} variant={'caption'}>

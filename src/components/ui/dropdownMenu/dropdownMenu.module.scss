@@ -34,10 +34,6 @@ button {
 .avatarButton,
 .iconButton {
   cursor: pointer;
-
-  &:focus {
-    box-shadow: 0 0 0 2px var(--color-info-700);
-  }
 }
 
 .dropdownMenuContent {
@@ -52,12 +48,10 @@ button {
 
   &[data-state='open'] {
     animation-name: slide-open;
-    animation-duration: 0.5s;
   }
 
   &[data-state='closed'] {
     animation-name: slide-closed;
-    animation-duration: 0.5s;
   }
 
   .dropdownMenuArrowWrap {
