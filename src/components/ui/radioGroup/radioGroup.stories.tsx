@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react'
 
-import { RadioGroup, RadioGroupItem } from './radioGroup'
+import { RadioGroup } from './radioGroup'
 
 const meta = {
   component: RadioGroup,
@@ -10,30 +10,21 @@ const meta = {
 
 export default meta
 
+const options = [
+  { label: 'Option One', value: 'option-one' },
+  { label: 'Option Two', value: 'option-two' },
+  { label: 'Option Three', value: 'option-three' },
+  { label: 'Option Four', value: 'option-four' },
+]
+
 export const Primary = {
   render: () => {
-    return (
-      <RadioGroup>
-        <RadioGroupItem label={'Thor'} value={'Thor'} />
-        <RadioGroupItem label={'Hulk'} value={'Hulk'} />
-        <RadioGroupItem label={'Tony'} value={'Tony'} />
-        <RadioGroupItem label={'Thrall'} value={'Thrall'} />
-        <RadioGroupItem label={'Sydney'} value={'Sydney'} />
-      </RadioGroup>
-    )
+    return <RadioGroup options={options} />
   },
 }
 
 export const Disabled = {
   render: () => {
-    return (
-      <RadioGroup disabled>
-        <RadioGroupItem label={'Thor'} value={'Thor'} />
-        <RadioGroupItem label={'Hulk'} value={'Hulk'} />
-        <RadioGroupItem label={'Tony'} value={'Tony'} />
-        <RadioGroupItem label={'Thrall'} value={'Thrall'} />
-        <RadioGroupItem label={'Sydney'} value={'Sydney'} />
-      </RadioGroup>
-    )
+    return <RadioGroup disabled options={options} />
   },
 }
