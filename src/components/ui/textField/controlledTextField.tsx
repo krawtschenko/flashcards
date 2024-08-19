@@ -6,7 +6,7 @@ type ControlledTextFieldProps<T extends FieldValues> = Omit<TextFieldProps, 'onC
   UseControllerProps<T>
 
 export const ControlledTextField = <T extends FieldValues>(props: ControlledTextFieldProps<T>) => {
-  const { control, name, ...textFieldProps } = props
+  const { control, name, ...rest } = props
 
   const {
     field: { onChange, value },
@@ -17,9 +17,10 @@ export const ControlledTextField = <T extends FieldValues>(props: ControlledText
     <TextField
       error={error?.message}
       id={name}
+      name={name}
       onChange={onChange}
       value={value}
-      {...textFieldProps}
+      {...rest}
     />
   )
 }
