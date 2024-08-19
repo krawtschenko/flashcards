@@ -27,12 +27,15 @@ export const Header = ({ personalInfo }: HeaderProps) => {
             <Typography className={style.name} variant={'subtitle1'}>
               {personalInfo.name}
             </Typography>
+
             <DropdownMenu avatar={personalInfo.avatar} variant={'avatar'}>
               <DropdownLabel personalInfo={personalInfo} />
+
               <DropdownItem>
                 <FiUser />
                 My Profile
               </DropdownItem>
+
               <DropdownItem>
                 <FiLogOut />
                 Sign Out
