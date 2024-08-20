@@ -8,7 +8,7 @@ import { Typography } from '../../ui/typography/typography'
 export const CheckEmailForm = () => {
   return (
     <Card className={style.card}>
-      <Typography className={style.title} position={'center'} variant={'h1'}>
+      <Typography position={'center'} variant={'h1'}>
         Check Email
       </Typography>
 

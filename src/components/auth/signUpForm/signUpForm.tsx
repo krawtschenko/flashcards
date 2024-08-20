@@ -34,7 +34,7 @@ export const SignUpForm = ({ onSubmit }: { onSubmit: () => void }) => {
 
   return (
     <Card className={style.card}>
-      <Typography className={style.title} position={'center'} variant={'h1'}>
+      <Typography position={'center'} variant={'h1'}>
         Sign Up
       </Typography>
 
