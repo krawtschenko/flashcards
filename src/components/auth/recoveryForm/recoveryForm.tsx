@@ -14,14 +14,8 @@ const recoverySchema = z.object({
   email: z.string().min(1, 'Required').email(),
 })
 
-export type RecoveryFormValues = z.infer<typeof recoverySchema>
-
-type RecoveryFormProps = {
-  onSubmit: () => void
-}
-
-export const RecoveryForm = ({ onSubmit }: RecoveryFormProps) => {
-  const { control, handleSubmit } = useForm<RecoveryFormValues>({
+export const RecoveryForm = ({ onSubmit }: { onSubmit: () => void }) => {
+  const { control, handleSubmit } = useForm<z.infer<typeof recoverySchema>>({
     defaultValues: { email: '' },
     resolver: zodResolver(recoverySchema),
   })

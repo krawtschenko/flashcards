@@ -26,13 +26,8 @@ const signUpSchema = z
     }
   )
 
-export type SignUpFormValues = z.infer<typeof signUpSchema>
-type SignUpFormProps = {
-  onSubmit: () => void
-}
-
-export const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
-  const { control, handleSubmit } = useForm<SignUpFormValues>({
+export const SignUpForm = ({ onSubmit }: { onSubmit: () => void }) => {
+  const { control, handleSubmit } = useForm<z.infer<typeof signUpSchema>>({
     defaultValues: { confirmPassword: '', email: '', password: '' },
     resolver: zodResolver(signUpSchema),
   })

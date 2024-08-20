@@ -17,13 +17,8 @@ const loginSchema = z.object({
   rememberMe: z.boolean().optional(),
 })
 
-export type LoginFormValues = z.infer<typeof loginSchema>
-type LoginFormProps = {
-  onSubmit: () => void
-}
-
-export const SignInForm = ({ onSubmit }: LoginFormProps) => {
-  const { control, handleSubmit } = useForm<LoginFormValues>({
+export const SignInForm = ({ onSubmit }: { onSubmit: () => void }) => {
+  const { control, handleSubmit } = useForm<z.infer<typeof loginSchema>>({
     defaultValues: {
       email: '',
       password: '',
@@ -34,7 +29,7 @@ export const SignInForm = ({ onSubmit }: LoginFormProps) => {
 
   return (
     <Card className={style.card}>
-      <Typography className={style.title} position={'center'} variant={'h1'}>
+      <Typography position={'center'} variant={'h1'}>
         Sign In
       </Typography>
 
