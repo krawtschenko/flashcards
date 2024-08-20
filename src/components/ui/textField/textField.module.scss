@@ -81,6 +81,7 @@
     }
 
     .inputContainer {
+      /* stylelint-disable-next-line no-descending-specificity */
       &:hover {
         background-color: transparent;
       }
