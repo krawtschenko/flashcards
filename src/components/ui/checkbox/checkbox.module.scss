@@ -29,7 +29,7 @@
       background-color: var(--color-dark-100);
     }
 
-    &:has(.checkboxRoot:focus) {
+    &:has(.checkboxRoot:focus-visible) {
       background-color: var(--color-dark-100);
     }
 

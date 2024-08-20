@@ -17,7 +17,7 @@
 
     border-radius: 100%;
 
-    &:has(.radioGroupItem:focus) {
+    &:has(.radioGroupItem:focus-visible) {
       background-color: var(--color-dark-700);
     }
 
