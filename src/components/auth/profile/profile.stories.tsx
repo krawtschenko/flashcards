@@ -1,4 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta } from '@storybook/react'
+
+import { useState } from 'react'
 
 import { Profile, ProfileValue } from './profile'
 
@@ -9,12 +11,17 @@ const meta = {
 } satisfies Meta<typeof Profile>
 
 export default meta
-type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
-  args: {
-    email: 'eugenreadytofight@ready.com',
-    name: 'Eugen',
-    onSubmit: (e: ProfileValue) => console.log(e),
+export const Primary = {
+  render: () => {
+    const [name, setName] = useState<ProfileValue>({ name: 'Eugene' })
+
+    return (
+      <Profile
+        email={'readytofight@fight.info'}
+        name={name.name}
+        onSubmit={(e: ProfileValue) => setName(e)}
+      />
+    )
   },
 }
