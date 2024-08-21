@@ -1,0 +1,35 @@
+.table {
+  border-collapse: collapse;
+
+  width: 100%;
+
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+
+  border: 1px solid var(--color-dark-500);
+
+  th {
+    background-color: var(--color-dark-500);
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-top: 1px solid var(--color-dark-500);
+    border-bottom: 1px solid var(--color-dark-500);
+  }
+
+  tr {
+    &:first-child th,
+    &:first-child td {
+      border-top: none;
+    }
+
+    &:last-child th,
+    &:last-child td {
+      border-bottom: none;
+    }
+  }
+}

@@ -10,7 +10,7 @@ const meta = {
   component: TextField,
   tags: ['autodocs'],
   title: 'UI/Text Field',
-} as Meta<typeof TextField>
+} satisfies Meta<typeof TextField>
 
 export default meta
 
