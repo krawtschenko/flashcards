@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react'
 
-import { Table, Tbody, Td, Tfoot, Th, Thead, Tr } from './table'
+import { Table, Tbody, Td, Th, Thead, Tr } from './table'
 
 const meta = {
   component: Table,
