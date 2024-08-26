@@ -5,7 +5,7 @@ import { FiEye, FiEyeOff, FiX } from 'react-icons/fi'
 
 import style from './textField.module.scss'
 
-import { useGenerateId } from '../../../common/hooks/useGenerateId'
+import { useGenerateId } from '../../../hooks/useGenerateId'
 import { Button } from '../button/button'
 import { Typography } from '../typography/typography'
 

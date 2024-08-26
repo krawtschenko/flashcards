@@ -6,7 +6,7 @@ import { FiCheck } from 'react-icons/fi'
 
 import style from './checkbox.module.scss'
 
-import { useGenerateId } from '../../../common/hooks/useGenerateId'
+import { useGenerateId } from '../../../hooks/useGenerateId'
 import { Typography } from '../typography/typography'
 
 export type CheckboxProps = {
