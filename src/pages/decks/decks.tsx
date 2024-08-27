@@ -5,12 +5,13 @@ import { TextField } from '../../components/ui/textField/textField'
 import { useGetDecksQuery } from '../../features/decks/dekcsService'
 import { DecksTable } from './decksTable'
 
-type Props = {}
+type DecksProps = {}
 
-export const Decks = ({}: Props) => {
+export const Decks = ({}: DecksProps) => {
   const [search, setSearch] = useState('')
+  const [orderBy, setOrderBy] = useState<null | string>(null)
 
-  const { data, isLoading } = useGetDecksQuery({ name: search })
+  const { data, isLoading } = useGetDecksQuery({ name: search, orderBy })
 
   if (isLoading) {
     return <h1>Loading...</h1> // Здесь можете добавить спиннер на ваш вкус
@@ -25,7 +26,8 @@ export const Decks = ({}: Props) => {
         onClearValue={() => setSearch('')}
         value={search}
       />
-      <DecksTable decks={data?.items} />
+
+      <DecksTable decks={data?.items} orderBy={orderBy} setOrderBy={setOrderBy} />
     </Container>
   )
 }

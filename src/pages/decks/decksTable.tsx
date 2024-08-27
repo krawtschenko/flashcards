@@ -1,20 +1,56 @@
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+
+import style from './decks.module.scss'
+
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../components/ui/table/table'
 import { Deck } from '../../features/decks/decksTypes'
 
 type DecksTableProps = {
   decks?: Deck[]
+  orderBy: null | string
+  setOrderBy: (orderBy: null | string) => void
 }
 
-export const DecksTable = ({ decks }: DecksTableProps) => {
+export const DecksTable = ({ decks, orderBy, setOrderBy }: DecksTableProps) => {
+  const handleSort = (column: string) => {
+    // Проверяем, какая текущая сортировка, и изменяем её
+    if (orderBy === `${column}-asc`) {
+      setOrderBy(`${column}-desc`)
+    } else if (orderBy === `${column}-desc`) {
+      setOrderBy(null)
+    } else {
+      setOrderBy(`${column}-asc`)
+    }
+  }
+
+  const getSortIcon = (column: string) => {
+    if (orderBy === `${column}-asc`) {
+      return <FiChevronUp />
+    }
+    if (orderBy === `${column}-desc`) {
+      return <FiChevronDown />
+    }
+
+    return null
+  }
+
   return (
     <Table>
       <Thead>
         <Tr>
-          <Th>Name</Th>
-          <Th>Cards</Th>
-          <Th>Last Updated</Th>
-          <Th>Created By</Th>
-          <Th>Actions</Th>
+          <Th onClick={() => handleSort('name')}>
+            <div className={style.th}>Name {getSortIcon('name')}</div>
+          </Th>
+          <Th onClick={() => handleSort('cardsCount')}>
+            <div className={style.th}>Cards {getSortIcon('cardsCount')}</div>
+          </Th>
+          <Th onClick={() => handleSort('updated')}>
+            <div className={style.th}>Last Updated {getSortIcon('updated')}</div>
+          </Th>
+          <Th onClick={() => handleSort('author.name')}>
+            <div className={style.th}>Created By {getSortIcon('author.name')}</div>
+          </Th>
+          <Th></Th>
         </Tr>
       </Thead>
 
@@ -24,11 +60,11 @@ export const DecksTable = ({ decks }: DecksTableProps) => {
 
           return (
             <Tr key={deck.id}>
-              <Td>{deck.name}</Td>
-              <Td>{deck.cardsCount}</Td>
+              <Td className={style.tdName}>{deck.name}</Td>
+              <Td className={style.tdCards}>{deck.cardsCount}</Td>
               <Td>{updatedAt}</Td>
-              <Td>{deck.author.name}</Td>
-              <Td>Actions</Td>
+              <Td className={style.tdAuthor}>{deck.author.name}</Td>
+              <Td className={style.tdActions}></Td>
             </Tr>
           )
         })}

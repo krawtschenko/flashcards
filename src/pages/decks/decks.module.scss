@@ -1,0 +1,22 @@
+.th {
+  cursor: pointer;
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+}
+
+.tdName {
+  width: 450px;
+}
+
+.tdCards {
+  width: 200px;
+}
+
+.tdAuthor {
+  width: 250px;
+}
+
+.tdActions {
+  width: 120px;
+}
