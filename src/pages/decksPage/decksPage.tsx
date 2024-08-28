@@ -11,7 +11,7 @@ import { Slider } from '../../components/ui/slider/slider'
 import { Tabs, TabsTrigger } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
-import { useGetDecksQuery, useGetMinMaxCardsQuery } from '../../features/decks/dekcsService'
+import { useGetDecksQuery } from '../../features/decks/dekcsService'
 import { useDebounce } from '../../hooks/useDebounce'
 
 export const DecksPage = () => {

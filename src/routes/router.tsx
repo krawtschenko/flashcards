@@ -6,7 +6,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { DecksPage } from '../pages/decks/decksPage'
+import { DecksPage } from '../pages/decksPage/decksPage'
 
 const publicRoutes: RouteObject[] = [
   {
