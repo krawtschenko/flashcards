@@ -1,5 +1,9 @@
 .textField {
+  position: relative;
+
   .label {
+    position: absolute;
+    top: -24px;
     color: var(--color-dark-100);
   }
 

@@ -16,7 +16,7 @@ export const Primary = {
   render: () => {
     const [value, setValue] = useState<number[]>([3, 80])
 
-    return <Slider onValueChange={setValue} value={value} />
+    return <Slider onValueChange={setValue} title={'Slider'} value={value} />
   },
 }
 

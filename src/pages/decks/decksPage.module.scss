@@ -1,0 +1,31 @@
+.decksPage {
+  margin-top: 36px;
+
+  .button {
+    width: 150px;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 34px;
+
+    .search {
+      width: 400px;
+    }
+
+    .tabs {
+      width: 235px;
+    }
+  }
+
+  .decksTable {
+    margin-top: 36px;
+  }
+}

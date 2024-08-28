@@ -5,12 +5,21 @@ import clsx from 'clsx'
 
 import style from './slider.module.scss'
 
+import { Typography } from '../typography/typography'
+
 export const Slider = ({
   className,
+  title,
   ...rest
 }: ComponentPropsWithoutRef<typeof SliderRadix.Root>) => {
   return (
     <div className={clsx(style.sliderWrap, className)}>
+      {title && (
+        <Typography className={style.title} variant={'body2'}>
+          {title}
+        </Typography>
+      )}
+
       <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>
         {rest.value?.[0]}
       </div>

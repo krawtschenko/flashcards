@@ -1,19 +1,19 @@
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
-import style from './decks.module.scss'
+import style from './decksTable.module.scss'
 
-import { Table, Tbody, Td, Th, Thead, Tr } from '../../components/ui/table/table'
-import { Deck } from '../../features/decks/decksTypes'
+import { Deck } from '../../../features/decks/decksTypes'
+import { Table, Tbody, Td, Th, Thead, Tr } from '../../ui/table/table'
 
 type DecksTableProps = {
+  className?: string
   decks?: Deck[]
   orderBy: null | string
   setOrderBy: (orderBy: null | string) => void
 }
 
-export const DecksTable = ({ decks, orderBy, setOrderBy }: DecksTableProps) => {
+export const DecksTable = ({ className, decks, orderBy, setOrderBy }: DecksTableProps) => {
   const handleSort = (column: string) => {
-    // Проверяем, какая текущая сортировка, и изменяем её
     if (orderBy === `${column}-asc`) {
       setOrderBy(`${column}-desc`)
     } else if (orderBy === `${column}-desc`) {
@@ -26,16 +26,15 @@ export const DecksTable = ({ decks, orderBy, setOrderBy }: DecksTableProps) => {
   const getSortIcon = (column: string) => {
     if (orderBy === `${column}-asc`) {
       return <FiChevronUp />
-    }
-    if (orderBy === `${column}-desc`) {
+    } else if (orderBy === `${column}-desc`) {
       return <FiChevronDown />
+    } else {
+      return null
     }
-
-    return null
   }
 
   return (
-    <Table>
+    <Table className={className}>
       <Thead>
         <Tr>
           <Th onClick={() => handleSort('name')}>

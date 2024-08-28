@@ -21,9 +21,11 @@ export const Tabs = ({ className, defaultValue, options, title, ...rest }: TabsP
       className={clsx(style.tabsRoot, className)}
       defaultValue={defaultValue}
     >
-      <Typography className={style.title} variant={'body2'}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography className={style.title} variant={'body2'}>
+          {title}
+        </Typography>
+      )}
 
       <TabsRadix.List className={style.tabsList}>
         {options.map(({ disabled, name, value }, index) => (

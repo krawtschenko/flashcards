@@ -1,8 +1,11 @@
 .tabsRoot {
+  position: relative;
   width: 100%;
 
   .title {
-    color: var(--color-light-900);
+    position: absolute;
+    top: -24px;
+    color: var(--color-dark-100);
   }
 
   .tabsList {
@@ -16,7 +19,7 @@
       align-items: center;
       justify-content: center;
 
-      padding: 6px 24px;
+      padding: 5px 24px;
 
       font-size: var(--font-size-m);
       font-weight: var(--font-weight-regular);

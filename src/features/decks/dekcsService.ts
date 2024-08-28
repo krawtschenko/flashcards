@@ -12,8 +12,12 @@ const decksService = baseApi.injectEndpoints({
           }
         },
       }),
+
+      getMinMaxCards: builder.query<{ max: number; min: number }, void>({
+        query: () => 'v2/decks/min-max-cards',
+      }),
     }
   },
 })
 
-export const { useGetDecksQuery } = decksService
+export const { useGetDecksQuery, useGetMinMaxCardsQuery } = decksService
