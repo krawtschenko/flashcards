@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { FiSearch, FiTrash } from 'react-icons/fi'
 
@@ -12,13 +12,12 @@ import { Tabs } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useGetDecksQuery, useGetMinMaxCardsQuery } from '../../features/decks/dekcsService'
+import { useDebounce } from '../../hooks/useDebounce'
 
 export const DecksPage = () => {
-  const { data: minMax } = useGetMinMaxCardsQuery()
-
   const [search, setSearch] = useState<string>('')
   const [orderBy, setOrderBy] = useState<null | string>(null)
-  const [sliderValue, setSliderValue] = useState<number[]>([0, 0])
+  const [sliderValue, setSliderValue] = useState<number[]>([0, 99])
 
   const tabsOptions = [
     { name: 'My Cards', value: 'My Cards' },
@@ -28,20 +27,14 @@ export const DecksPage = () => {
   const { data: decks, isLoading } = useGetDecksQuery({
     maxCardsCount: sliderValue[1],
     minCardsCount: sliderValue[0],
-    name: search,
+    name: useDebounce(search),
     orderBy,
   })
 
   const clearFilters = () => {
-    minMax && setSliderValue([minMax.min, minMax.max])
+    setSliderValue([0, 99])
     setOrderBy(null)
   }
-
-  useEffect(() => {
-    if (minMax) {
-      setSliderValue([minMax.min, minMax.max])
-    }
-  }, [minMax])
 
   if (isLoading) {
     return <h1>Loading...</h1>
@@ -72,13 +65,7 @@ export const DecksPage = () => {
             title={'Show decks cards'}
           />
 
-          <Slider
-            max={minMax?.max}
-            min={minMax?.min}
-            onValueChange={setSliderValue}
-            title={'Number of cards'}
-            value={sliderValue}
-          />
+          <Slider onValueChange={setSliderValue} title={'Number of cards'} value={sliderValue} />
 
           <Button className={style.button} onClick={clearFilters} variant={'secondary'}>
             <FiTrash /> Clear Filter
