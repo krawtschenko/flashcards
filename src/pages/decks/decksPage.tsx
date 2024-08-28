@@ -8,7 +8,7 @@ import { Container } from '../../components/layout/container/contaiter'
 import { DecksTable } from '../../components/layout/decksTable/decksTable'
 import { Button } from '../../components/ui/button/button'
 import { Slider } from '../../components/ui/slider/slider'
-import { Tabs } from '../../components/ui/tabs/tabs'
+import { Tabs, TabsTrigger } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useGetDecksQuery, useGetMinMaxCardsQuery } from '../../features/decks/dekcsService'
@@ -18,11 +18,6 @@ export const DecksPage = () => {
   const [search, setSearch] = useState<string>('')
   const [orderBy, setOrderBy] = useState<null | string>(null)
   const [sliderValue, setSliderValue] = useState<number[]>([0, 99])
-
-  const tabsOptions = [
-    { name: 'My Cards', value: 'My Cards' },
-    { name: 'All Cards', value: 'All Cards' },
-  ]
 
   const { data: decks, isLoading } = useGetDecksQuery({
     maxCardsCount: sliderValue[1],
@@ -58,12 +53,10 @@ export const DecksPage = () => {
             value={search}
           />
 
-          <Tabs
-            className={style.tabs}
-            defaultValue={'All Cards'}
-            options={tabsOptions}
-            title={'Show decks cards'}
-          />
+          <Tabs className={style.tabs} defaultValue={'All Cards'} title={'Show decks cards'}>
+            <TabsTrigger value={'My Cards'}>My Cards</TabsTrigger>
+            <TabsTrigger value={'All Cards'}>All Cards</TabsTrigger>
+          </Tabs>
 
           <Slider onValueChange={setSliderValue} title={'Number of cards'} value={sliderValue} />
 

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta } from '@storybook/react'
 
-import { Tabs } from './tabs'
+import { Tabs, TabsTrigger } from './tabs'
 
 const meta = {
   component: Tabs,
@@ -9,26 +9,30 @@ const meta = {
 } satisfies Meta<typeof Tabs>
 
 export default meta
-type Story = StoryObj<typeof meta>
 
-const options = [
-  { name: 'Sunday', value: '1' },
-  { name: 'Monday', value: '2' },
-  { name: 'Thursday', value: '3' },
-  { name: 'Wednesday', value: '4' },
-]
-
-const optionsWithDisabled = [
-  { name: 'Sunday', value: '1' },
-  { name: 'Monday', value: '2' },
-  { name: 'Thursday', value: '3' },
-  { disabled: true, name: 'Wednesday', value: '4' },
-]
-
-export const Primary: Story = {
-  args: { defaultValue: '3', options: options, title: 'Title' },
+export const Primary = {
+  render: () => {
+    return (
+      <Tabs defaultValue={'2'} title={'Primary'}>
+        <TabsTrigger value={'1'}>Sunday</TabsTrigger>
+        <TabsTrigger value={'2'}>Monday</TabsTrigger>
+        <TabsTrigger value={'3'}>Thursday</TabsTrigger>
+      </Tabs>
+    )
+  },
 }
 
-export const PrimaryWithDisabled: Story = {
-  args: { defaultValue: '3', options: optionsWithDisabled, title: 'Title' },
+export const PrimaryWithDisabled = {
+  render: () => {
+    return (
+      <Tabs defaultValue={'3'} title={'Primary With Disabled'}>
+        <TabsTrigger value={'1'}>Sunday</TabsTrigger>
+        <TabsTrigger value={'2'}>Monday</TabsTrigger>
+        <TabsTrigger value={'3'}>Thursday</TabsTrigger>
+        <TabsTrigger disabled value={'4'}>
+          Wednesday
+        </TabsTrigger>
+      </Tabs>
+    )
+  },
 }
