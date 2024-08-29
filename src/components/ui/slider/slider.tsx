@@ -21,7 +21,7 @@ export const Slider = (props: ComponentPropsWithoutRef<typeof SliderRadix.Root>)
       <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>
         {rest.value?.[0]}
       </div>
-      <SliderRadix.Root className={style.sliderRoot} step={1} {...rest}>
+      <SliderRadix.Root className={style.sliderRoot} {...rest}>
         <SliderRadix.Track className={style.sliderTrack}>
           <SliderRadix.Range className={style.sliderRange} />
         </SliderRadix.Track>
