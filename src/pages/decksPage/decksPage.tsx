@@ -16,21 +16,34 @@ import { useDebounce } from '../../hooks/useDebounce'
 import { useDeckParams } from './useDeckParams'
 
 export const DecksPage = () => {
-  const { search, setSearch } = useDeckParams()
+  const {
+    maxCards,
+    minCards,
+    minMax,
+    range,
+    search,
+    setMaxCards,
+    setMinCards,
+    setRange,
+    setSearch,
+  } = useDeckParams()
 
   const [orderBy, setOrderBy] = useState<null | string>(null)
-  const [sliderValue, setSliderValue] = useState<number[]>([0, 99])
 
   const { data: decks, isLoading } = useGetDecksQuery({
-    maxCardsCount: sliderValue[1],
-    minCardsCount: sliderValue[0],
+    maxCardsCount: maxCards !== minMax?.max ? maxCards : undefined,
+    minCardsCount: minCards !== minMax?.min ? minCards : undefined,
     name: useDebounce(search) || undefined,
-    orderBy,
+    orderBy: orderBy || undefined,
   })
 
   const clearFilters = () => {
-    setSliderValue([0, 99])
     setOrderBy(null)
+  }
+
+  const onValueCommit = (value: number[]) => {
+    setMinCards(value[0])
+    setMaxCards(value[1])
   }
 
   if (isLoading) {
@@ -60,7 +73,14 @@ export const DecksPage = () => {
             <TabsTrigger value={'All Cards'}>All Cards</TabsTrigger>
           </Tabs>
 
-          <Slider onValueChange={setSliderValue} title={'Number of cards'} value={sliderValue} />
+          <Slider
+            max={minMax?.max}
+            min={minMax?.min}
+            onValueChange={setRange}
+            onValueCommit={onValueCommit}
+            title={'Number of cards'}
+            value={range}
+          />
 
           <Button className={style.button} onClick={clearFilters} variant={'secondary'}>
             <FiTrash /> Clear Filter
