@@ -1,36 +1,29 @@
-export const useQueryParam = <T extends boolean | number | string>(
-  searchParams: URLSearchParams,
-  setSearchParams: (searchParams: URLSearchParams) => void,
-  param: string,
-  defaultValue?: T
-) => {
-  const paramValue = searchParams.get(param)
-  const convertedValue = convertValue(paramValue, defaultValue)
+import { useSearchParams } from 'react-router-dom'
 
-  const setParamValue = (value: T | null) => {
-    if (value === null || value === '') {
-      searchParams.delete(param)
+export const useQueryParam = <T>(param: string, defaultValue?: T) => {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const setParam = (value: T | null) => {
+    const currentValue = searchParams.get(param)
+
+    if (value === defaultValue || value === null) {
+      if (currentValue !== null) {
+        searchParams.delete(param)
+        setSearchParams(searchParams)
+      }
     } else {
-      searchParams.set(param, String(value))
+      if (currentValue !== String(value)) {
+        searchParams.set(param, String(value))
+        setSearchParams(searchParams)
+      }
     }
-    setSearchParams(searchParams)
   }
 
-  return [convertedValue, setParamValue]
-}
+  const getParam = () => {
+    const currentValue = searchParams.get(param)
 
-function convertValue<T>(value: null | string, defaultValue?: T) {
-  if (value === null) {
-    return defaultValue ?? null
+    return currentValue !== null ? (currentValue as unknown as T) : defaultValue
   }
 
-  if (value === 'true' || value === 'false') {
-    return (value === 'true') as unknown as T
-  }
-
-  if (!isNaN(Number(value))) {
-    return Number(value) as unknown as T
-  }
-
-  return value as unknown as T
+  return [getParam(), setParam] as const
 }
