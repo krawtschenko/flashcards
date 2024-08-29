@@ -7,11 +7,9 @@ import style from './slider.module.scss'
 
 import { Typography } from '../typography/typography'
 
-export const Slider = ({
-  className,
-  title,
-  ...rest
-}: ComponentPropsWithoutRef<typeof SliderRadix.Root>) => {
+export const Slider = (props: ComponentPropsWithoutRef<typeof SliderRadix.Root>) => {
+  const { className, title, ...rest } = props
+
   return (
     <div className={clsx(style.sliderWrap, className)}>
       {title && (
@@ -23,7 +21,7 @@ export const Slider = ({
       <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>
         {rest.value?.[0]}
       </div>
-      <SliderRadix.Root className={style.sliderRoot} max={100} step={1} {...rest}>
+      <SliderRadix.Root className={style.sliderRoot} step={1} {...rest}>
         <SliderRadix.Track className={style.sliderTrack}>
           <SliderRadix.Range className={style.sliderRange} />
         </SliderRadix.Track>

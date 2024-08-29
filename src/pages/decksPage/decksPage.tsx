@@ -13,17 +13,18 @@ import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useGetDecksQuery } from '../../features/decks/dekcsService'
 import { useDebounce } from '../../hooks/useDebounce'
-import { useQueryParam } from '../../hooks/useQueryParam'
+import { useDeckParams } from './useDeckParams'
 
 export const DecksPage = () => {
-  const [search, setSearch] = useQueryParam('search', '')
+  const { search, setSearch } = useDeckParams()
+
   const [orderBy, setOrderBy] = useState<null | string>(null)
   const [sliderValue, setSliderValue] = useState<number[]>([0, 99])
 
   const { data: decks, isLoading } = useGetDecksQuery({
     maxCardsCount: sliderValue[1],
     minCardsCount: sliderValue[0],
-    name: useDebounce(search),
+    name: useDebounce(search) || undefined,
     orderBy,
   })
 

@@ -3,8 +3,8 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 import style from './pagination.module.scss'
 
+import { usePagination } from '../../../hooks/usePagination'
 import { Select, SelectItem } from '../select/select'
-import { usePagination } from './usePagination'
 
 type PaginationProps = {
   className?: string

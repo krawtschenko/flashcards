@@ -1,3 +1,4 @@
+// Chat GPT
 export const usePagination = (currentPage: number, totalPages: number) => {
   const range = []
   const pages = []

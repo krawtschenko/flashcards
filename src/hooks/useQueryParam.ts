@@ -1,3 +1,4 @@
+// Chat GPT
 import { useSearchParams } from 'react-router-dom'
 
 export const useQueryParam = <T>(param: string, defaultValue?: T) => {
