@@ -28,3 +28,14 @@ export const useQueryParam = <T>(param: string, defaultValue: T) => {
 
   return [getParam(), setParam] as const
 }
+
+export const getUrlParam = (key: string): null | string => {
+  if (window) {
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+
+    return urlParams.get(key)
+  }
+
+  return null
+}
