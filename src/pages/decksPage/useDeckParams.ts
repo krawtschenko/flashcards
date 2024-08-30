@@ -7,8 +7,10 @@ export const useDeckParams = () => {
   const { data: minMax } = useGetMinMaxCardsQuery()
 
   const [search, setSearch] = useQueryParam('search', '')
-  const [maxCards, setMaxCards] = useQueryParam('maxCards', minMax?.max)
+
   const [minCards, setMinCards] = useQueryParam('minCards', minMax?.min)
+  const [maxCards, setMaxCards] = useQueryParam('maxCards', minMax?.max)
+  const [orderBy, setOrderBy] = useQueryParam<null | string>('orderBy', null)
 
   const [range, setRange] = useState([minCards, maxCards])
 
@@ -20,10 +22,12 @@ export const useDeckParams = () => {
     maxCards,
     minCards,
     minMax,
+    orderBy,
     range,
     search,
     setMaxCards,
     setMinCards,
+    setOrderBy,
     setRange,
     setSearch,
   }

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { FiSearch, FiTrash } from 'react-icons/fi'
 
 import style from './decksPage.module.scss'
@@ -20,15 +18,15 @@ export const DecksPage = () => {
     maxCards,
     minCards,
     minMax,
+    orderBy,
     range,
     search,
     setMaxCards,
     setMinCards,
+    setOrderBy,
     setRange,
     setSearch,
   } = useDeckParams()
-
-  const [orderBy, setOrderBy] = useState<null | string>(null)
 
   const { data: decks, isLoading } = useGetDecksQuery({
     maxCardsCount: maxCards !== minMax?.max ? maxCards : undefined,
