@@ -6,8 +6,7 @@ import { useQueryParam } from '../../hooks/useQueryParam'
 export const useDeckParams = () => {
   const { data: minMax } = useGetMinMaxCardsQuery()
 
-  const [search, setSearch] = useQueryParam('search', '')
-
+  const [name, setName] = useQueryParam('name', '')
   const [minCards, setMinCards] = useQueryParam('minCards', minMax?.min)
   const [maxCards, setMaxCards] = useQueryParam('maxCards', minMax?.max)
   const [orderBy, setOrderBy] = useQueryParam<null | string>('orderBy', null)
@@ -22,13 +21,13 @@ export const useDeckParams = () => {
     maxCards,
     minCards,
     minMax,
+    name,
     orderBy,
     range,
-    search,
     setMaxCards,
     setMinCards,
+    setName,
     setOrderBy,
     setRange,
-    setSearch,
   }
 }

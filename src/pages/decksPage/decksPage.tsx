@@ -18,25 +18,25 @@ export const DecksPage = () => {
     maxCards,
     minCards,
     minMax,
+    name,
     orderBy,
     range,
-    search,
     setMaxCards,
     setMinCards,
+    setName,
     setOrderBy,
     setRange,
-    setSearch,
   } = useDeckParams()
 
   const { data: decks, isLoading } = useGetDecksQuery({
     maxCardsCount: maxCards !== minMax?.max ? maxCards : undefined,
     minCardsCount: minCards !== minMax?.min ? minCards : undefined,
-    name: useDebounce(search) || undefined,
+    name: useDebounce(name) || undefined,
     orderBy: orderBy || undefined,
   })
 
   const clearFilters = () => {
-    setSearch('')
+    setName('')
     setOrderBy(null)
   }
 
@@ -62,9 +62,9 @@ export const DecksPage = () => {
             className={style.search}
             icon={<FiSearch />}
             label={'Search'}
-            onChange={e => setSearch(e.currentTarget.value)}
-            onClearValue={() => setSearch('')}
-            value={search}
+            onChange={e => setName(e.currentTarget.value)}
+            onClearValue={() => setName('')}
+            value={name}
           />
 
           <Tabs className={style.tabs} defaultValue={'All Cards'} title={'Show decks cards'}>
