@@ -23,7 +23,11 @@ export const useQueryParam = <T>(param: string, defaultValue: T) => {
   const getParam = () => {
     const currentValue = searchParams.get(param)
 
-    return currentValue !== null ? (JSON.parse(currentValue) as T) : defaultValue
+    try {
+      return currentValue !== null ? (JSON.parse(currentValue) as T) : defaultValue
+    } catch (error) {
+      return currentValue !== null ? (currentValue as unknown as T) : defaultValue
+    }
   }
 
   return [getParam(), setParam] as const
