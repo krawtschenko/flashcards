@@ -38,6 +38,7 @@ export const DecksPage = () => {
   })
 
   const clearFilters = () => {
+    setSearch('')
     setOrderBy(null)
   }
 

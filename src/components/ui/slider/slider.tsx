@@ -7,8 +7,12 @@ import style from './slider.module.scss'
 
 import { Typography } from '../typography/typography'
 
-export const Slider = (props: ComponentPropsWithoutRef<typeof SliderRadix.Root>) => {
-  const { className, title, ...rest } = props
+type SliderProps = {
+  value: (number | undefined)[]
+} & Omit<ComponentPropsWithoutRef<typeof SliderRadix.Root>, 'value'>
+
+export const Slider = (props: SliderProps) => {
+  const { className, title, value, ...rest } = props
 
   return (
     <div className={clsx(style.sliderWrap, className)}>
@@ -18,19 +22,19 @@ export const Slider = (props: ComponentPropsWithoutRef<typeof SliderRadix.Root>)
         </Typography>
       )}
 
-      <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>
-        {rest.value?.[0]}
-      </div>
-      <SliderRadix.Root className={style.sliderRoot} {...rest}>
+      <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>{value?.[0]}</div>
+      <SliderRadix.Root
+        className={style.sliderRoot}
+        value={[value?.[0] ?? 0, value?.[1] ?? rest.max ?? 0]}
+        {...rest}
+      >
         <SliderRadix.Track className={style.sliderTrack}>
           <SliderRadix.Range className={style.sliderRange} />
         </SliderRadix.Track>
         <SliderRadix.Thumb aria-label={'Volume'} className={style.sliderThumb} />
         <SliderRadix.Thumb aria-label={'Volume'} className={style.sliderThumb} />
       </SliderRadix.Root>
-      <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>
-        {rest.value?.[1]}
-      </div>
+      <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>{value?.[1]}</div>
     </div>
   )
 }
