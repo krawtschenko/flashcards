@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 import { FiSearch, FiTrash } from 'react-icons/fi'
 
 import style from './decksPage.module.scss'
@@ -42,7 +44,7 @@ export const DecksPage = () => {
     orderBy: orderBy || undefined,
   })
 
-  const clearFilters = () => {
+  const onClearFilters = () => {
     setName('')
     setCurrentPage(1)
     setItemsPerPage(10)
@@ -51,9 +53,19 @@ export const DecksPage = () => {
     setOrderBy(null)
   }
 
-  const onValueCommit = (value: number[]) => {
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentPage(1)
+    setName(e.currentTarget.value)
+  }
+
+  const onChangeSlider = (value: number[]) => {
     setMinCards(value[0])
     setMaxCards(value[1])
+  }
+
+  const onChangeItemsPerPage = (items: number) => {
+    setCurrentPage(1)
+    setItemsPerPage(items)
   }
 
   if (isLoading) {
@@ -73,7 +85,7 @@ export const DecksPage = () => {
             className={style.search}
             icon={<FiSearch />}
             label={'Search'}
-            onChange={e => setName(e.currentTarget.value)}
+            onChange={onChangeName}
             onClearValue={() => setName('')}
             value={name}
           />
@@ -87,12 +99,12 @@ export const DecksPage = () => {
             max={minMax?.max}
             min={minMax?.min}
             onValueChange={setRange}
-            onValueCommit={onValueCommit}
+            onValueCommit={onChangeSlider}
             title={'Number of cards'}
             value={range}
           />
 
-          <Button className={style.button} onClick={clearFilters} variant={'secondary'}>
+          <Button className={style.button} onClick={onClearFilters} variant={'secondary'}>
             <FiTrash /> Clear Filter
           </Button>
         </div>
@@ -105,9 +117,10 @@ export const DecksPage = () => {
         />
 
         <Pagination
+          className={style.pagination}
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
-          onItemsPerPageChange={setItemsPerPage}
+          onItemsPerPageChange={onChangeItemsPerPage}
           onPageChange={setCurrentPage}
           totalPages={decks?.pagination.totalPages ?? 100}
         />

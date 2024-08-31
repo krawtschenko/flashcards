@@ -51,8 +51,11 @@ export const Pagination = (props: PaginationProps) => {
       ))}
 
       <button
-        className={clsx(style.button, currentPage === totalPages && style.arrowDisabled)}
-        disabled={currentPage === totalPages}
+        className={clsx(
+          style.button,
+          (currentPage === totalPages || totalPages === 0) && style.arrowDisabled
+        )}
+        disabled={currentPage === totalPages || totalPages === 0}
         onClick={() => onPageChange(currentPage + 1)}
         type={'button'}
       >
