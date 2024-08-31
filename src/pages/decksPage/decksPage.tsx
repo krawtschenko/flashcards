@@ -5,6 +5,7 @@ import style from './decksPage.module.scss'
 import { Container } from '../../components/layout/container/contaiter'
 import { DecksTable } from '../../components/layout/decksTable/decksTable'
 import { Button } from '../../components/ui/button/button'
+import { Pagination } from '../../components/ui/pagination/pagination'
 import { Slider } from '../../components/ui/slider/slider'
 import { Tabs, TabsTrigger } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
@@ -15,12 +16,16 @@ import { useDeckParams } from './useDeckParams'
 
 export const DecksPage = () => {
   const {
+    currentPage,
+    itemsPerPage,
     maxCards,
     minCards,
     minMax,
     name,
     orderBy,
     range,
+    setCurrentPage,
+    setItemsPerPage,
     setMaxCards,
     setMinCards,
     setName,
@@ -29,6 +34,8 @@ export const DecksPage = () => {
   } = useDeckParams()
 
   const { data: decks, isLoading } = useGetDecksQuery({
+    currentPage: currentPage !== 1 ? currentPage : undefined,
+    itemsPerPage: itemsPerPage !== 10 ? itemsPerPage : undefined,
     maxCardsCount: maxCards !== minMax?.max ? maxCards : undefined,
     minCardsCount: minCards !== minMax?.min ? minCards : undefined,
     name: useDebounce(name) || undefined,
@@ -37,6 +44,8 @@ export const DecksPage = () => {
 
   const clearFilters = () => {
     setName('')
+    setCurrentPage(1)
+    setItemsPerPage(10)
     setMinCards(minMax?.min)
     setMaxCards(minMax?.max)
     setOrderBy(null)
@@ -93,6 +102,14 @@ export const DecksPage = () => {
           decks={decks?.items}
           orderBy={orderBy}
           setOrderBy={setOrderBy}
+        />
+
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          onItemsPerPageChange={setItemsPerPage}
+          onPageChange={setCurrentPage}
+          totalPages={decks?.pagination.totalPages ?? 100}
         />
       </Container>
     </div>

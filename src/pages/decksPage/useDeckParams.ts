@@ -27,6 +27,18 @@ export const useDeckParams = () => {
     'orderBy',
     null
   )
+  const [currentPage, setCurrentPage] = useQueryParam(
+    searchParams,
+    setSearchParams,
+    'currentPage',
+    1
+  )
+  const [itemsPerPage, setItemsPerPage] = useQueryParam(
+    searchParams,
+    setSearchParams,
+    'itemsPerPage',
+    10
+  )
 
   const [range, setRange] = useState([minCards, maxCards])
 
@@ -35,12 +47,16 @@ export const useDeckParams = () => {
   }, [maxCards, minCards])
 
   return {
+    currentPage,
+    itemsPerPage,
     maxCards,
     minCards,
     minMax,
     name,
     orderBy,
     range,
+    setCurrentPage,
+    setItemsPerPage,
     setMaxCards,
     setMinCards,
     setName,
