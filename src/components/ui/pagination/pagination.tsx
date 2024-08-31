@@ -12,12 +12,18 @@ type PaginationProps = {
   itemsPerPage: number
   onItemsPerPageChange: (items: number) => void
   onPageChange: (page: number) => void
-  totalPages: number
+  totalPages?: number
 }
 
 export const Pagination = (props: PaginationProps) => {
-  const { className, currentPage, itemsPerPage, onItemsPerPageChange, onPageChange, totalPages } =
-    props
+  const {
+    className,
+    currentPage,
+    itemsPerPage,
+    onItemsPerPageChange,
+    onPageChange,
+    totalPages = 1,
+  } = props
 
   const pages = usePagination(currentPage, totalPages)
 

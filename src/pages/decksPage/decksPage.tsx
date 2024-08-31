@@ -47,7 +47,6 @@ export const DecksPage = () => {
   const onClearFilters = () => {
     setName('')
     setCurrentPage(1)
-    setItemsPerPage(10)
     setMinCards(minMax?.min)
     setMaxCards(minMax?.max)
     setOrderBy(null)
@@ -59,6 +58,7 @@ export const DecksPage = () => {
   }
 
   const onChangeSlider = (value: number[]) => {
+    setCurrentPage(1)
     setMinCards(value[0])
     setMaxCards(value[1])
   }
@@ -122,7 +122,7 @@ export const DecksPage = () => {
           itemsPerPage={itemsPerPage}
           onItemsPerPageChange={onChangeItemsPerPage}
           onPageChange={setCurrentPage}
-          totalPages={decks?.pagination.totalPages ?? 100}
+          totalPages={decks?.pagination.totalPages}
         />
       </Container>
     </div>
