@@ -47,6 +47,7 @@ export const DecksPage = () => {
   const onClearFilters = () => {
     setName('')
     setCurrentPage(1)
+    setItemsPerPage(10)
     setMinCards(minMax?.min)
     setMaxCards(minMax?.max)
     setOrderBy(null)
