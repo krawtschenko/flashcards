@@ -1,9 +1,11 @@
 // Chat GPT
-import { useSearchParams } from 'react-router-dom'
 
-export const useQueryParam = <T>(param: string, defaultValue: T) => {
-  const [searchParams, setSearchParams] = useSearchParams()
-
+export const useQueryParam = <T>(
+  searchParams: URLSearchParams,
+  setSearchParams: (searchParams: URLSearchParams) => void,
+  param: string,
+  defaultValue: T
+) => {
   const setParam = (value: T | null) => {
     const currentValue = searchParams.get(param)
 

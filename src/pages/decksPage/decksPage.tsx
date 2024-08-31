@@ -37,6 +37,8 @@ export const DecksPage = () => {
 
   const clearFilters = () => {
     setName('')
+    setMinCards(minMax?.min)
+    setMaxCards(minMax?.max)
     setOrderBy(null)
   }
 
