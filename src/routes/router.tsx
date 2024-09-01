@@ -1,48 +1,46 @@
-import {
-  Navigate,
-  Outlet,
-  RouteObject,
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom'
+import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { App } from '../app/App'
 import { DecksPage } from '../pages/decksPage/decksPage'
+import { path } from './path'
 
 const publicRoutes: RouteObject[] = [
   {
     element: <div>login</div>,
-    path: '/login',
+    path: path.login,
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
     element: <DecksPage />,
-    path: '/',
+    path: path.decks,
   },
 ]
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
+  { element: <Navigate to={path.decks} />, path: '/' },
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />,
-  },
-  {
-    children: publicRoutes,
-    element: <PublicRoutes />,
+    children: [
+      {
+        children: privateRoutes,
+        element: <PrivateRoutes />,
+      },
+      {
+        children: publicRoutes,
+        element: <PublicRoutes />,
+      },
+    ],
+    element: <App />,
   },
 ])
-
-export function Router() {
-  return <RouterProvider router={router} />
-}
 
 const isAuthenticated = true
 
 function PrivateRoutes() {
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
 }
 
 function PublicRoutes() {
-  return !isAuthenticated ? <Outlet /> : <Navigate to={'/'} />
+  return !isAuthenticated ? <Outlet /> : <Navigate to={path.decks} />
 }

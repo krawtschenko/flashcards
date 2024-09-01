@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { useGetMinMaxCardsQuery } from '../../features/decks/dekcsService'
 import { useQueryParam } from '../../hooks/useQueryParam'
+import { useGetMinMaxCardsQuery } from './dekcsService'
 
 export const useDeckParams = () => {
   const { data: minMax } = useGetMinMaxCardsQuery()
