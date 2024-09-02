@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { z } from 'zod'
 
-import style from './signInForm.module.scss'
+import style from './loginForm.module.scss'
 
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
@@ -17,7 +18,9 @@ const loginSchema = z.object({
   rememberMe: z.boolean().optional(),
 })
 
-export const SignInForm = ({ onSubmit }: { onSubmit: () => void }) => {
+type LoginFormProps = { className?: string; onSubmit: () => void }
+
+export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
   const { control, handleSubmit } = useForm<z.infer<typeof loginSchema>>({
     defaultValues: {
       email: '',
@@ -28,7 +31,7 @@ export const SignInForm = ({ onSubmit }: { onSubmit: () => void }) => {
   })
 
   return (
-    <Card className={style.card}>
+    <Card className={clsx(style.card, className)}>
       <Typography position={'center'} variant={'h1'}>
         Sign In
       </Typography>

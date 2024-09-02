@@ -1,11 +1,11 @@
-import style from './checkEmailForm.module.scss'
+import style from './checkForm.module.scss'
 
 import { CheckEmail } from '../../../assets/icons/checkEmail'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { Typography } from '../../ui/typography/typography'
 
-export const CheckEmailForm = () => {
+export const CheckForm = () => {
   return (
     <Card className={style.card}>
       <Typography position={'center'} variant={'h1'}>

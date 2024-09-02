@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import style from './signUpForm.module.scss'
+import style from './registrationForm.module.scss'
 
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
@@ -26,7 +26,7 @@ const signUpSchema = z
     }
   )
 
-export const SignUpForm = ({ onSubmit }: { onSubmit: () => void }) => {
+export const RegistrationForm = ({ onSubmit }: { onSubmit: () => void }) => {
   const { control, handleSubmit } = useForm<z.infer<typeof signUpSchema>>({
     defaultValues: { confirmPassword: '', email: '', password: '' },
     resolver: zodResolver(signUpSchema),

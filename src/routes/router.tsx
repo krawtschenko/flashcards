@@ -2,11 +2,12 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router
 
 import { App } from '../app/App'
 import { DecksPage } from '../pages/decksPage/decksPage'
+import { LoginPage } from '../pages/loginPage/loginPage'
 import { path } from './path'
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <div>login</div>,
+    element: <LoginPage />,
     path: path.login,
   },
 ]
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
   },
 ])
 
-const isAuthenticated = true
+const isAuthenticated = false
 
 function PrivateRoutes() {
   return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
