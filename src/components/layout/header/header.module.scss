@@ -11,6 +11,11 @@
     .logo {
       cursor: pointer;
       height: 36px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        scale: 1.05;
+      }
     }
 
     .info {
