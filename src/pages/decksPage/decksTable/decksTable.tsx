@@ -2,8 +2,8 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 import style from './decksTable.module.scss'
 
+import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
-import { Table, Tbody, Td, Th, Thead, Tr } from '../../ui/table/table'
 
 type DecksTableProps = {
   className?: string

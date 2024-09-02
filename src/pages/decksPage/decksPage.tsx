@@ -4,7 +4,6 @@ import { FiSearch, FiTrash } from 'react-icons/fi'
 
 import style from './decksPage.module.scss'
 
-import { DecksTable } from '../../components/layout/decksTable/decksTable'
 import { Button } from '../../components/ui/button/button'
 import { Pagination } from '../../components/ui/pagination/pagination'
 import { Slider } from '../../components/ui/slider/slider'
@@ -14,6 +13,7 @@ import { Typography } from '../../components/ui/typography/typography'
 import { useGetDecksQuery } from '../../features/decks/dekcsService'
 import { useDeckParams } from '../../features/decks/useDeckParams'
 import { useDebounce } from '../../hooks/useDebounce'
+import { DecksTable } from './decksTable/decksTable'
 
 export const DecksPage = () => {
   const {

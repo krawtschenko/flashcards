@@ -1,0 +1,17 @@
+.circle {
+  animation: color-animation 1.2s infinite;
+}
+
+@keyframes color-animation {
+  0% {
+    fill: red;
+  }
+
+  50% {
+    fill: transparent;
+  }
+
+  100% {
+    fill: red;
+  }
+}
