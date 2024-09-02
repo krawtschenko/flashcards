@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
@@ -6,6 +7,7 @@ import { z } from 'zod'
 
 import style from './loginForm.module.scss'
 
+import { path } from '../../../routes/path'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { ControlledCheckbox } from '../../ui/checkbox/controlledCheckbox'
@@ -67,7 +69,13 @@ export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
         Do not have an account?
       </Typography>
 
-      <Typography as={'a'} className={style.link} position={'center'} variant={'subtitle1'}>
+      <Typography
+        as={Link}
+        className={style.link}
+        position={'center'}
+        to={path.registration}
+        variant={'subtitle1'}
+      >
         Sign Up
       </Typography>
     </Card>

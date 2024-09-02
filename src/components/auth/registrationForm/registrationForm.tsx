@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { z } from 'zod'
 
 import style from './registrationForm.module.scss'
 
+import { path } from '../../../routes/path'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { ControlledTextField } from '../../ui/textField/controlledTextField'
@@ -26,14 +29,16 @@ const signUpSchema = z
     }
   )
 
-export const RegistrationForm = ({ onSubmit }: { onSubmit: () => void }) => {
+type RegistrationProps = { className?: string; onSubmit: () => void }
+
+export const RegistrationForm = ({ className, onSubmit }: RegistrationProps) => {
   const { control, handleSubmit } = useForm<z.infer<typeof signUpSchema>>({
     defaultValues: { confirmPassword: '', email: '', password: '' },
     resolver: zodResolver(signUpSchema),
   })
 
   return (
-    <Card className={style.card}>
+    <Card className={clsx(style.card, className)}>
       <Typography position={'center'} variant={'h1'}>
         Sign Up
       </Typography>
@@ -66,8 +71,14 @@ export const RegistrationForm = ({ onSubmit }: { onSubmit: () => void }) => {
         Already have an account?
       </Typography>
 
-      <Typography as={'a'} className={style.link} position={'center'} variant={'subtitle1'}>
-        Sign Up
+      <Typography
+        as={Link}
+        className={style.link}
+        position={'center'}
+        to={path.login}
+        variant={'subtitle1'}
+      >
+        Sign In
       </Typography>
     </Card>
   )
