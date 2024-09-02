@@ -3,10 +3,11 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/700.css'
 import '../src/styles/index.scss'
 import { themes } from '@storybook/theming'
+import { withRouter } from 'storybook-addon-remix-react-router'
 
 const preview: Preview = {
+  decorators: [withRouter],
   parameters: {
-    // layout: 'centered',
     docs: {
       theme: themes.dark,
     },
