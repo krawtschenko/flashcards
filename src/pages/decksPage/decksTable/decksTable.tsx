@@ -4,6 +4,7 @@ import style from './decksTable.module.scss'
 
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
+import { useDeleteDeckMutation } from '../../../features/decks/dekcsService'
 
 type DecksTableProps = {
   className?: string
@@ -13,6 +14,8 @@ type DecksTableProps = {
 }
 
 export const DecksTable = ({ className, decks, orderBy, setOrderBy }: DecksTableProps) => {
+  const [deleteDeck] = useDeleteDeckMutation()
+
   const handleSort = (column: string) => {
     if (orderBy === `${column}-asc`) {
       setOrderBy(`${column}-desc`)
@@ -63,7 +66,11 @@ export const DecksTable = ({ className, decks, orderBy, setOrderBy }: DecksTable
               <Td className={style.tdCards}>{deck.cardsCount}</Td>
               <Td>{updatedAt}</Td>
               <Td className={style.tdAuthor}>{deck.author.name}</Td>
-              <Td className={style.tdActions}></Td>
+              <Td className={style.tdActions}>
+                <button onClick={() => deleteDeck(deck.id)} type={'button'}>
+                  delete
+                </button>
+              </Td>
             </Tr>
           )
         })}

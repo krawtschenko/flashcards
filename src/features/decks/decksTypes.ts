@@ -37,3 +37,20 @@ export type Author = {
   id: string
   name: string
 }
+
+export type CreateDeckBody = {
+  cover?: string
+  isPrivate?: boolean
+  name: string
+}
+
+export type CreateDeckResponse = {
+  cardsCount: number
+  cover: string
+  created: string
+  id: string
+  isPrivate: boolean
+  name: string
+  updated: string
+  userId: string
+}

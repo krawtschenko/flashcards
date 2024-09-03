@@ -10,7 +10,7 @@ import { Slider } from '../../components/ui/slider/slider'
 import { Tabs, TabsTrigger } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
-import { useGetDecksQuery } from '../../features/decks/dekcsService'
+import { useCreateDeckMutation, useGetDecksQuery } from '../../features/decks/dekcsService'
 import { useDeckParams } from '../../features/decks/useDeckParams'
 import { useDebounce } from '../../hooks/useDebounce'
 import { DecksTable } from './decksTable/decksTable'
@@ -42,6 +42,8 @@ export const DecksPage = () => {
     name: useDebounce(name) || undefined,
     orderBy: orderBy || undefined,
   })
+
+  const [createDeck] = useCreateDeckMutation()
 
   const onClearFilters = () => {
     setName('')
@@ -76,7 +78,9 @@ export const DecksPage = () => {
     <div className={style.decksPage}>
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
-        <Button className={style.button}>Add New Deck</Button>
+        <Button className={style.button} onClick={() => createDeck({ name: 'Test deck' })}>
+          Add New Deck
+        </Button>
       </div>
 
       <div className={style.filter}>
