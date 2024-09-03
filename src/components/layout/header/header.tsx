@@ -2,7 +2,7 @@ import { FiLogOut, FiUser } from 'react-icons/fi'
 
 import style from './header.module.scss'
 
-import { Logo } from '../../../assets/icons/logo'
+import { Logo } from '../../../assets/icons/logo/logo'
 import { Button } from '../../ui/button/button'
 import { DropdownItem, DropdownLabel, DropdownMenu } from '../../ui/dropdownMenu/dropdownMenu'
 import { Typography } from '../../ui/typography/typography'
