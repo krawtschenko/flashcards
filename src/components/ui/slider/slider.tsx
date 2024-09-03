@@ -23,6 +23,7 @@ export const Slider = (props: SliderProps) => {
       )}
 
       <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>{value?.[0]}</div>
+
       <SliderRadix.Root
         className={style.sliderRoot}
         value={[value?.[0] ?? 0, value?.[1] ?? rest.max ?? 0]}
@@ -34,6 +35,7 @@ export const Slider = (props: SliderProps) => {
         <SliderRadix.Thumb aria-label={'Volume'} className={style.sliderThumb} />
         <SliderRadix.Thumb aria-label={'Volume'} className={style.sliderThumb} />
       </SliderRadix.Root>
+
       <div className={clsx(style.rectangle, rest.disabled && style.disabled)}>{value?.[1]}</div>
     </div>
   )

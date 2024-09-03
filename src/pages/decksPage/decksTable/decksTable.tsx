@@ -4,7 +4,7 @@ import style from './decksTable.module.scss'
 
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
-import { useDeleteDeckMutation } from '../../../features/decks/dekcsService'
+import { useDeleteDeckMutation } from '../../../features/decks/dekcsApi'
 
 type DecksTableProps = {
   className?: string

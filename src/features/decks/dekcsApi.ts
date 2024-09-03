@@ -5,6 +5,7 @@ const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       createDeck: builder.mutation<CreateDeckResponse, CreateDeckBody>({
+        invalidatesTags: ['decks'],
         query: body => {
           return {
             body,
@@ -14,6 +15,7 @@ const decksService = baseApi.injectEndpoints({
         },
       }),
       deleteDeck: builder.mutation<CreateDeckResponse, string>({
+        invalidatesTags: ['decks'],
         query: id => {
           return {
             method: 'DELETE',
@@ -22,6 +24,7 @@ const decksService = baseApi.injectEndpoints({
         },
       }),
       getDecks: builder.query<DecksResponse, DecksArgs | void>({
+        providesTags: ['decks'],
         query: args => {
           return {
             params: args ?? undefined,
