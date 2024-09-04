@@ -1,6 +1,9 @@
 import style from './registrationPage.module.scss'
 
 import { RegistrationForm } from '../../components/auth/registrationForm/registrationForm'
+import { useRegistrationMutation } from '../../features/auth/authApi'
 export const RegistrationPage = () => {
-  return <RegistrationForm className={style.registrationPage} onSubmit={console.log} />
+  const [registration] = useRegistrationMutation()
+
+  return <RegistrationForm className={style.registrationPage} onSubmit={registration} />
 }

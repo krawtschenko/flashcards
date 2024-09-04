@@ -1,4 +1,4 @@
-export type LoginBody = {
+export type Login = {
   email: string
   password: string
   rememberMe?: boolean
@@ -9,7 +9,7 @@ export type LoginResponse = {
   refreshToken: string
 }
 
-export type MeResponse = {
+export type Me = {
   avatar: string
   created: Date
   email: string
@@ -17,4 +17,15 @@ export type MeResponse = {
   isEmailVerified: boolean
   name: string
   updated: Date
+}
+
+export type Registration = {
+  email: string
+  password: string
+}
+
+export type RegistrationResponse = {
+  email: string
+  id: string
+  name: string
 }

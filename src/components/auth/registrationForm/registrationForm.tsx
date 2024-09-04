@@ -7,6 +7,7 @@ import { z } from 'zod'
 
 import style from './registrationForm.module.scss'
 
+import { Registration } from '../../../features/auth/authTypes'
 import { path } from '../../../routes/path'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
@@ -29,10 +30,11 @@ const signUpSchema = z
     }
   )
 
-type RegistrationProps = { className?: string; onSubmit: () => void }
+type RegistrationProps = { className?: string; onSubmit: (value: Registration) => void }
+type RegistrationValues = z.infer<typeof signUpSchema>
 
 export const RegistrationForm = ({ className, onSubmit }: RegistrationProps) => {
-  const { control, handleSubmit } = useForm<z.infer<typeof signUpSchema>>({
+  const { control, handleSubmit } = useForm<RegistrationValues>({
     defaultValues: { confirmPassword: '', email: '', password: '' },
     resolver: zodResolver(signUpSchema),
   })
@@ -43,7 +45,10 @@ export const RegistrationForm = ({ className, onSubmit }: RegistrationProps) => 
         Sign Up
       </Typography>
 
-      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={style.form}
+        onSubmit={handleSubmit(({ email, password }) => onSubmit({ email, password }))}
+      >
         <ControlledTextField control={control} label={'Email'} name={'email'} />
 
         <ControlledTextField
