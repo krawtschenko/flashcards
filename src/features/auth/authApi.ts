@@ -24,7 +24,7 @@ const authApi = baseApi.injectEndpoints({
       }),
       me: builder.query<MeResponse, void>({
         providesTags: ['me'],
-        query: () => '/v1/auth/me',
+        query: () => 'v1/auth/me',
       }),
     }
   },
