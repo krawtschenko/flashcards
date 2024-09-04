@@ -1,7 +1,7 @@
 import { baseApi } from '../api/baseApi'
 import { CreateDeckBody, CreateDeckResponse, DecksArgs, DecksResponse } from './decksTypes'
 
-const decksService = baseApi.injectEndpoints({
+const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       createDeck: builder.mutation<CreateDeckResponse, CreateDeckBody>({
@@ -19,7 +19,7 @@ const decksService = baseApi.injectEndpoints({
         query: id => {
           return {
             method: 'DELETE',
-            url: `/v1/decks/${id}`,
+            url: `v1/decks/${id}`,
           }
         },
       }),
@@ -44,4 +44,4 @@ export const {
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
-} = decksService
+} = decksApi

@@ -20,10 +20,11 @@ const loginSchema = z.object({
   rememberMe: z.boolean().optional(),
 })
 
-type LoginFormProps = { className?: string; onSubmit: () => void }
+type LoginFormProps = { className?: string; onSubmit: (value: LoginFormValues) => void }
+type LoginFormValues = z.infer<typeof loginSchema>
 
 export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
-  const { control, handleSubmit } = useForm<z.infer<typeof loginSchema>>({
+  const { control, handleSubmit } = useForm<LoginFormValues>({
     defaultValues: {
       email: '',
       password: '',

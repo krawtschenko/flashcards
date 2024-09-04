@@ -9,5 +9,5 @@ export const baseApi = createApi({
   }),
   endpoints: () => ({}),
   reducerPath: 'baseApi',
-  tagTypes: ['decks'],
+  tagTypes: ['decks', 'me'],
 })

@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
   },
 ])
 
-const isAuthenticated = true
+const isAuthenticated = false
 
 function PrivateRoutes() {
   return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
