@@ -8,7 +8,7 @@ import { DropdownItem, DropdownLabel, DropdownMenu } from '../../ui/dropdownMenu
 import { Typography } from '../../ui/typography/typography'
 import { Container } from '../container/contaiter'
 
-type HeaderProps = { personalInfo?: PersonalInfo }
+type HeaderProps = { logout: () => void; personalInfo?: PersonalInfo }
 
 type PersonalInfo = {
   avatar?: string
@@ -16,7 +16,7 @@ type PersonalInfo = {
   name: string
 }
 
-export const Header = ({ personalInfo }: HeaderProps) => {
+export const Header = ({ logout, personalInfo }: HeaderProps) => {
   return (
     <div className={style.header}>
       <Container className={style.container}>
@@ -36,7 +36,7 @@ export const Header = ({ personalInfo }: HeaderProps) => {
                 My Profile
               </DropdownItem>
 
-              <DropdownItem>
+              <DropdownItem onClick={logout}>
                 <FiLogOut />
                 Sign Out
               </DropdownItem>

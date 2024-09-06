@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom'
 
-import { useMeQuery } from '../../features/auth/authApi'
+import { useLogoutMutation, useMeQuery } from '../../features/auth/authApi'
 import { Container } from './container/contaiter'
 import { Header } from './header/header'
 
 export const Layout = () => {
   const { data: me, isLoading } = useMeQuery()
+  const [logout] = useLogoutMutation()
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -13,7 +14,7 @@ export const Layout = () => {
 
   return (
     <>
-      <Header personalInfo={me} />
+      <Header logout={logout} personalInfo={me} />
       <Container>
         <Outlet />
       </Container>

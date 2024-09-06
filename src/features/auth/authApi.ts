@@ -5,16 +5,23 @@ const authApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       login: builder.mutation<LoginResponse, Login>({
-        // invalidatesTags: ['me'],
-        async onQueryStarted(_, { queryFulfilled }) {
-          const { data } = await queryFulfilled
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            const { data } = await queryFulfilled
 
-          if (!data) {
-            return
+            if (!data) {
+              return
+            }
+
+            // Save tokens to localStorage after successful login
+            localStorage.setItem('accessToken', data.accessToken)
+            localStorage.setItem('refreshToken', data.refreshToken)
+
+            // After saving tokens, initiate the 'me' query to fetch user data
+            dispatch(authApi.endpoints.me.initiate())
+          } catch (error) {
+            console.error('Login failed:', error)
           }
-
-          localStorage.setItem('accessToken', data.accessToken)
-          localStorage.setItem('refreshToken', data.refreshToken)
         },
         query: body => {
           return {
@@ -25,6 +32,18 @@ const authApi = baseApi.injectEndpoints({
         },
       }),
       logout: builder.mutation<void, void>({
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled
+
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
+
+            dispatch(authApi.endpoints.me.initiate())
+          } catch (error) {
+            console.error('Logout failed:', error)
+          }
+        },
         query: () => {
           return {
             method: 'POST',
@@ -49,4 +68,10 @@ const authApi = baseApi.injectEndpoints({
   },
 })
 
-export const { useLoginMutation, useLogoutMutation, useMeQuery, useRegistrationMutation } = authApi
+export const {
+  useLazyMeQuery,
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+  useRegistrationMutation,
+} = authApi
