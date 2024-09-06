@@ -5,7 +5,11 @@ import { Container } from './container/contaiter'
 import { Header } from './header/header'
 
 export const Layout = () => {
-  const { data: me } = useMeQuery()
+  const { data: me, isLoading } = useMeQuery()
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
