@@ -8,6 +8,9 @@ import {
 } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
 
+import { path } from '../../routes/path'
+import { router } from '../../routes/router'
+
 // create a new mutex
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
@@ -61,7 +64,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           // retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          // await router.navigate(path.login)
+          await router.navigate(path.login)
         }
       } finally {
         // release must be called once the mutex should be released again.
