@@ -41,12 +41,14 @@ export const router = createBrowserRouter([
   },
 ])
 
-const isAuthenticated = false
-
 function PrivateRoutes() {
-  return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
+  const accessToken = localStorage.getItem('accessToken')
+
+  return accessToken ? <Outlet /> : <Navigate to={path.login} />
 }
 
 function PublicRoutes() {
-  return !isAuthenticated ? <Outlet /> : <Navigate to={path.decks} />
+  const accessToken = localStorage.getItem('accessToken')
+
+  return !accessToken ? <Outlet /> : <Navigate to={path.decks} />
 }

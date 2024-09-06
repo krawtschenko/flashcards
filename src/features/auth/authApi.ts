@@ -5,7 +5,17 @@ const authApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
       login: builder.mutation<LoginResponse, Login>({
-        invalidatesTags: ['me'],
+        // invalidatesTags: ['me'],
+        async onQueryStarted(_, { queryFulfilled }) {
+          const { data } = await queryFulfilled
+
+          if (!data) {
+            return
+          }
+
+          localStorage.setItem('accessToken', data.accessToken)
+          localStorage.setItem('refreshToken', data.refreshToken)
+        },
         query: body => {
           return {
             body,

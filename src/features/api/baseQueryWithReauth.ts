@@ -1,10 +1,12 @@
-// https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#preventing-multiple-unauthorized-errors
+// https://redux-toolkit.js.org/rtk-query/usage/customizing-queries#automatic-re-authorization-by-extending-fetchbasequery
 
-import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from '@reduxjs/toolkit/query'
+import {
+  type BaseQueryFn,
+  type FetchArgs,
+  type FetchBaseQueryError,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
-
-import { path } from '../../routes/path'
-import { router } from '../../routes/router'
 
 // create a new mutex
 const mutex = new Mutex()
@@ -40,7 +42,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 
       try {
         const refreshToken = localStorage.getItem('refreshToken')
-        const refreshResult: any = await baseQuery(
+        const refreshResult = (await baseQuery(
           {
             headers: {
               Authorization: `Bearer ${refreshToken}`,
@@ -50,7 +52,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           },
           api,
           extraOptions
-        )
+        )) as any
 
         if (refreshResult.data) {
           localStorage.setItem('accessToken', refreshResult.data.accessToken)
@@ -59,7 +61,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           // retry the initial query
           result = await baseQuery(args, api, extraOptions)
         } else {
-          await router.navigate(path.login)
+          // await router.navigate(path.login)
         }
       } finally {
         // release must be called once the mutex should be released again.
