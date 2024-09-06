@@ -51,21 +51,14 @@ export const DropdownItem = (props: ComponentPropsWithoutRef<typeof DropdownMenu
   return <DropdownMenuRadix.Item className={clsx(style.dropdownMenuItem, className)} {...rest} />
 }
 
-type DropdownLabelProps = { personalInfo: PersonalInfo } & ComponentPropsWithoutRef<
-  typeof DropdownMenuRadix.Label
->
-type PersonalInfo = {
+type DropdownLabelProps = {
   avatar?: string
-  email: string
-  name: string
-}
+  email?: string
+  name?: string
+} & ComponentPropsWithoutRef<typeof DropdownMenuRadix.Label>
 
 export const DropdownLabel = (props: DropdownLabelProps) => {
-  const {
-    className,
-    personalInfo: { avatar, email, name },
-    ...rest
-  } = props
+  const { avatar, className, email, name, ...rest } = props
 
   return (
     <DropdownMenuRadix.Label className={style.dropdownMenuLabel} {...rest}>

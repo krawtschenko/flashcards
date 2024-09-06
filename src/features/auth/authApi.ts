@@ -39,7 +39,8 @@ const authApi = baseApi.injectEndpoints({
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
 
-            dispatch(authApi.endpoints.me.initiate())
+            // Reset API state
+            dispatch(authApi.util.resetApiState())
           } catch (error) {
             console.error('Logout failed:', error)
           }

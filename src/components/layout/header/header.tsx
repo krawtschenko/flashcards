@@ -8,7 +8,11 @@ import { DropdownItem, DropdownLabel, DropdownMenu } from '../../ui/dropdownMenu
 import { Typography } from '../../ui/typography/typography'
 import { Container } from '../container/contaiter'
 
-type HeaderProps = { logout: () => void; personalInfo?: PersonalInfo }
+type HeaderProps = {
+  isAuthenticated: boolean
+  logout: () => void
+  personalInfo?: PersonalInfo
+}
 
 type PersonalInfo = {
   avatar?: string
@@ -16,36 +20,49 @@ type PersonalInfo = {
   name: string
 }
 
-export const Header = ({ logout, personalInfo }: HeaderProps) => {
+export const Header = ({ isAuthenticated, logout, personalInfo }: HeaderProps) => {
   return (
     <div className={style.header}>
       <Container className={style.container}>
         <Logo className={style.logo} />
 
-        {personalInfo ? (
-          <div className={style.info}>
-            <Typography className={style.name} variant={'subtitle1'}>
-              {personalInfo.name}
-            </Typography>
+        {isAuthenticated && <DropdownAvatar logout={logout} personalInfo={personalInfo} />}
 
-            <DropdownMenu avatar={personalInfo.avatar} variant={'avatar'}>
-              <DropdownLabel personalInfo={personalInfo} />
-
-              <DropdownItem>
-                <FiUser />
-                My Profile
-              </DropdownItem>
-
-              <DropdownItem onClick={logout}>
-                <FiLogOut />
-                Sign Out
-              </DropdownItem>
-            </DropdownMenu>
-          </div>
-        ) : (
-          <Button variant={'secondary'}>Sign In</Button>
-        )}
+        {!isAuthenticated && <Button variant={'secondary'}>Sign In</Button>}
       </Container>
+    </div>
+  )
+}
+
+type DropdownAvatarProps = {
+  logout: () => void
+  personalInfo?: PersonalInfo
+}
+
+const DropdownAvatar = ({ logout, personalInfo }: DropdownAvatarProps) => {
+  return (
+    <div className={style.info}>
+      <Typography className={style.name} variant={'subtitle1'}>
+        {personalInfo?.name}
+      </Typography>
+
+      <DropdownMenu avatar={personalInfo?.avatar} variant={'avatar'}>
+        <DropdownLabel
+          avatar={personalInfo?.avatar}
+          email={personalInfo?.email}
+          name={personalInfo?.name}
+        />
+
+        <DropdownItem>
+          <FiUser />
+          My Profile
+        </DropdownItem>
+
+        <DropdownItem onClick={logout}>
+          <FiLogOut />
+          Sign Out
+        </DropdownItem>
+      </DropdownMenu>
     </div>
   )
 }
