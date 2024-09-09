@@ -56,13 +56,11 @@ const DropdownAvatar = ({ logout, personalInfo }: DropdownAvatarProps) => {
         />
 
         <DropdownItem onClick={() => router.navigate(path.profile)}>
-          <FiUser />
-          My Profile
+          <FiUser /> My Profile
         </DropdownItem>
 
         <DropdownItem onClick={logout}>
-          <FiLogOut />
-          Sign Out
+          <FiLogOut /> Sign Out
         </DropdownItem>
       </DropdownMenu>
     </div>
