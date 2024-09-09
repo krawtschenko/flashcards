@@ -3,39 +3,26 @@ import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router
 import { Layout } from '../components/layout/layout'
 import { DecksPage } from '../pages/decksPage/decksPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
+import { ProfilePage } from '../pages/profilePage/profilePage'
 import { RegistrationPage } from '../pages/registrationPage/registrationPage'
 import { path } from './path'
 
 const publicRoutes: RouteObject[] = [
-  {
-    element: <LoginPage />,
-    path: path.login,
-  },
-  {
-    element: <RegistrationPage />,
-    path: path.registration,
-  },
+  { element: <LoginPage />, path: path.login },
+  { element: <RegistrationPage />, path: path.registration },
 ]
 
 const privateRoutes: RouteObject[] = [
-  {
-    element: <DecksPage />,
-    path: path.decks,
-  },
+  { element: <DecksPage />, path: path.decks },
+  { element: <ProfilePage />, path: path.profile },
 ]
 
 export const router = createBrowserRouter([
   { element: <Navigate to={path.decks} />, path: '/' },
   {
     children: [
-      {
-        children: privateRoutes,
-        element: <PrivateRoutes />,
-      },
-      {
-        children: publicRoutes,
-        element: <PublicRoutes />,
-      },
+      { children: privateRoutes, element: <PrivateRoutes /> },
+      { children: publicRoutes, element: <PublicRoutes /> },
     ],
     element: <Layout />,
   },

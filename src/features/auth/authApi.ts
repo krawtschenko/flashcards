@@ -1,5 +1,12 @@
 import { baseApi } from '../api/baseApi'
-import { Login, LoginResponse, Me, Registration, RegistrationResponse } from './authTypes'
+import {
+  Login,
+  LoginResponse,
+  Me,
+  Registration,
+  RegistrationResponse,
+  UpdateUser,
+} from './authTypes'
 
 const authApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -27,7 +34,7 @@ const authApi = baseApi.injectEndpoints({
           return {
             body,
             method: 'POST',
-            url: 'v1/auth/login',
+            url: '/v1/auth/login',
           }
         },
       }),
@@ -48,13 +55,13 @@ const authApi = baseApi.injectEndpoints({
         query: () => {
           return {
             method: 'POST',
-            url: 'v2/auth/logout',
+            url: '/v2/auth/logout',
           }
         },
       }),
       me: builder.query<Me, void>({
         providesTags: ['me'],
-        query: () => 'v1/auth/me',
+        query: () => '/v1/auth/me',
       }),
       registration: builder.mutation<RegistrationResponse, Registration>({
         query: body => {
@@ -65,14 +72,24 @@ const authApi = baseApi.injectEndpoints({
           }
         },
       }),
+      update: builder.mutation<Me, UpdateUser>({
+        invalidatesTags: ['me'],
+        query: body => {
+          return {
+            body,
+            method: 'PATCH',
+            url: '/v1/auth/me',
+          }
+        },
+      }),
     }
   },
 })
 
 export const {
-  useLazyMeQuery,
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,
   useRegistrationMutation,
+  useUpdateMutation,
 } = authApi

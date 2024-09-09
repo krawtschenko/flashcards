@@ -10,7 +10,7 @@ const decksApi = baseApi.injectEndpoints({
           return {
             body,
             method: 'POST',
-            url: 'v1/decks',
+            url: '/v1/decks',
           }
         },
       }),
@@ -19,7 +19,7 @@ const decksApi = baseApi.injectEndpoints({
         query: id => {
           return {
             method: 'DELETE',
-            url: `v1/decks/${id}`,
+            url: `/v1/decks/${id}`,
           }
         },
       }),
@@ -28,12 +28,12 @@ const decksApi = baseApi.injectEndpoints({
         query: args => {
           return {
             params: args ?? undefined,
-            url: 'v2/decks',
+            url: '/v2/decks',
           }
         },
       }),
       getMinMaxCards: builder.query<{ max: number; min: number }, void>({
-        query: () => 'v2/decks/min-max-cards',
+        query: () => '/v2/decks/min-max-cards',
       }),
     }
   },

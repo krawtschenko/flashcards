@@ -3,6 +3,8 @@ import { FiLogOut, FiUser } from 'react-icons/fi'
 import style from './header.module.scss'
 
 import { Logo } from '../../../assets/icons/logo/logo'
+import { path } from '../../../routes/path'
+import { router } from '../../../routes/router'
 import { Button } from '../../ui/button/button'
 import { DropdownItem, DropdownLabel, DropdownMenu } from '../../ui/dropdownMenu/dropdownMenu'
 import { Typography } from '../../ui/typography/typography'
@@ -24,7 +26,7 @@ export const Header = ({ isAuthenticated, logout, personalInfo }: HeaderProps) =
   return (
     <div className={style.header}>
       <Container className={style.container}>
-        <Logo className={style.logo} />
+        <Logo className={style.logo} onClick={() => router.navigate(path.decks)} />
 
         {isAuthenticated && <DropdownAvatar logout={logout} personalInfo={personalInfo} />}
 
@@ -53,7 +55,7 @@ const DropdownAvatar = ({ logout, personalInfo }: DropdownAvatarProps) => {
           name={personalInfo?.name}
         />
 
-        <DropdownItem>
+        <DropdownItem onClick={() => router.navigate(path.profile)}>
           <FiUser />
           My Profile
         </DropdownItem>

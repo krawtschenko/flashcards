@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { FiEdit3, FiLogOut } from 'react-icons/fi'
 import { z } from 'zod'
 
@@ -21,21 +22,23 @@ export type ProfileValue = z.infer<typeof profileSchema>
 
 type ProfileProps = {
   avatar?: string
-  email: string
-  name: string
-  onSubmit: (e: ProfileValue) => void
+  className?: string
+  email?: string
+  logout: () => void
+  name?: string
+  update: (e: ProfileValue) => void
 }
 
-export const Profile = ({ avatar, email, name, onSubmit }: ProfileProps) => {
+export const Profile = ({ avatar, className, email, logout, name, update }: ProfileProps) => {
   const [editable, setEditable] = useState(false)
 
-  const onSaveHandler = (e: ProfileValue) => {
-    onSubmit(e)
+  const onUpdateHandler = (e: ProfileValue) => {
+    update(e)
     setEditable(!editable)
   }
 
   return (
-    <Card className={style.card}>
+    <Card className={clsx(style.card, className)}>
       <Typography position={'center'} variant={'h1'}>
         Personal Information
       </Typography>
@@ -52,28 +55,34 @@ export const Profile = ({ avatar, email, name, onSubmit }: ProfileProps) => {
 
       {/*While not editable*/}
       {!editable && (
-        <NotEditable email={email} name={name} onClick={() => setEditable(!editable)} />
+        <NotEditable
+          email={email}
+          logout={logout}
+          name={name}
+          onEdit={() => setEditable(!editable)}
+        />
       )}
 
       {/*While editable*/}
-      {editable && <Editable name={name} onSave={onSaveHandler} />}
+      {editable && <Editable name={name} update={onUpdateHandler} />}
     </Card>
   )
 }
 
 type NotEditableProps = {
-  email: string
-  name: string
-  onClick: () => void
+  email?: string
+  logout: () => void
+  name?: string
+  onEdit: () => void
 }
 
-const NotEditable = ({ email, name, onClick }: NotEditableProps) => {
+const NotEditable = ({ email, logout, name, onEdit }: NotEditableProps) => {
   return (
     <>
       <div className={style.nameWrap}>
         <Typography variant={'h2'}>{name}</Typography>
 
-        <Button onClick={onClick}>
+        <Button onClick={onEdit}>
           <FiEdit3 />
         </Button>
       </div>
@@ -82,7 +91,7 @@ const NotEditable = ({ email, name, onClick }: NotEditableProps) => {
         {email}
       </Typography>
 
-      <Button className={style.logout} variant={'secondary'}>
+      <Button className={style.logout} onClick={logout} variant={'secondary'}>
         <FiLogOut />
         Logout
       </Button>
@@ -91,18 +100,18 @@ const NotEditable = ({ email, name, onClick }: NotEditableProps) => {
 }
 
 type EditableProps = {
-  name: string
-  onSave: (e: ProfileValue) => void
+  name?: string
+  update: (e: ProfileValue) => void
 }
 
-const Editable = ({ name, onSave }: EditableProps) => {
+const Editable = ({ name, update }: EditableProps) => {
   const { control, handleSubmit } = useForm<ProfileValue>({
     defaultValues: { name },
     resolver: zodResolver(profileSchema),
   })
 
   return (
-    <form className={style.form} onSubmit={handleSubmit(onSave)}>
+    <form className={style.form} onSubmit={handleSubmit(update)}>
       <ControlledTextField control={control} label={'Nickname'} name={'name'} />
 
       <Button fullWidth>Save Changes</Button>

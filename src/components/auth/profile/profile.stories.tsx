@@ -20,7 +20,7 @@ export const Primary = {
       <Profile
         email={'readytofight@fight.info'}
         name={name.name}
-        onSubmit={(e: ProfileValue) => setName(e)}
+        update={(e: ProfileValue) => setName(e)}
       />
     )
   },

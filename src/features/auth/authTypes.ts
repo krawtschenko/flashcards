@@ -29,3 +29,8 @@ export type RegistrationResponse = {
   id: string
   name: string
 }
+
+export type UpdateUser = {
+  avatar?: string
+  name?: string
+}
