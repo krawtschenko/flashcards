@@ -57,7 +57,13 @@ export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
           name={'rememberMe'}
         />
 
-        <Typography as={'a'} className={style.forgotLink} position={'end'} variant={'body2'}>
+        <Typography
+          as={Link}
+          className={style.forgotLink}
+          position={'end'}
+          to={path.recovery}
+          variant={'body2'}
+        >
           Forgot Password?
         </Typography>
 

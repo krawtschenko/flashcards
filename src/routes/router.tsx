@@ -4,12 +4,14 @@ import { Layout } from '../components/layout/layout'
 import { DecksPage } from '../pages/decksPage/decksPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
 import { ProfilePage } from '../pages/profilePage/profilePage'
+import { RecoveryPage } from '../pages/recoveryPage/recoveryPage'
 import { RegistrationPage } from '../pages/registrationPage/registrationPage'
 import { path } from './path'
 
 const publicRoutes: RouteObject[] = [
   { element: <LoginPage />, path: path.login },
   { element: <RegistrationPage />, path: path.registration },
+  { element: <RecoveryPage />, path: path.recovery },
 ]
 
 const privateRoutes: RouteObject[] = [
