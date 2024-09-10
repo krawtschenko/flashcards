@@ -27,7 +27,7 @@ export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
   const { control, handleSubmit } = useForm<LoginFormValues>({
     defaultValues: {
       email: 'eugenykravchenko@gmail.com',
-      password: '010982',
+      password: '159753',
       rememberMe: true,
     },
     resolver: zodResolver(loginSchema),

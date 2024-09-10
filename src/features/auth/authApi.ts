@@ -67,7 +67,10 @@ const authApi = baseApi.injectEndpoints({
       recovery: builder.mutation<void, { email: string }>({
         query: body => {
           return {
-            body,
+            body: {
+              html: "<h1>Hi, ##name##</h1><p>Click <a href='http://localhost:5173/recover-password/##token##'>here</a> to recover your password</p>",
+              ...body,
+            },
             method: 'POST',
             url: '/v1/auth/recover-password',
           }
