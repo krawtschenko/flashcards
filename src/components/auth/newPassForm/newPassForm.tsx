@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import style from './createPassForm.module.scss'
+import style from './newPassForm.module.scss'
 
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
@@ -14,7 +14,7 @@ const passSchema = z.object({
   password: z.string().min(1, 'Required').min(3),
 })
 
-export const CreatePassForm = ({ onSubmit }: { onSubmit: () => void }) => {
+export const NewPassForm = ({ onSubmit }: { onSubmit: () => void }) => {
   const { control, handleSubmit } = useForm<z.infer<typeof passSchema>>({
     defaultValues: { password: '' },
     resolver: zodResolver(passSchema),

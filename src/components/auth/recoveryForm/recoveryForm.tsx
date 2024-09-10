@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { Control, UseFormHandleSubmit, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,6 +8,7 @@ import { z } from 'zod'
 
 import style from './recoveryForm.module.scss'
 
+import { CheckEmail } from '../../../assets/icons/checkEmail'
 import { path } from '../../../routes/path'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
@@ -17,24 +19,55 @@ const recoverySchema = z.object({
   email: z.string().min(1, 'Required').email(),
 })
 
+type RecoveryFormValue = z.infer<typeof recoverySchema>
+
 type RecoveryFormProps = {
-  className: string
-  onSubmit: () => void
+  className?: string
+  onCheckEmail: (value: RecoveryFormValue) => void
 }
 
-export const RecoveryForm = ({ className, onSubmit }: RecoveryFormProps) => {
-  const { control, handleSubmit } = useForm<z.infer<typeof recoverySchema>>({
+export const RecoveryForm = ({ className, onCheckEmail }: RecoveryFormProps) => {
+  const { control, getValues, handleSubmit } = useForm<RecoveryFormValue>({
     defaultValues: { email: '' },
     resolver: zodResolver(recoverySchema),
   })
 
+  const [success, setSuccess] = useState(false)
+
+  const checkEmailHandler = (value: RecoveryFormValue) => {
+    onCheckEmail(value)
+    setSuccess(true)
+  }
+
   return (
     <Card className={clsx(style.card, className)}>
+      {!success && (
+        <EmailCheck
+          control={control}
+          handleSubmit={handleSubmit}
+          onCheckEmail={checkEmailHandler}
+        />
+      )}
+
+      {success && <Success email={getValues('email')} />}
+    </Card>
+  )
+}
+
+type EmailCheckProps = {
+  control: Control<RecoveryFormValue>
+  handleSubmit: UseFormHandleSubmit<RecoveryFormValue>
+  onCheckEmail: (value: RecoveryFormValue) => void
+}
+
+const EmailCheck = ({ control, handleSubmit, onCheckEmail }: EmailCheckProps) => {
+  return (
+    <>
       <Typography position={'center'} variant={'h1'}>
         Forgot your password?
       </Typography>
 
-      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={style.form} onSubmit={handleSubmit(onCheckEmail)}>
         <ControlledTextField control={control} label={'Email'} name={'email'} />
 
         <Typography className={style.instructions} position={'start'} variant={'body2'}>
@@ -59,6 +92,30 @@ export const RecoveryForm = ({ className, onSubmit }: RecoveryFormProps) => {
       >
         Try logging in
       </Typography>
-    </Card>
+    </>
+  )
+}
+
+type SuccessProps = {
+  email: string
+}
+
+const Success = ({ email }: SuccessProps) => {
+  return (
+    <>
+      <Typography position={'center'} variant={'h1'}>
+        Check Email
+      </Typography>
+
+      <CheckEmail className={style.icon} />
+
+      <Typography className={style.info} position={'center'} variant={'body2'}>
+        {`We’ve sent an Email with instructions to ${email}`}
+      </Typography>
+
+      <Button as={Link} className={style.buttonSubmitSuc} fullWidth to={path.login}>
+        Back to Sign In
+      </Button>
+    </>
   )
 }

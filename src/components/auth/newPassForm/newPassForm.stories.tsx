@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { CheckForm } from './checkForm'
+import { NewPassForm } from './newPassForm'
 
 const meta = {
-  component: CheckForm,
+  component: NewPassForm,
   tags: ['autodocs'],
-  title: 'Auth/CheckForm',
-} satisfies Meta<typeof CheckForm>
+  title: 'Auth/NewPassForm',
+} satisfies Meta<typeof NewPassForm>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  args: {},
+  args: { onSubmit: console.log },
 }

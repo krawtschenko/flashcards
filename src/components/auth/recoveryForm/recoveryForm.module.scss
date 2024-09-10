@@ -25,4 +25,19 @@
     color: var(--color-accent-500);
     text-decoration: underline;
   }
+
+  .icon {
+    display: block;
+    width: 96px;
+    margin: 28px auto 0;
+  }
+
+  .info {
+    margin-top: 20px;
+    color: var(--color-dark-100);
+  }
+
+  .buttonSubmitSuc {
+    margin-top: 68px;
+  }
 }
