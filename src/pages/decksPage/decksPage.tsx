@@ -10,6 +10,7 @@ import { Slider } from '../../components/ui/slider/slider'
 import { Tabs, TabsTrigger } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
+import { useMeQuery } from '../../features/auth/authApi'
 import { useCreateDeckMutation, useGetDecksQuery } from '../../features/decks/dekcsApi'
 import { useDeckParams } from '../../features/decks/useDeckParams'
 import { useDebounce } from '../../hooks/useDebounce'
@@ -18,6 +19,7 @@ import { DecksTable } from './decksTable/decksTable'
 export const DecksPage = () => {
   const {
     currentPage,
+    currentTab,
     itemsPerPage,
     maxCards,
     minCards,
@@ -26,6 +28,7 @@ export const DecksPage = () => {
     orderBy,
     range,
     setCurrentPage,
+    setCurrentTab,
     setItemsPerPage,
     setMaxCards,
     setMinCards,
@@ -34,7 +37,11 @@ export const DecksPage = () => {
     setRange,
   } = useDeckParams()
 
+  const [createDeck] = useCreateDeckMutation()
+  const { data: me } = useMeQuery()
+
   const { data: decks, isLoading } = useGetDecksQuery({
+    authorId: currentTab === 'my' ? me?.id : undefined,
     currentPage: currentPage !== 1 ? currentPage : undefined,
     itemsPerPage: itemsPerPage !== 10 ? itemsPerPage : undefined,
     maxCardsCount: maxCards !== minMax?.max ? maxCards : undefined,
@@ -42,8 +49,6 @@ export const DecksPage = () => {
     name: useDebounce(name) || undefined,
     orderBy: orderBy || undefined,
   })
-
-  const [createDeck] = useCreateDeckMutation()
 
   const onClearFilters = () => {
     setName('')
@@ -94,8 +99,12 @@ export const DecksPage = () => {
         />
 
         <Tabs className={style.tabs} defaultValue={'All Cards'} title={'Show decks cards'}>
-          <TabsTrigger value={'My Cards'}>My Cards</TabsTrigger>
-          <TabsTrigger value={'All Cards'}>All Cards</TabsTrigger>
+          <TabsTrigger onClick={() => setCurrentTab('my')} value={'My Cards'}>
+            My Cards
+          </TabsTrigger>
+          <TabsTrigger onClick={() => setCurrentTab('all')} value={'All Cards'}>
+            All Cards
+          </TabsTrigger>
         </Tabs>
 
         <Slider
