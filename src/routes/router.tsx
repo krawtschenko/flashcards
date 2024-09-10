@@ -1,7 +1,8 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
-import { Layout } from '../components/layout/layout'
+import { Root } from '../components/layout/root/root'
 import { DecksPage } from '../pages/decksPage/decksPage'
+import { ErrorPage } from '../pages/errorPage/errorPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
 import { ProfilePage } from '../pages/profilePage/profilePage'
 import { RecoveryPage } from '../pages/recoveryPage/recoveryPage'
@@ -25,8 +26,9 @@ export const router = createBrowserRouter([
     children: [
       { children: privateRoutes, element: <PrivateRoutes /> },
       { children: publicRoutes, element: <PublicRoutes /> },
+      { element: <ErrorPage />, path: '*' },
     ],
-    element: <Layout />,
+    element: <Root />,
   },
 ])
 

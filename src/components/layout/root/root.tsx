@@ -1,15 +1,15 @@
 import { Outlet } from 'react-router-dom'
 
-import style from './layout.module.scss'
+import style from './root.module.scss'
 
-import { useLogoutMutation, useMeQuery } from '../../features/auth/authApi'
-import { path } from '../../routes/path'
-import { router } from '../../routes/router'
-import { Loader } from '../ui/loader/loader'
-import { Container } from './container/contaiter'
-import { Header } from './header/header'
+import { useLogoutMutation, useMeQuery } from '../../../features/auth/authApi'
+import { path } from '../../../routes/path'
+import { router } from '../../../routes/router'
+import { Loader } from '../../ui/loader/loader'
+import { Container } from '../container/contaiter'
+import { Header } from '../header/header'
 
-export const Layout = () => {
+export const Root = () => {
   const { data: meData, isError, isLoading } = useMeQuery()
   const [logout] = useLogoutMutation()
 
