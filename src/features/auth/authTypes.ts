@@ -34,3 +34,8 @@ export type UpdateUser = {
   avatar?: string
   name?: string
 }
+
+export type resetPassBody = {
+  password: string
+  token: string
+}

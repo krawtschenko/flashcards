@@ -13,6 +13,6 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    onCheckEmail: console.log,
+    onRecovery: console.log,
   },
 }

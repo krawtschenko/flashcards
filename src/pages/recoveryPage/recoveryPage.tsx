@@ -1,7 +1,10 @@
 import style from './recoveryPage.module.scss'
 
 import { RecoveryForm } from '../../components/auth/recoveryForm/recoveryForm'
+import { useRecoveryMutation } from '../../features/auth/authApi'
 
 export const RecoveryPage = () => {
-  return <RecoveryForm className={style.recoveryPage} onCheckEmail={console.log} />
+  const [recovery] = useRecoveryMutation()
+
+  return <RecoveryForm className={style.recoveryPage} onRecovery={recovery} />
 }

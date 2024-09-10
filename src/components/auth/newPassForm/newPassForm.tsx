@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { z } from 'zod'
 
 import style from './newPassForm.module.scss'
@@ -14,19 +16,31 @@ const passSchema = z.object({
   password: z.string().min(1, 'Required').min(3),
 })
 
-export const NewPassForm = ({ onSubmit }: { onSubmit: () => void }) => {
-  const { control, handleSubmit } = useForm<z.infer<typeof passSchema>>({
+type NewPassFormValue = z.infer<typeof passSchema>
+
+type NewPassFormProps = {
+  className?: string
+  onReset: (value: { password: string; token: string }) => void
+}
+
+export const NewPassForm = ({ className, onReset }: NewPassFormProps) => {
+  const { control, handleSubmit } = useForm<NewPassFormValue>({
     defaultValues: { password: '' },
     resolver: zodResolver(passSchema),
   })
 
+  const { token } = useParams()
+
   return (
-    <Card className={style.card}>
+    <Card className={clsx(style.card, className)}>
       <Typography position={'center'} variant={'h1'}>
         Create new password
       </Typography>
 
-      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={style.form}
+        onSubmit={handleSubmit(({ password }) => onReset({ password, token: token ? token : '' }))}
+      >
         <ControlledTextField
           control={control}
           label={'Password'}

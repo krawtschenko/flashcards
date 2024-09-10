@@ -4,6 +4,7 @@ import { Root } from '../components/layout/root/root'
 import { DecksPage } from '../pages/decksPage/decksPage'
 import { ErrorPage } from '../pages/errorPage/errorPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
+import { NewPassPage } from '../pages/newPassPage/newPassPage'
 import { ProfilePage } from '../pages/profilePage/profilePage'
 import { RecoveryPage } from '../pages/recoveryPage/recoveryPage'
 import { RegistrationPage } from '../pages/registrationPage/registrationPage'
@@ -13,6 +14,7 @@ const publicRoutes: RouteObject[] = [
   { element: <LoginPage />, path: path.login },
   { element: <RegistrationPage />, path: path.registration },
   { element: <RecoveryPage />, path: path.recovery },
+  { element: <NewPassPage />, path: path.newPassword },
 ]
 
 const privateRoutes: RouteObject[] = [

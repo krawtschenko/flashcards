@@ -6,6 +6,7 @@ import {
   Registration,
   RegistrationResponse,
   UpdateUser,
+  resetPassBody,
 } from './authTypes'
 
 const authApi = baseApi.injectEndpoints({
@@ -63,12 +64,30 @@ const authApi = baseApi.injectEndpoints({
         providesTags: ['me'],
         query: () => '/v1/auth/me',
       }),
+      recovery: builder.mutation<void, { email: string }>({
+        query: body => {
+          return {
+            body,
+            method: 'POST',
+            url: '/v1/auth/recover-password',
+          }
+        },
+      }),
       registration: builder.mutation<RegistrationResponse, Registration>({
         query: body => {
           return {
             body,
             method: 'POST',
             url: 'v1/auth/sign-up',
+          }
+        },
+      }),
+      resetPassword: builder.mutation<void, resetPassBody>({
+        query: ({ token, ...body }) => {
+          return {
+            body,
+            method: 'POST',
+            url: `/v1/auth/reset-password/${token}`,
           }
         },
       }),
@@ -90,6 +109,8 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,
+  useRecoveryMutation,
   useRegistrationMutation,
+  useResetPasswordMutation,
   useUpdateMutation,
 } = authApi
