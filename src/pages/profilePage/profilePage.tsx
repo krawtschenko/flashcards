@@ -1,6 +1,6 @@
 import style from './profilePage.module.scss'
 
-import { Profile } from '../../components/auth/profile/profile'
+import { Profile } from '../../components/layout/profile/profile'
 import { useLogoutMutation, useMeQuery, useUpdateMutation } from '../../features/auth/authApi'
 
 export const ProfilePage = () => {

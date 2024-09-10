@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
-import { FiEdit3, FiLogOut } from 'react-icons/fi'
+import { FiArrowLeft, FiEdit3, FiLogOut } from 'react-icons/fi'
 import { z } from 'zod'
 
 import style from './profile.module.scss'
@@ -39,6 +39,12 @@ export const Profile = ({ avatar, className, email, logout, name, update }: Prof
 
   return (
     <Card className={clsx(style.card, className)}>
+      {editable && (
+        <Button className={style.back} onClick={() => setEditable(false)}>
+          <FiArrowLeft />
+        </Button>
+      )}
+
       <Typography position={'center'} variant={'h1'}>
         Personal Information
       </Typography>

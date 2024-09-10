@@ -7,7 +7,7 @@ import { Profile, ProfileValue } from './profile'
 const meta = {
   component: Profile,
   tags: ['autodocs'],
-  title: 'Auth/Profile',
+  title: 'Layout/Profile',
 } satisfies Meta<typeof Profile>
 
 export default meta
@@ -19,6 +19,7 @@ export const Primary = {
     return (
       <Profile
         email={'readytofight@fight.info'}
+        logout={() => {}}
         name={name.name}
         update={(e: ProfileValue) => setName(e)}
       />
