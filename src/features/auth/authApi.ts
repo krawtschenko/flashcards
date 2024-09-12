@@ -65,11 +65,11 @@ const authApi = baseApi.injectEndpoints({
         query: () => '/v1/auth/me',
       }),
       recovery: builder.mutation<void, { email: string }>({
-        query: body => {
+        query: ({ email }) => {
           return {
             body: {
+              email,
               html: "<h1>Hi, ##name##</h1><p>Click <a href='http://localhost:5173/recover-password/##token##'>here</a> to recover your password</p>",
-              ...body,
             },
             method: 'POST',
             url: '/v1/auth/recover-password',
@@ -104,6 +104,18 @@ const authApi = baseApi.injectEndpoints({
           }
         },
       }),
+      verify: builder.mutation<void, { userId?: string }>({
+        query: ({ userId }) => {
+          return {
+            body: {
+              html: `<h1>Hi, ##name##</h1><p>Please confirm your email by clicking on the link below <a href='http://localhost:5173/confirm-email/##token##'>here</a></p>`,
+              userId,
+            },
+            method: 'POST',
+            url: '/v1/auth/resend-verification-email',
+          }
+        },
+      }),
     }
   },
 })
@@ -116,4 +128,5 @@ export const {
   useRegistrationMutation,
   useResetPasswordMutation,
   useUpdateMutation,
+  useVerifyMutation,
 } = authApi

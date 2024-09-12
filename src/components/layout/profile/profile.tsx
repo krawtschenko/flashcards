@@ -29,10 +29,11 @@ type ProfileProps = {
   logout: () => void
   name?: string
   update: (e: ProfileValue) => void
+  verify: () => void
 }
 
 export const Profile = (props: ProfileProps) => {
-  const { avatar, className, email, isEmailVerified, logout, name, update } = props
+  const { avatar, className, email, isEmailVerified, logout, name, update, verify } = props
   const [editable, setEditable] = useState(false)
 
   const onUpdateHandler = (e: ProfileValue) => {
@@ -78,6 +79,7 @@ export const Profile = (props: ProfileProps) => {
           logout={logout}
           name={name}
           onEdit={() => setEditable(!editable)}
+          verify={verify}
         />
       )}
 
@@ -93,9 +95,17 @@ type NotEditableProps = {
   logout: () => void
   name?: string
   onEdit: () => void
+  verify: () => void
 }
 
-const NotEditable = ({ email, isEmailVerified, logout, name, onEdit }: NotEditableProps) => {
+const NotEditable = ({
+  email,
+  isEmailVerified,
+  logout,
+  name,
+  onEdit,
+  verify,
+}: NotEditableProps) => {
   return (
     <>
       <div className={style.nameWrap}>
@@ -116,7 +126,7 @@ const NotEditable = ({ email, isEmailVerified, logout, name, onEdit }: NotEditab
             <VscVerifiedFilled />
           </Button>
         ) : (
-          <Button className={style.unverified} title={'Email is not verified'}>
+          <Button className={style.unverified} onClick={verify} title={'Email is not verified'}>
             <VscUnverified />
           </Button>
         )}
