@@ -26,8 +26,8 @@ export type LoginFormValues = z.infer<typeof loginSchema>
 export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
   const { control, handleSubmit } = useForm<LoginFormValues>({
     defaultValues: {
-      email: 'eugenykravchenko@gmail.com',
-      password: '159753',
+      email: 'kravchenko.eugene@outlook.com',
+      password: '12345',
       rememberMe: true,
     },
     resolver: zodResolver(loginSchema),

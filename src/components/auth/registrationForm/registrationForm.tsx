@@ -30,10 +30,13 @@ const signUpSchema = z
     }
   )
 
-type RegistrationProps = { className?: string; onSubmit: (value: Registration) => void }
+type RegistrationProps = {
+  className?: string
+  registration: (value: Registration) => void
+}
 type RegistrationValues = z.infer<typeof signUpSchema>
 
-export const RegistrationForm = ({ className, onSubmit }: RegistrationProps) => {
+export const RegistrationForm = ({ className, registration }: RegistrationProps) => {
   const { control, handleSubmit } = useForm<RegistrationValues>({
     defaultValues: { confirmPassword: '', email: '', password: '' },
     resolver: zodResolver(signUpSchema),
@@ -47,7 +50,7 @@ export const RegistrationForm = ({ className, onSubmit }: RegistrationProps) => 
 
       <form
         className={style.form}
-        onSubmit={handleSubmit(({ email, password }) => onSubmit({ email, password }))}
+        onSubmit={handleSubmit(({ email, password }) => registration({ email, password }))}
       >
         <ControlledTextField control={control} label={'Email'} name={'email'} />
 
