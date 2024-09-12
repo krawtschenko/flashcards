@@ -1,7 +1,9 @@
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { FiChevronDown, FiChevronUp, FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
 
 import style from './decksTable.module.scss'
 
+import coverImg from '../../../assets/images/cover.png'
+import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
 import { useDeleteDeckMutation } from '../../../features/decks/dekcsApi'
@@ -9,11 +11,12 @@ import { useDeleteDeckMutation } from '../../../features/decks/dekcsApi'
 type DecksTableProps = {
   className?: string
   decks?: Deck[]
+  meId?: string
   orderBy: null | string
   setOrderBy: (orderBy: null | string) => void
 }
 
-export const DecksTable = ({ className, decks, orderBy, setOrderBy }: DecksTableProps) => {
+export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: DecksTableProps) => {
   const [deleteDeck] = useDeleteDeckMutation()
 
   const handleSort = (column: string) => {
@@ -59,17 +62,36 @@ export const DecksTable = ({ className, decks, orderBy, setOrderBy }: DecksTable
       <Tbody>
         {decks?.map(deck => {
           const updatedAt = new Date(deck.updated).toLocaleDateString('ru-RU')
+          const name = deck.name.length > 30 ? `${deck.name.slice(0, 27)}...` : deck.name
+          const cover = deck.cover || coverImg
+
+          const isDisabled = meId !== deck.author.id
 
           return (
             <Tr key={deck.id}>
-              <Td className={style.tdName}>{deck.name}</Td>
+              <Td className={style.tdName}>
+                <div>
+                  <img alt={'cover'} src={cover} />
+                  {name}
+                </div>
+              </Td>
               <Td className={style.tdCards}>{deck.cardsCount}</Td>
               <Td>{updatedAt}</Td>
               <Td className={style.tdAuthor}>{deck.author.name}</Td>
               <Td className={style.tdActions}>
-                <button onClick={() => deleteDeck(deck.id)} type={'button'}>
-                  delete
-                </button>
+                <div>
+                  <Button>
+                    <FiPlayCircle />
+                  </Button>
+
+                  <Button disabled={isDisabled}>
+                    <FiEdit />
+                  </Button>
+
+                  <Button disabled={isDisabled} onClick={() => deleteDeck(deck.id)}>
+                    <FiTrash />
+                  </Button>
+                </div>
               </Td>
             </Tr>
           )

@@ -6,7 +6,7 @@ import { FiMoreVertical } from 'react-icons/fi'
 
 import style from './dropdownMenu.module.scss'
 
-import altAvatar from '../../../assets/images/avatar.png'
+import altAvatar from '../../../assets/images/no-photo.svg'
 import { Typography } from '../typography/typography'
 
 type DropdownMenuProps = { avatar?: string; variant: 'avatar' | 'icon' } & ComponentPropsWithoutRef<

@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
-import { FiArrowLeft, FiEdit3, FiLogOut } from 'react-icons/fi'
+import { FiArrowLeft, FiEdit3, FiLogOut, FiTrash2 } from 'react-icons/fi'
 import { z } from 'zod'
 
 import style from './profile.module.scss'
 
-import altAvatar from '../../../assets/images/avatar.png'
+import noAvatar from '../../../assets/images/no-photo.svg'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { ControlledTextField } from '../../ui/textField/controlledTextField'
@@ -50,12 +50,20 @@ export const Profile = ({ avatar, className, email, logout, name, update }: Prof
       </Typography>
 
       <div className={style.avatarWrap}>
-        <img alt={'avatar'} src={avatar ?? altAvatar} />
+        <img alt={'avatar'} src={avatar ?? noAvatar} />
 
         {editable && (
-          <Button variant={'secondary'}>
-            <FiEdit3 />
-          </Button>
+          <>
+            {avatar && (
+              <Button className={style.deleteAvatar} variant={'secondary'}>
+                <FiTrash2 />
+              </Button>
+            )}
+
+            <Button className={style.newAvatar} variant={'secondary'}>
+              <FiEdit3 />
+            </Button>
+          </>
         )}
       </div>
 

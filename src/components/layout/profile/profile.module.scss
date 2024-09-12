@@ -29,14 +29,25 @@
       border-radius: 100%;
     }
 
-    button {
+    .deleteAvatar,
+    .newAvatar {
       position: absolute;
       right: 3px;
-      bottom: 6px;
-
       padding: 4px;
-
       font-size: 16px;
+    }
+
+    .deleteAvatar {
+      top: 6px;
+      background-color: var(--color-danger-500);
+
+      &:hover {
+        background-color: var(--color-danger-300);
+      }
+    }
+
+    .newAvatar {
+      bottom: 6px;
     }
   }
 

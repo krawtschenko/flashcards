@@ -124,6 +124,7 @@ export const DecksPage = () => {
       <DecksTable
         className={style.decksTable}
         decks={decks?.items}
+        meId={me?.id}
         orderBy={orderBy}
         setOrderBy={setOrderBy}
       />
