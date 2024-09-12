@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { FiArrowLeft, FiEdit3, FiLogOut, FiTrash2 } from 'react-icons/fi'
+import { VscUnverified, VscVerifiedFilled } from 'react-icons/vsc'
 import { z } from 'zod'
 
 import style from './profile.module.scss'
@@ -24,12 +25,14 @@ type ProfileProps = {
   avatar?: string
   className?: string
   email?: string
+  isEmailVerified?: boolean
   logout: () => void
   name?: string
   update: (e: ProfileValue) => void
 }
 
-export const Profile = ({ avatar, className, email, logout, name, update }: ProfileProps) => {
+export const Profile = (props: ProfileProps) => {
+  const { avatar, className, email, isEmailVerified, logout, name, update } = props
   const [editable, setEditable] = useState(false)
 
   const onUpdateHandler = (e: ProfileValue) => {
@@ -71,6 +74,7 @@ export const Profile = ({ avatar, className, email, logout, name, update }: Prof
       {!editable && (
         <NotEditable
           email={email}
+          isEmailVerified={isEmailVerified}
           logout={logout}
           name={name}
           onEdit={() => setEditable(!editable)}
@@ -85,12 +89,13 @@ export const Profile = ({ avatar, className, email, logout, name, update }: Prof
 
 type NotEditableProps = {
   email?: string
+  isEmailVerified?: boolean
   logout: () => void
   name?: string
   onEdit: () => void
 }
 
-const NotEditable = ({ email, logout, name, onEdit }: NotEditableProps) => {
+const NotEditable = ({ email, isEmailVerified, logout, name, onEdit }: NotEditableProps) => {
   return (
     <>
       <div className={style.nameWrap}>
@@ -101,9 +106,21 @@ const NotEditable = ({ email, logout, name, onEdit }: NotEditableProps) => {
         </Button>
       </div>
 
-      <Typography className={style.email} position={'center'} variant={'body2'}>
-        {email}
-      </Typography>
+      <div className={style.emailWrap}>
+        <Typography className={style.email} position={'center'} variant={'body2'}>
+          {email}
+        </Typography>
+
+        {isEmailVerified ? (
+          <Button className={style.verified} title={'Email is verified'}>
+            <VscVerifiedFilled />
+          </Button>
+        ) : (
+          <Button className={style.unverified} title={'Email is not verified'}>
+            <VscUnverified />
+          </Button>
+        )}
+      </div>
 
       <Button className={style.logout} onClick={logout} variant={'secondary'}>
         <FiLogOut />

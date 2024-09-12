@@ -67,9 +67,34 @@
     }
   }
 
-  .email {
+  .emailWrap {
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+
     margin-top: 16px;
-    color: var(--color-dark-100);
+
+    .email {
+      color: var(--color-dark-100);
+    }
+
+    .unverified,
+    .verified {
+      padding: unset;
+      font-size: 20px;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    .unverified {
+      color: orangered;
+    }
+
+    .verified {
+      cursor: default;
+      color: green;
+    }
   }
 
   .logout {
