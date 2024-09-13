@@ -7,12 +7,17 @@ import { router } from '../../routes/router'
 
 export const VerifyPage = () => {
   const { data: me } = useMeQuery()
-  const [confirmEmail] = useConfirmEmailMutation()
+  const [confirmEmail, { isSuccess }] = useConfirmEmailMutation()
 
   const confirmEmailHandler = async (value: VerifyFormValue) => {
     try {
       await confirmEmail(value)
-      await router.navigate(path.profile)
+
+      if (isSuccess) {
+        await router.navigate(path.profile)
+      } else {
+        alert('Error')
+      }
     } catch (error) {
       alert(error)
     }

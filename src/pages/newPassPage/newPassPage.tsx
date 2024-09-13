@@ -6,12 +6,17 @@ import { path } from '../../routes/path'
 import { router } from '../../routes/router'
 
 export const NewPassPage = () => {
-  const [resetPassword] = useResetPasswordMutation()
+  const [resetPassword, { isSuccess }] = useResetPasswordMutation()
 
   const resetPasswordHandler = async (value: { password: string; token: string }) => {
     try {
       await resetPassword(value)
-      await router.navigate(path.login)
+
+      if (isSuccess) {
+        await router.navigate(path.login)
+      } else {
+        alert('Error')
+      }
     } catch (error) {
       /* empty */
     }

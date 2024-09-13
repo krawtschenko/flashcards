@@ -6,12 +6,17 @@ import { path } from '../../routes/path'
 import { router } from '../../routes/router'
 
 export const LoginPage = () => {
-  const [login] = useLoginMutation()
+  const [login, { isSuccess }] = useLoginMutation()
 
   const onSubmit = async (value: LoginFormValues) => {
     try {
       await login(value)
-      await router.navigate(path.decks)
+
+      if (isSuccess) {
+        await router.navigate(path.decks)
+      } else {
+        alert('Error')
+      }
     } catch (error) {
       /* empty */
     }
