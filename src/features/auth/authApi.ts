@@ -12,6 +12,16 @@ import {
 const authApi = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
+      confirmEmail: builder.mutation<void, { code: string }>({
+        invalidatesTags: ['me'],
+        query: body => {
+          return {
+            body,
+            method: 'POST',
+            url: '/v1/auth/verify-email',
+          }
+        },
+      }),
       login: builder.mutation<LoginResponse, Login>({
         async onQueryStarted(_, { dispatch, queryFulfilled }) {
           try {
@@ -108,7 +118,7 @@ const authApi = baseApi.injectEndpoints({
         query: ({ userId }) => {
           return {
             body: {
-              html: `<h1>Hi, ##name##</h1><p>Please confirm your email by clicking on the link below <a href='http://localhost:5173/confirm-email/##token##'>here</a></p>`,
+              html: '\n <div>\n <h1 style="margin-top:0;color:#333333;font-size:24px;font-weight:bold;text-align:left">\n Thanks for signing up for, ##name##!\n  </h1>\n\n  <p style="color:#51545e;margin:0.4em 0 1.1875em;font-size:16px;line-height:1.625">\n    We\'re happy you\'re here. Let\'s get your email address <span class="il">verified</span>:\n  </p>\n\n  <p style="color:#51545e;margin:0.4em 0 1.1875em;font-size:16px;line-height:1.625">Your <span class="il">code</span>:</p>\n\n  <h2 style="margin-top:0;margin-bottom:0.4em;color:#333333;font-size:20px;font-weight:bold;text-align:left">\n ##token##\n </h2>\n\n</div>\n',
               subject: 'verify',
               userId,
             },
@@ -122,6 +132,7 @@ const authApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useConfirmEmailMutation,
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,

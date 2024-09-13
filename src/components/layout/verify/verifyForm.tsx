@@ -15,15 +15,15 @@ import { ControlledTextField } from '../../ui/textField/controlledTextField'
 import { Typography } from '../../ui/typography/typography'
 
 const verifySchema = z.object({
-  code: z.string().min(1, 'Required'),
+  code: z.string().uuid(),
 })
 
-type VerifyFormValue = z.infer<typeof verifySchema>
+export type VerifyFormValue = z.infer<typeof verifySchema>
 
 type VerifyProps = {
   className?: string
   email?: string
-  verify: () => void
+  verify: (value: VerifyFormValue) => void
 }
 export const VerifyForm = ({ className, email, verify }: VerifyProps) => {
   const { control, handleSubmit } = useForm<VerifyFormValue>({

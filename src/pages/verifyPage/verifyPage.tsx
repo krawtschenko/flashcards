@@ -1,10 +1,22 @@
 import style from './verifyPage.module.scss'
 
-import { VerifyForm } from '../../components/layout/verify/verifyForm'
-import { useMeQuery } from '../../features/auth/authApi'
+import { VerifyForm, VerifyFormValue } from '../../components/layout/verify/verifyForm'
+import { useConfirmEmailMutation, useMeQuery } from '../../features/auth/authApi'
+import { path } from '../../routes/path'
+import { router } from '../../routes/router'
 
 export const VerifyPage = () => {
   const { data: me } = useMeQuery()
+  const [confirmEmail] = useConfirmEmailMutation()
 
-  return <VerifyForm className={style.verifyPage} email={me?.email} verify={console.log} />
+  const confirmEmailHandler = async (value: VerifyFormValue) => {
+    try {
+      await confirmEmail(value)
+      await router.navigate(path.profile)
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  return <VerifyForm className={style.verifyPage} email={me?.email} verify={confirmEmailHandler} />
 }

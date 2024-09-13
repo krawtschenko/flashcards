@@ -21,7 +21,7 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   { element: <DecksPage />, path: path.decks },
   { element: <ProfilePage />, path: path.profile },
-  { element: <VerifyPage />, path: path.verify },
+  { element: <VerifyPage />, path: path.confirmEmail },
 ]
 
 export const router = createBrowserRouter([
