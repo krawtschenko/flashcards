@@ -4,7 +4,7 @@ import { RecoveryForm } from '../../components/auth/recoveryForm/recoveryForm'
 import { useRecoveryMutation } from '../../features/auth/authApi'
 
 export const RecoveryPage = () => {
-  const [recovery] = useRecoveryMutation()
+  const [recovery, { isSuccess }] = useRecoveryMutation()
 
-  return <RecoveryForm className={style.recoveryPage} onRecovery={recovery} />
+  return <RecoveryForm className={style.recoveryPage} isSuccess={isSuccess} onRecovery={recovery} />
 }

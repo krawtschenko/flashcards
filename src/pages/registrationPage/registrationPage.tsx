@@ -7,12 +7,17 @@ import { path } from '../../routes/path'
 import { router } from '../../routes/router'
 
 export const RegistrationPage = () => {
-  const [registration] = useRegistrationMutation()
+  const [registration, { isSuccess }] = useRegistrationMutation()
 
   const registrationHandler = async (value: Registration) => {
     try {
       await registration(value)
-      await router.navigate(path.login)
+
+      if (isSuccess) {
+        await router.navigate(path.login)
+      } else {
+        alert('Error')
+      }
     } catch (error) {
       alert(error)
     }
