@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 import style from './root.module.scss'
 
@@ -32,6 +33,16 @@ export const Root = () => {
       <Container>
         <Outlet />
       </Container>
+      <ToastContainer
+        autoClose={5000}
+        closeOnClick
+        hideProgressBar={false}
+        newestOnTop={false}
+        pauseOnHover
+        position={'bottom-left'}
+        rtl={false}
+        theme={'dark'}
+      />
     </>
   )
 }
