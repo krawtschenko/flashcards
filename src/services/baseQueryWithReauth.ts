@@ -8,9 +8,6 @@ import {
 } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
 
-import { path } from '../routes/path'
-import { router } from '../routes/router'
-
 // create a new mutex
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({

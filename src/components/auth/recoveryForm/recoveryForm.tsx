@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Control, UseFormHandleSubmit, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
@@ -19,33 +18,27 @@ const recoverySchema = z.object({
   email: z.string().min(1, 'Required').email(),
 })
 
-type RecoveryFormValue = z.infer<typeof recoverySchema>
+export type RecoveryFormValue = z.infer<typeof recoverySchema>
 
 type RecoveryFormProps = {
   className?: string
+  isSuccess: boolean
   recovery: (value: RecoveryFormValue) => void
 }
 
-export const RecoveryForm = ({ className, recovery }: RecoveryFormProps) => {
+export const RecoveryForm = ({ className, isSuccess, recovery }: RecoveryFormProps) => {
   const { control, getValues, handleSubmit } = useForm<RecoveryFormValue>({
     defaultValues: { email: '' },
     resolver: zodResolver(recoverySchema),
   })
 
-  const [success, setSuccess] = useState(false)
-
-  const recoveryHandler = (value: RecoveryFormValue) => {
-    recovery(value)
-    setSuccess(true)
-  }
-
   return (
     <Card className={clsx(style.card, className)}>
-      {!success && (
-        <EmailCheck control={control} handleSubmit={handleSubmit} onRecovery={recoveryHandler} />
+      {!isSuccess && (
+        <EmailCheck control={control} handleSubmit={handleSubmit} recovery={recovery} />
       )}
 
-      {success && <Success email={getValues('email')} />}
+      {isSuccess && <Success email={getValues('email')} />}
     </Card>
   )
 }
@@ -53,17 +46,17 @@ export const RecoveryForm = ({ className, recovery }: RecoveryFormProps) => {
 type EmailCheckProps = {
   control: Control<RecoveryFormValue>
   handleSubmit: UseFormHandleSubmit<RecoveryFormValue>
-  onRecovery: (value: RecoveryFormValue) => void
+  recovery: (value: RecoveryFormValue) => void
 }
 
-const EmailCheck = ({ control, handleSubmit, onRecovery }: EmailCheckProps) => {
+const EmailCheck = ({ control, handleSubmit, recovery }: EmailCheckProps) => {
   return (
     <>
       <Typography position={'center'} variant={'h1'}>
         Forgot your password?
       </Typography>
 
-      <form className={style.form} onSubmit={handleSubmit(onRecovery)}>
+      <form className={style.form} onSubmit={handleSubmit(recovery)}>
         <ControlledTextField control={control} label={'Email'} name={'email'} />
 
         <Typography className={style.instructions} position={'start'} variant={'body2'}>

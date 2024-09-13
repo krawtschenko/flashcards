@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import style from './loginPage.module.scss'
 
 import { LoginForm, LoginFormValues } from '../../components/auth/loginForm/loginForm'
@@ -10,10 +12,10 @@ export const LoginPage = () => {
 
   const loginHandler = async (value: LoginFormValues) => {
     try {
-      await login(value)
+      await login(value).unwrap()
       await router.navigate(path.decks)
-    } catch (error) {
-      /* empty */
+    } catch (error: any) {
+      toast.error(error?.data?.message ?? 'Could not sign in')
     }
   }
 

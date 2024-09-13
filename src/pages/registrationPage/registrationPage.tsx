@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import style from './registrationPage.module.scss'
 
 import { RegistrationForm } from '../../components/auth/registrationForm/registrationForm'
@@ -11,10 +13,11 @@ export const RegistrationPage = () => {
 
   const registrationHandler = async (value: Registration) => {
     try {
-      await registration(value)
+      await registration(value).unwrap()
       await router.navigate(path.login)
-    } catch (error) {
-      alert(error)
+      toast.success('Registration successful')
+    } catch (error: any) {
+      toast.error(error.data.errorMessages[0] ?? 'Could not sign up')
     }
   }
 

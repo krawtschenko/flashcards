@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import style from './newPassPage.module.scss'
 
 import { NewPassForm } from '../../components/auth/newPassForm/newPassForm'
@@ -10,10 +12,11 @@ export const NewPassPage = () => {
 
   const resetPasswordHandler = async (value: { password: string; token: string }) => {
     try {
-      await resetPassword(value)
+      await resetPassword(value).unwrap()
+      toast.success('Password successfully changed')
       await router.navigate(path.login)
-    } catch (error) {
-      /* empty */
+    } catch (error: any) {
+      toast.error('Something went wrong')
     }
   }
 

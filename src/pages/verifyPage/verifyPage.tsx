@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import style from './verifyPage.module.scss'
 
 import { VerifyForm, VerifyFormValue } from '../../components/layout/verify/verifyForm'
@@ -11,10 +13,11 @@ export const VerifyPage = () => {
 
   const confirmEmailHandler = async (value: VerifyFormValue) => {
     try {
-      await confirmEmail(value)
+      await confirmEmail(value).unwrap()
+      toast.success('Email successfully confirmed')
       await router.navigate(path.profile)
     } catch (error) {
-      alert(error)
+      toast.error('Something went wrong')
     }
   }
 
