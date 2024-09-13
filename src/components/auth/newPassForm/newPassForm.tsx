@@ -20,10 +20,10 @@ type NewPassFormValue = z.infer<typeof passSchema>
 
 type NewPassFormProps = {
   className?: string
-  onReset: (value: { password: string; token: string }) => void
+  resetPassword: (value: { password: string; token: string }) => void
 }
 
-export const NewPassForm = ({ className, onReset }: NewPassFormProps) => {
+export const NewPassForm = ({ className, resetPassword }: NewPassFormProps) => {
   const { control, handleSubmit } = useForm<NewPassFormValue>({
     defaultValues: { password: '' },
     resolver: zodResolver(passSchema),
@@ -39,7 +39,9 @@ export const NewPassForm = ({ className, onReset }: NewPassFormProps) => {
 
       <form
         className={style.form}
-        onSubmit={handleSubmit(({ password }) => onReset({ password, token: token ? token : '' }))}
+        onSubmit={handleSubmit(({ password }) =>
+          resetPassword({ password, token: token ? token : '' })
+        )}
       >
         <ControlledTextField
           control={control}

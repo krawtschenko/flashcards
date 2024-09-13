@@ -6,21 +6,16 @@ import { path } from '../../routes/path'
 import { router } from '../../routes/router'
 
 export const LoginPage = () => {
-  const [login, { isSuccess }] = useLoginMutation()
+  const [login] = useLoginMutation()
 
-  const onSubmit = async (value: LoginFormValues) => {
+  const loginHandler = async (value: LoginFormValues) => {
     try {
       await login(value)
-
-      if (isSuccess) {
-        await router.navigate(path.decks)
-      } else {
-        alert('Error')
-      }
+      await router.navigate(path.decks)
     } catch (error) {
       /* empty */
     }
   }
 
-  return <LoginForm className={style.loginPage} onSubmit={onSubmit} />
+  return <LoginForm className={style.loginPage} login={loginHandler} />
 }

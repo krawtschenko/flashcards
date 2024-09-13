@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
@@ -8,7 +7,6 @@ import { z } from 'zod'
 import style from './verifyForm.module.scss'
 
 import { CheckEmail } from '../../../assets/icons/checkEmail'
-import { path } from '../../../routes/path'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { ControlledTextField } from '../../ui/textField/controlledTextField'
@@ -22,10 +20,10 @@ export type VerifyFormValue = z.infer<typeof verifySchema>
 
 type VerifyProps = {
   className?: string
+  confirmEmail: (value: VerifyFormValue) => void
   email?: string
-  verify: (value: VerifyFormValue) => void
 }
-export const VerifyForm = ({ className, email, verify }: VerifyProps) => {
+export const VerifyForm = ({ className, confirmEmail, email }: VerifyProps) => {
   const { control, handleSubmit } = useForm<VerifyFormValue>({
     defaultValues: { code: '' },
     resolver: zodResolver(verifySchema),
@@ -43,7 +41,7 @@ export const VerifyForm = ({ className, email, verify }: VerifyProps) => {
         {`We’ve sent an Email with instructions to ${email}`}
       </Typography>
 
-      <form className={style.form} onSubmit={handleSubmit(verify)}>
+      <form className={style.form} onSubmit={handleSubmit(confirmEmail)}>
         <ControlledTextField control={control} label={'Enter code'} name={'code'} />
 
         <Button className={style.buttonSubmit} fullWidth>

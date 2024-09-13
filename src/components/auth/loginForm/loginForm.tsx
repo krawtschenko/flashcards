@@ -20,10 +20,14 @@ const loginSchema = z.object({
   rememberMe: z.boolean().optional(),
 })
 
-type LoginFormProps = { className?: string; onSubmit: (value: LoginFormValues) => void }
 export type LoginFormValues = z.infer<typeof loginSchema>
 
-export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
+type LoginFormProps = {
+  className?: string
+  login: (value: LoginFormValues) => void
+}
+
+export const LoginForm = ({ className, login }: LoginFormProps) => {
   const { control, handleSubmit } = useForm<LoginFormValues>({
     defaultValues: {
       email: 'kravchenko.eugene@outlook.com',
@@ -39,7 +43,7 @@ export const LoginForm = ({ className, onSubmit }: LoginFormProps) => {
         Sign In
       </Typography>
 
-      <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={style.form} onSubmit={handleSubmit(login)}>
         <ControlledTextField control={control} label={'Email'} name={'email'} />
 
         <ControlledTextField

@@ -23,11 +23,10 @@ type RecoveryFormValue = z.infer<typeof recoverySchema>
 
 type RecoveryFormProps = {
   className?: string
-  isSuccess: boolean
-  onRecovery: (value: RecoveryFormValue) => void
+  recovery: (value: RecoveryFormValue) => void
 }
 
-export const RecoveryForm = ({ className, isSuccess, onRecovery }: RecoveryFormProps) => {
+export const RecoveryForm = ({ className, recovery }: RecoveryFormProps) => {
   const { control, getValues, handleSubmit } = useForm<RecoveryFormValue>({
     defaultValues: { email: '' },
     resolver: zodResolver(recoverySchema),
@@ -36,13 +35,8 @@ export const RecoveryForm = ({ className, isSuccess, onRecovery }: RecoveryFormP
   const [success, setSuccess] = useState(false)
 
   const recoveryHandler = (value: RecoveryFormValue) => {
-    onRecovery(value)
-
-    if (isSuccess) {
-      setSuccess(true)
-    } else {
-      alert('Error')
-    }
+    recovery(value)
+    setSuccess(true)
   }
 
   return (
