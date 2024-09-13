@@ -1,6 +1,6 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
-import { Root } from '../components/layout/root/root'
+import { Root } from '../components/root/root'
 import { DecksPage } from '../pages/decksPage/decksPage'
 import { ErrorPage } from '../pages/errorPage/errorPage'
 import { LoginPage } from '../pages/loginPage/loginPage'

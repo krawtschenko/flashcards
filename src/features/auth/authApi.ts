@@ -1,4 +1,4 @@
-import { baseApi } from '../api/baseApi'
+import { baseApi } from '../../services/baseApi'
 import {
   Login,
   LoginResponse,

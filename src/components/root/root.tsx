@@ -2,12 +2,12 @@ import { Outlet } from 'react-router-dom'
 
 import style from './root.module.scss'
 
-import { useLogoutMutation, useMeQuery } from '../../../features/auth/authApi'
-import { path } from '../../../routes/path'
-import { router } from '../../../routes/router'
-import { Loader } from '../../ui/loader/loader'
-import { Container } from '../container/contaiter'
-import { Header } from '../header/header'
+import { useLogoutMutation, useMeQuery } from '../../features/auth/authApi'
+import { path } from '../../routes/path'
+import { router } from '../../routes/router'
+import { Container } from '../layout/container/contaiter'
+import { Header } from '../layout/header/header'
+import { Loader } from '../ui/loader/loader'
 
 export const Root = () => {
   const { data: meData, isError, isLoading } = useMeQuery()
