@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { FiArrowLeft, FiEdit3, FiLogOut, FiTrash2 } from 'react-icons/fi'
-import { VscUnverified, VscVerifiedFilled } from 'react-icons/vsc'
+import { MdVerifiedUser } from 'react-icons/md'
 import { z } from 'zod'
 
 import style from './profile.module.scss'
@@ -122,12 +122,12 @@ const NotEditable = ({
         </Typography>
 
         {isEmailVerified ? (
-          <Button className={style.verified} title={'Email is verified'}>
-            <VscVerifiedFilled />
-          </Button>
+          <div className={style.verified} title={'Email is verified'}>
+            <MdVerifiedUser />
+          </div>
         ) : (
           <Button className={style.unverified} onClick={verify} title={'Email is not verified'}>
-            <VscUnverified />
+            Confirm
           </Button>
         )}
       </div>

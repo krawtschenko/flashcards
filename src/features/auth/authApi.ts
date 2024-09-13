@@ -109,6 +109,7 @@ const authApi = baseApi.injectEndpoints({
           return {
             body: {
               html: `<h1>Hi, ##name##</h1><p>Please confirm your email by clicking on the link below <a href='http://localhost:5173/confirm-email/##token##'>here</a></p>`,
+              subject: 'verify',
               userId,
             },
             method: 'POST',

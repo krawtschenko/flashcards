@@ -82,18 +82,20 @@
     .unverified,
     .verified {
       padding: unset;
-      font-size: 20px;
       background-color: transparent;
       box-shadow: none;
     }
 
     .unverified {
-      color: orangered;
+      font-size: 12px;
+      color: var(--color-danger-500);
     }
 
     .verified {
       cursor: default;
-      color: green;
+      height: 20px;
+      font-size: 20px;
+      color: var(--color-success-500);
     }
   }
 

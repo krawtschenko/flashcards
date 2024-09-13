@@ -5,4 +5,5 @@ export const path = {
   profile: '/profile',
   recovery: '/recovery',
   registration: '/registration',
+  verify: '/verify-email',
 } as const

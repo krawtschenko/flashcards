@@ -8,6 +8,7 @@ import { NewPassPage } from '../pages/newPassPage/newPassPage'
 import { ProfilePage } from '../pages/profilePage/profilePage'
 import { RecoveryPage } from '../pages/recoveryPage/recoveryPage'
 import { RegistrationPage } from '../pages/registrationPage/registrationPage'
+import { VerifyPage } from '../pages/verifyPage/verifyPage'
 import { path } from './path'
 
 const publicRoutes: RouteObject[] = [
@@ -20,6 +21,7 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   { element: <DecksPage />, path: path.decks },
   { element: <ProfilePage />, path: path.profile },
+  { element: <VerifyPage />, path: path.verify },
 ]
 
 export const router = createBrowserRouter([
