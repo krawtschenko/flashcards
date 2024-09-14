@@ -4,6 +4,7 @@ import { FiSearch, FiTrash } from 'react-icons/fi'
 
 import style from './decksPage.module.scss'
 
+import { Dialog, DialogPortal, DialogTrigger } from '../../components/layout/dialog/dialog'
 import { Button } from '../../components/ui/button/button'
 import { Pagination } from '../../components/ui/pagination/pagination'
 import { Slider } from '../../components/ui/slider/slider'
@@ -83,9 +84,18 @@ export const DecksPage = () => {
     <div className={style.decksPage}>
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
-        <Button className={style.button} onClick={() => createDeck({ name: 'Test deck' })}>
-          Add New Deck
-        </Button>
+
+        <Dialog>
+          <DialogTrigger>
+            <Button className={style.button}>Add New Deck</Button>
+          </DialogTrigger>
+
+          <DialogPortal title={'Dialog'}>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad adipisci, aut
+            delectus dolor dolorem doloribus ea earum eius, exercitationem ipsam omnis, perspiciatis
+            quis tempora tenetur unde ut veritatis voluptatibus?
+          </DialogPortal>
+        </Dialog>
       </div>
 
       <div className={style.filter}>
