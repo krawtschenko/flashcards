@@ -48,7 +48,7 @@ const DropdownAvatar = ({ logout, personalInfo }: DropdownAvatarProps) => {
         {personalInfo?.name}
       </Typography>
 
-      <DropdownMenu avatar={personalInfo?.avatar} variant={'avatar'}>
+      <DropdownMenu avatar={personalInfo?.avatar} name={personalInfo?.name} variant={'avatar'}>
         <DropdownLabel
           avatar={personalInfo?.avatar}
           email={personalInfo?.email}

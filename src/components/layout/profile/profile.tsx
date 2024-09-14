@@ -9,7 +9,7 @@ import { z } from 'zod'
 
 import style from './profile.module.scss'
 
-import noAvatar from '../../../assets/images/no-photo.svg'
+import { Avatar } from '../../ui/avatar/avatar'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { ControlledTextField } from '../../ui/textField/controlledTextField'
@@ -54,7 +54,7 @@ export const Profile = (props: ProfileProps) => {
       </Typography>
 
       <div className={style.avatarWrap}>
-        <img alt={'avatar'} src={avatar ?? noAvatar} />
+        <Avatar avatar={avatar} className={style.avatar} fallbackSize={36} name={name} />
 
         {editable && (
           <>

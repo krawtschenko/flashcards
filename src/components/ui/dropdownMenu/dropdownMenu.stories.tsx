@@ -1,6 +1,5 @@
 import { Meta } from '@storybook/react'
 
-import avatar from '../../../assets/images/no-photo.svg'
 import { DropdownItem, DropdownLabel, DropdownMenu } from './dropdownMenu'
 
 const meta = {
@@ -11,7 +10,7 @@ const meta = {
 
 export default meta
 
-export const Default = {
+export const WithIcon = {
   render: () => {
     return (
       <DropdownMenu variant={'icon'}>
@@ -24,11 +23,28 @@ export const Default = {
   },
 }
 
-export const WithPersonalInfo = {
+export const WithAvatar = {
+  render: () => {
+    const avatar =
+      'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
+
+    return (
+      <DropdownMenu avatar={avatar} name={'Eugene'} variant={'avatar'}>
+        <DropdownLabel avatar={avatar} email={'eugene@example.com'} name={'Eugene'} />
+        <DropdownItem>One</DropdownItem>
+        <DropdownItem>Two</DropdownItem>
+        <DropdownItem>Three</DropdownItem>
+        <DropdownItem>Four</DropdownItem>
+      </DropdownMenu>
+    )
+  },
+}
+
+export const WithoutAvatar = {
   render: () => {
     return (
-      <DropdownMenu avatar={avatar} variant={'avatar'}>
-        <DropdownLabel avatar={avatar} email={'eugene@example.com'} name={'Eugene'} />
+      <DropdownMenu name={'Eugene'} variant={'avatar'}>
+        <DropdownLabel email={'eugene@example.com'} name={'Eugene'} />
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
         <DropdownItem>Three</DropdownItem>

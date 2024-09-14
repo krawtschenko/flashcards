@@ -6,25 +6,27 @@ import { FiMoreVertical } from 'react-icons/fi'
 
 import style from './dropdownMenu.module.scss'
 
-import altAvatar from '../../../assets/images/no-photo.svg'
+import { Avatar } from '../avatar/avatar'
 import { Typography } from '../typography/typography'
 
-type DropdownMenuProps = { avatar?: string; variant: 'avatar' | 'icon' } & ComponentPropsWithoutRef<
-  typeof DropdownMenuRadix.Root
->
+type DropdownMenuProps = {
+  avatar?: string
+  name?: string
+  variant: 'avatar' | 'icon'
+} & ComponentPropsWithoutRef<typeof DropdownMenuRadix.Root>
 
-export const DropdownMenu = ({ avatar, children, variant, ...rest }: DropdownMenuProps) => {
-  const triggerClassName = variant === 'avatar' ? style.avatarButton : style.iconButton
-
+export const DropdownMenu = ({ avatar, children, name, variant, ...rest }: DropdownMenuProps) => {
   return (
     <DropdownMenuRadix.Root {...rest}>
       <DropdownMenuRadix.Trigger asChild>
-        <button aria-label={'Customise options'} className={triggerClassName} type={'button'}>
-          {variant === 'avatar' ? (
-            <img alt={'avatar'} src={avatar ?? altAvatar} />
-          ) : (
-            <FiMoreVertical />
-          )}
+        <button
+          aria-label={'Customise options'}
+          className={clsx(variant === 'icon' && style.icon)}
+          type={'button'}
+        >
+          {variant === 'avatar' && <Avatar avatar={avatar} className={style.avatar} name={name} />}
+
+          {variant === 'icon' && <FiMoreVertical />}
         </button>
       </DropdownMenuRadix.Trigger>
 
@@ -62,7 +64,8 @@ export const DropdownLabel = (props: DropdownLabelProps) => {
 
   return (
     <DropdownMenuRadix.Label className={style.dropdownMenuLabel} {...rest}>
-      <img alt={'avatar'} src={avatar ?? altAvatar} />
+      <Avatar avatar={avatar} name={name} />
+
       <div className={style.text}>
         <Typography variant={'subtitle2'}>{name}</Typography>
         <Typography className={style.email} variant={'caption'}>

@@ -2,18 +2,12 @@ button {
   all: unset;
 }
 
-.avatarButton {
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
-
-  img {
-    width: 100%;
-    border-radius: 100%;
-  }
+.avatar {
+  width: 36px !important;
+  height: 36px !important;
 }
 
-.iconButton {
+.icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,8 +25,8 @@ button {
   }
 }
 
-.avatarButton,
-.iconButton {
+.avatar,
+.icon {
   cursor: pointer;
 }
 
