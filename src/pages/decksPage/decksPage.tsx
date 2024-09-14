@@ -91,9 +91,13 @@ export const DecksPage = () => {
           </DialogTrigger>
 
           <DialogPortal title={'Dialog'}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad adipisci, aut
-            delectus dolor dolorem doloribus ea earum eius, exercitationem ipsam omnis, perspiciatis
-            quis tempora tenetur unde ut veritatis voluptatibus?
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad adipisci, aut
+              delectus dolor dolorem doloribus ea earum eius, exercitationem ipsam omnis,
+              perspiciatis quis tempora tenetur unde ut veritatis voluptatibus?
+            </p>
+
+            <Button onClick={() => createDeck({ name: 'New deck' })}>Add</Button>
           </DialogPortal>
         </Dialog>
       </div>
