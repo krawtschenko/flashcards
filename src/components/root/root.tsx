@@ -4,8 +4,6 @@ import { ToastContainer } from 'react-toastify'
 import style from './root.module.scss'
 
 import { useLogoutMutation, useMeQuery } from '../../features/auth/authApi'
-import { path } from '../../routes/path'
-import { router } from '../../routes/router'
 import { Container } from '../layout/container/contaiter'
 import { Header } from '../layout/header/header'
 import { Loader } from '../ui/loader/loader'
@@ -13,11 +11,6 @@ import { Loader } from '../ui/loader/loader'
 export const Root = () => {
   const { data: meData, isError, isLoading } = useMeQuery()
   const [logout] = useLogoutMutation()
-
-  const logoutHandler = async () => {
-    await logout()
-    await router.navigate(path.login)
-  }
 
   if (isLoading) {
     return (
@@ -29,7 +22,7 @@ export const Root = () => {
 
   return (
     <>
-      <Header isAuthenticated={!isError} logout={logoutHandler} personalInfo={meData} />
+      <Header isAuthenticated={!isError} logout={logout} personalInfo={meData} />
       <Container>
         <Outlet />
       </Container>

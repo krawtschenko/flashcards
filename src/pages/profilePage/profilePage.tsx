@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify'
+
 import style from './profilePage.module.scss'
 
 import { Profile } from '../../components/layout/profile/profile'
@@ -18,10 +20,10 @@ export const ProfilePage = () => {
 
   const verifyHandler = async () => {
     try {
-      await verify({ userId: me?.id })
+      await verify({ userId: me?.id }).unwrap()
       await router.navigate(path.confirmEmail)
     } catch (error) {
-      alert(error)
+      toast.error('Something went wrong')
     }
   }
 

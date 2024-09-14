@@ -17,9 +17,9 @@ const personalInfo = {
 }
 
 export const LoggedIn: Story = {
-  args: { personalInfo },
+  args: { isAuthenticated: true, logout: () => console.log(), personalInfo },
 }
 
 export const UnLoggedIn: Story = {
-  args: {},
+  args: { isAuthenticated: false, logout: () => console.log() },
 }

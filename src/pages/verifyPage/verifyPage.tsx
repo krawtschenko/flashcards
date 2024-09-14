@@ -14,8 +14,8 @@ export const VerifyPage = () => {
   const confirmEmailHandler = async (value: VerifyFormValue) => {
     try {
       await confirmEmail(value).unwrap()
-      toast.success('Email successfully confirmed')
       await router.navigate(path.profile)
+      toast.success('Email successfully confirmed')
     } catch (error) {
       toast.error('Something went wrong')
     }

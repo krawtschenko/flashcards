@@ -13,8 +13,8 @@ export const NewPassPage = () => {
   const resetPasswordHandler = async (value: { password: string; token: string }) => {
     try {
       await resetPassword(value).unwrap()
-      toast.success('Password successfully changed')
       await router.navigate(path.login)
+      toast.success('Password successfully changed')
     } catch (error: any) {
       toast.error('Something went wrong')
     }
