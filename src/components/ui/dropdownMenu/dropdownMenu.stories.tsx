@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react'
 
-import avatar from '../../../assets/images/avatar.png'
+import avatar from '../../../assets/images/no-photo.svg'
 import { DropdownItem, DropdownLabel, DropdownMenu } from './dropdownMenu'
 
 const meta = {
@@ -24,13 +24,11 @@ export const Default = {
   },
 }
 
-const personalInfo = { avatar, email: 'eugene@example.com', name: 'Eugene' }
-
 export const WithPersonalInfo = {
   render: () => {
     return (
       <DropdownMenu avatar={avatar} variant={'avatar'}>
-        <DropdownLabel personalInfo={personalInfo} />
+        <DropdownLabel avatar={avatar} email={'eugene@example.com'} name={'Eugene'} />
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
         <DropdownItem>Three</DropdownItem>
