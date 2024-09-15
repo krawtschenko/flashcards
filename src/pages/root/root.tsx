@@ -9,7 +9,7 @@ import { Loader } from '../../components/ui/loader/loader'
 import { useLogoutMutation, useMeQuery } from '../../features/auth/authApi'
 
 export const Root = () => {
-  const { data: meData, isError, isLoading } = useMeQuery()
+  const { data: me, isError, isLoading } = useMeQuery()
   const [logout] = useLogoutMutation()
 
   if (isLoading) {
@@ -22,7 +22,7 @@ export const Root = () => {
 
   return (
     <>
-      <Header isAuthenticated={!isError} logout={logout} personalInfo={meData} />
+      <Header isAuthenticated={!isError} logout={logout} personalInfo={me} />
       <Container>
         <Outlet />
       </Container>
