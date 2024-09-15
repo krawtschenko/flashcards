@@ -3,10 +3,10 @@ import { ToastContainer } from 'react-toastify'
 
 import style from './root.module.scss'
 
+import { Container } from '../../components/layout/container/contaiter'
+import { Header } from '../../components/layout/header/header'
+import { Loader } from '../../components/ui/loader/loader'
 import { useLogoutMutation, useMeQuery } from '../../features/auth/authApi'
-import { Container } from '../layout/container/contaiter'
-import { Header } from '../layout/header/header'
-import { Loader } from '../ui/loader/loader'
 
 export const Root = () => {
   const { data: meData, isError, isLoading } = useMeQuery()

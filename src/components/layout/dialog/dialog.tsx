@@ -27,6 +27,8 @@ export const DialogPortal = ({ children, title, ...rest }: DialogPortalProps) =>
       <DialogRadix.Overlay className={style.dialogOverlay} />
 
       <DialogRadix.Content className={style.dialogContent}>
+        <DialogRadix.Title />
+        <DialogRadix.Description />
         <Card className={style.card}>
           <div className={style.header}>
             <Typography variant={'h3'}>{title}</Typography>
