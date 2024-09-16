@@ -12,6 +12,12 @@ type AvatarProps = {
 } & ComponentPropsWithoutRef<typeof AvatarRadix.Root>
 
 export const Avatar = ({ avatar, className, fallbackSize, name, ...rest }: AvatarProps) => {
+  const fallback = name
+    ?.split(' ')
+    .slice(0, 2)
+    .map(word => word[0])
+    .join('')
+
   return (
     <AvatarRadix.Root className={clsx(style.avatarRoot, className)} {...rest}>
       <AvatarRadix.Image alt={name} className={style.avatarImage} src={avatar} />
@@ -21,7 +27,7 @@ export const Avatar = ({ avatar, className, fallbackSize, name, ...rest }: Avata
         delayMs={0}
         style={{ fontSize: fallbackSize }}
       >
-        {name?.[0]}
+        {fallback}
       </AvatarRadix.Fallback>
     </AvatarRadix.Root>
   )

@@ -20,6 +20,6 @@ export const WithAvatar: Story = {
 export const WithoutAvatar: Story = {
   args: {
     fallbackSize: 20,
-    name: 'Test',
+    name: 'Test Test Test',
   },
 }

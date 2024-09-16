@@ -14,7 +14,7 @@ export default meta
 
 export const Verified = {
   render: () => {
-    const [name, setName] = useState<ProfileValue>({ name: 'Eugene' })
+    const [name, setName] = useState<ProfileValue>({ name: 'Eugene Kravchenko' })
 
     return (
       <Profile
@@ -34,7 +34,7 @@ export const Verified = {
 
 export const Unverified = {
   render: () => {
-    const [name, setName] = useState<ProfileValue>({ name: 'Eugene' })
+    const [name, setName] = useState<ProfileValue>({ name: 'Eugene Kravchenko' })
 
     return (
       <Profile
