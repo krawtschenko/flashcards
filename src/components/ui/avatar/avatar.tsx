@@ -16,7 +16,11 @@ export const Avatar = ({ avatar, className, fallbackSize, name, ...rest }: Avata
     <AvatarRadix.Root className={clsx(style.avatarRoot, className)} {...rest}>
       <AvatarRadix.Image alt={name} className={style.avatarImage} src={avatar} />
 
-      <AvatarRadix.Fallback className={style.avatarFallback} style={{ fontSize: fallbackSize }}>
+      <AvatarRadix.Fallback
+        className={style.avatarFallback}
+        delayMs={0}
+        style={{ fontSize: fallbackSize }}
+      >
         {name?.[0]}
       </AvatarRadix.Fallback>
     </AvatarRadix.Root>
