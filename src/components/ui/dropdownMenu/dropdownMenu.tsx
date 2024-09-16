@@ -24,7 +24,9 @@ export const DropdownMenu = ({ avatar, children, name, variant, ...rest }: Dropd
           className={clsx(variant === 'icon' && style.icon)}
           type={'button'}
         >
-          {variant === 'avatar' && <Avatar avatar={avatar} className={style.avatar} name={name} />}
+          {variant === 'avatar' && (
+            <Avatar avatar={avatar} className={style.avatar} fallbackSize={20} name={name} />
+          )}
 
           {variant === 'icon' && <FiMoreVertical />}
         </button>
@@ -64,7 +66,7 @@ export const DropdownLabel = (props: DropdownLabelProps) => {
 
   return (
     <DropdownMenuRadix.Label className={style.dropdownMenuLabel} {...rest}>
-      <Avatar avatar={avatar} name={name} />
+      <Avatar avatar={avatar} fallbackSize={20} name={name} />
 
       <div className={style.text}>
         <Typography variant={'subtitle2'}>{name}</Typography>

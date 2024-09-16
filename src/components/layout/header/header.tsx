@@ -11,24 +11,22 @@ import { Typography } from '../../ui/typography/typography'
 import { Container } from '../container/contaiter'
 
 type HeaderProps = {
+  avatar?: string
+  email?: string
   isAuthenticated: boolean
   logout: () => void
-  personalInfo?: PersonalInfo
+  name?: string
 }
 
-type PersonalInfo = {
-  avatar?: string
-  email: string
-  name: string
-}
-
-export const Header = ({ isAuthenticated, logout, personalInfo }: HeaderProps) => {
+export const Header = ({ avatar, email, isAuthenticated, logout, name }: HeaderProps) => {
   return (
     <div className={style.header}>
       <Container className={style.container}>
         <Logo className={style.logo} onClick={() => router.navigate(path.decks)} />
 
-        {isAuthenticated && <DropdownAvatar logout={logout} personalInfo={personalInfo} />}
+        {isAuthenticated && (
+          <DropdownAvatar avatar={avatar} email={email} logout={logout} name={name} />
+        )}
 
         {!isAuthenticated && <Button variant={'secondary'}>Sign In</Button>}
       </Container>
@@ -37,23 +35,21 @@ export const Header = ({ isAuthenticated, logout, personalInfo }: HeaderProps) =
 }
 
 type DropdownAvatarProps = {
+  avatar?: string
+  email?: string
   logout: () => void
-  personalInfo?: PersonalInfo
+  name?: string
 }
 
-const DropdownAvatar = ({ logout, personalInfo }: DropdownAvatarProps) => {
+const DropdownAvatar = ({ avatar, email, logout, name }: DropdownAvatarProps) => {
   return (
     <div className={style.info}>
       <Typography className={style.name} variant={'subtitle1'}>
-        {personalInfo?.name}
+        {name}
       </Typography>
 
-      <DropdownMenu avatar={personalInfo?.avatar} name={personalInfo?.name} variant={'avatar'}>
-        <DropdownLabel
-          avatar={personalInfo?.avatar}
-          email={personalInfo?.email}
-          name={personalInfo?.name}
-        />
+      <DropdownMenu avatar={avatar} name={name} variant={'avatar'}>
+        <DropdownLabel avatar={avatar} email={email} name={name} />
 
         <DropdownItem onClick={() => router.navigate(path.profile)}>
           <FiUser /> My Profile

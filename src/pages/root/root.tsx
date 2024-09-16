@@ -22,10 +22,18 @@ export const Root = () => {
 
   return (
     <>
-      <Header isAuthenticated={!isError} logout={logout} personalInfo={me} />
+      <Header
+        avatar={me?.avatar}
+        email={me?.email}
+        isAuthenticated={!isError}
+        logout={logout}
+        name={me?.name}
+      />
+
       <Container>
         <Outlet />
       </Container>
+
       <ToastContainer
         autoClose={5000}
         closeOnClick
