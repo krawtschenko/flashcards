@@ -42,7 +42,7 @@ export const Avatar = ({ avatar, className, fontSize, name, ...rest }: AvatarPro
       <AvatarRadix.Fallback
         className={style.avatarFallback}
         delayMs={0}
-        style={{ background, color, fontSize }} // Применяем градиент и цвет текста
+        style={{ background, color, fontSize }}
       >
         {fallback}
       </AvatarRadix.Fallback>
