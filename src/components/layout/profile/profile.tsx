@@ -54,7 +54,7 @@ export const Profile = (props: ProfileProps) => {
       </Typography>
 
       <div className={style.avatarWrap}>
-        <Avatar avatar={avatar} className={style.avatar} fallbackSize={36} name={name} />
+        <Avatar avatar={avatar} className={style.avatar} fontSize={36} name={name} />
 
         {editable && (
           <>

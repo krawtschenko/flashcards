@@ -19,7 +19,7 @@ export const WithAvatar: Story = {
 
 export const WithoutAvatar: Story = {
   args: {
-    fallbackSize: 20,
+    fontSize: 20,
     name: 'Test Test Test',
   },
 }

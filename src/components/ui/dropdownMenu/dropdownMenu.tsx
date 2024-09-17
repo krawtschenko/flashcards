@@ -25,7 +25,7 @@ export const DropdownMenu = ({ avatar, children, name, variant, ...rest }: Dropd
           type={'button'}
         >
           {variant === 'avatar' && (
-            <Avatar avatar={avatar} className={style.avatar} fallbackSize={20} name={name} />
+            <Avatar avatar={avatar} className={style.avatar} fontSize={20} name={name} />
           )}
 
           {variant === 'icon' && <FiMoreVertical />}
@@ -66,7 +66,7 @@ export const DropdownLabel = (props: DropdownLabelProps) => {
 
   return (
     <DropdownMenuRadix.Label className={style.dropdownMenuLabel} {...rest}>
-      <Avatar avatar={avatar} fallbackSize={20} name={name} />
+      <Avatar avatar={avatar} fontSize={20} name={name} />
 
       <div className={style.text}>
         <Typography variant={'subtitle2'}>{name}</Typography>

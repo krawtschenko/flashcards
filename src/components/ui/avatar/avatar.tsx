@@ -7,11 +7,11 @@ import style from './avatar.module.scss'
 
 type AvatarProps = {
   avatar?: string
-  fallbackSize?: number
+  fontSize?: number
   name?: string
 } & ComponentPropsWithoutRef<typeof AvatarRadix.Root>
 
-export const Avatar = ({ avatar, className, fallbackSize, name, ...rest }: AvatarProps) => {
+export const Avatar = ({ avatar, className, fontSize, name, ...rest }: AvatarProps) => {
   // Create a fallback using the first letters of the name
   const fallback = name
     ?.split(' ')
@@ -24,13 +24,13 @@ export const Avatar = ({ avatar, className, fallbackSize, name, ...rest }: Avata
   const color2 = useMemo(() => getRandomColor(), [])
 
   // Determine text color (white or black) based on the presence of '0' or '1' in the colors
-  const textColor = useMemo(
+  const color = useMemo(
     () => (shouldUseWhiteText(color1) || shouldUseWhiteText(color2) ? '#FFFFFF' : '#000000'),
     [color1, color2]
   )
 
   // Create the CSS gradient string using the two colors
-  const gradientBackground = useMemo(
+  const background = useMemo(
     () => `linear-gradient(135deg, ${color1}, ${color2})`,
     [color1, color2]
   )
@@ -42,7 +42,7 @@ export const Avatar = ({ avatar, className, fallbackSize, name, ...rest }: Avata
       <AvatarRadix.Fallback
         className={style.avatarFallback}
         delayMs={0}
-        style={{ background: gradientBackground, color: textColor, fontSize: fallbackSize }} // Применяем градиент и цвет текста
+        style={{ background, color, fontSize }} // Применяем градиент и цвет текста
       >
         {fallback}
       </AvatarRadix.Fallback>
