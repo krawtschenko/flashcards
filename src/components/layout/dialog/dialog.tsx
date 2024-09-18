@@ -28,16 +28,12 @@ export const DialogPortal = ({ children, title, ...rest }: DialogPortalProps) =>
 
       <DialogRadix.Content className={style.dialogContent}>
         <DialogRadix.Title />
+
         <DialogRadix.Description />
+
         <Card className={style.card}>
           <div className={style.header}>
             <Typography variant={'h3'}>{title}</Typography>
-
-            <DialogRadix.Close asChild>
-              <Button className={style.closeButton}>
-                <FiX />
-              </Button>
-            </DialogRadix.Close>
           </div>
 
           <div className={style.content}>{children}</div>
