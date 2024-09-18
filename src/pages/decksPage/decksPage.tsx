@@ -15,6 +15,7 @@ import { useMeQuery } from '../../features/auth/authApi'
 import { useCreateDeckMutation, useGetDecksQuery } from '../../features/decks/dekcsApi'
 import { useDeckParams } from '../../features/decks/useDeckParams'
 import { useDebounce } from '../../hooks/useDebounce'
+import { DecksDialog } from './decksDialog/decksDialog'
 import { DecksTable } from './decksTable/decksTable'
 
 export const DecksPage = () => {
@@ -85,21 +86,7 @@ export const DecksPage = () => {
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
 
-        <Dialog>
-          <DialogTrigger>
-            <Button className={style.button}>Add New Deck</Button>
-          </DialogTrigger>
-
-          <DialogPortal title={'Dialog'}>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad adipisci, aut
-              delectus dolor dolorem doloribus ea earum eius, exercitationem ipsam omnis,
-              perspiciatis quis tempora tenetur unde ut veritatis voluptatibus?
-            </p>
-
-            <Button onClick={() => createDeck({ name: 'New deck' })}>Add</Button>
-          </DialogPortal>
-        </Dialog>
+        <DecksDialog createDeck={createDeck} />
       </div>
 
       <div className={style.filter}>
