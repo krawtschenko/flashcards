@@ -21,6 +21,8 @@
     background-color: transparent;
     border-radius: 50%;
 
+    transition: all 0.2s;
+
     &:has(.checkboxRoot:hover) {
       background-color: var(--color-dark-500);
     }
