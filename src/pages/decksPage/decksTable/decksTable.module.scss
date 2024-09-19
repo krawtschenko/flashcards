@@ -8,10 +8,9 @@
 .tdName {
   cursor: pointer;
   width: 450px;
-  transition: all 0.2s;
 
-  &:hover {
-    color: var(--color-accent-500);
+  * {
+    transition: all 0.3s;
   }
 
   div {
@@ -24,6 +23,14 @@
       height: 48px;
       object-fit: cover;
       border-radius: 2px;
+    }
+  }
+
+  &:hover {
+    color: var(--color-dark-100);
+
+    img {
+      transform: scale(1.1);
     }
   }
 }
@@ -47,6 +54,9 @@
     button {
       cursor: pointer;
 
+      position: relative;
+      z-index: 1;
+
       height: 16px;
       padding: unset;
 
@@ -55,11 +65,30 @@
       background-color: transparent;
       box-shadow: none;
 
-      transition: all 0.3s;
+      &:not(:disabled)::before {
+        content: '';
+
+        position: absolute;
+        z-index: -1;
+        transform: scale(0);
+
+        display: block;
+
+        width: 28px;
+        height: 28px;
+
+        background-color: var(--color-dark-300);
+        border-radius: 100%;
+
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      }
 
       &:hover {
-        color: var(--color-accent-500);
         background-color: transparent;
+
+        &::before {
+          transform: scale(1);
+        }
       }
 
       &:disabled {
