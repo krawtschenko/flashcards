@@ -4,7 +4,6 @@ import { FiSearch, FiTrash } from 'react-icons/fi'
 
 import style from './decksPage.module.scss'
 
-import { Dialog, DialogPortal, DialogTrigger } from '../../components/layout/dialog/dialog'
 import { Button } from '../../components/ui/button/button'
 import { Pagination } from '../../components/ui/pagination/pagination'
 import { Slider } from '../../components/ui/slider/slider'
