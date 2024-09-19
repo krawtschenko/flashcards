@@ -13,32 +13,44 @@ import { ControlledCheckbox } from '../../../components/ui/checkbox/controlledCh
 import { ControlledTextField } from '../../../components/ui/textField/controlledTextField'
 
 const decksDialogSchema = z.object({
-  name: z.string().min(1, 'Required'),
-  private: z.boolean().optional(),
+  cover: z.string().optional(),
+  isPrivate: z.boolean().optional(),
+  name: z.string().min(1, 'Required').min(3).max(30),
 })
 
 type DecksDialogValue = z.infer<typeof decksDialogSchema>
 
 type DecksDialogProps = {
-  createDeck: (value: { name: string }) => void
+  createDeck: (value: { cover?: string; isPrivate?: boolean; name: string }) => void
 }
 
 export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
-  const { control, handleSubmit } = useForm<DecksDialogValue>({
-    defaultValues: { name: '', private: false },
+  const { control, handleSubmit, reset } = useForm<DecksDialogValue>({
+    defaultValues: { isPrivate: false, name: '' },
     resolver: zodResolver(decksDialogSchema),
   })
 
   const [isOpen, setIsOpen] = useState(false)
 
+  const closeDialogHandler = () => {
+    setIsOpen(false)
+    reset()
+  }
+
+  const createDeckHandler = (value: { cover?: string; isPrivate?: boolean; name: string }) => {
+    createDeck(value)
+    reset()
+    setIsOpen(false)
+  }
+
   return (
     <Dialog open={isOpen}>
-      <DialogTrigger onClick={() => setIsOpen(!isOpen)}>
+      <DialogTrigger onClick={() => setIsOpen(true)}>
         <Button className={style.button}>Add New Deck</Button>
       </DialogTrigger>
 
-      <DialogPortal title={'Dialog'}>
-        <form onSubmit={handleSubmit(console.log)}>
+      <DialogPortal className={style.portal} setIsOpen={closeDialogHandler} title={'Add New Deck'}>
+        <form className={style.form} onSubmit={handleSubmit(createDeckHandler)}>
           <ControlledTextField
             control={control}
             label={'Name Pack'}
@@ -46,18 +58,23 @@ export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
             placeholder={'Name'}
           />
 
-          <Button fullWidth variant={'secondary'}>
+          <Button className={style.uploadButton} fullWidth variant={'secondary'}>
             <SlPicture /> Upload Image
           </Button>
 
-          <ControlledCheckbox control={control} label={'Private pack'} name={'private'} />
+          <ControlledCheckbox
+            className={style.checkbox}
+            control={control}
+            label={'Private pack'}
+            name={'isPrivate'}
+          />
 
-          <div>
-            <Button onClick={() => setIsOpen(!isOpen)} variant={'secondary'}>
+          <div className={style.buttonsWrap}>
+            <Button onClick={closeDialogHandler} variant={'secondary'}>
               Cancel
             </Button>
 
-            <Button>Add</Button>
+            <Button>Add New Deck</Button>
           </div>
         </form>
       </DialogPortal>

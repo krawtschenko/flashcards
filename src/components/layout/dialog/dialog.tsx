@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as DialogRadix from '@radix-ui/react-dialog'
+import clsx from 'clsx'
 import { FiX } from 'react-icons/fi'
 
 import style from './dialog.module.scss'
@@ -18,10 +19,18 @@ export const DialogTrigger = (props: ComponentPropsWithoutRef<typeof DialogRadix
 }
 
 type DialogPortalProps = {
+  className?: string
+  setIsOpen: (isOpen: boolean) => void
   title: string
 } & ComponentPropsWithoutRef<typeof DialogRadix.Portal>
 
-export const DialogPortal = ({ children, title, ...rest }: DialogPortalProps) => {
+export const DialogPortal = ({
+  children,
+  className,
+  setIsOpen,
+  title,
+  ...rest
+}: DialogPortalProps) => {
   return (
     <DialogRadix.Portal {...rest}>
       <DialogRadix.Overlay className={style.dialogOverlay} />
@@ -31,9 +40,13 @@ export const DialogPortal = ({ children, title, ...rest }: DialogPortalProps) =>
 
         <DialogRadix.Description />
 
-        <Card className={style.card}>
+        <Card className={clsx(style.card, className)}>
           <div className={style.header}>
             <Typography variant={'h3'}>{title}</Typography>
+
+            <Button className={style.closeButton} onClick={() => setIsOpen(false)}>
+              <FiX />
+            </Button>
           </div>
 
           <div className={style.content}>{children}</div>

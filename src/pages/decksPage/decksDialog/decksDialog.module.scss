@@ -1,0 +1,21 @@
+.portal {
+  width: 542px;
+
+  .form {
+    margin-top: 24px;
+
+    .uploadButton {
+      margin-top: 24px;
+    }
+
+    .checkbox {
+      margin-top: 24px;
+    }
+
+    .buttonsWrap {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 36px;
+    }
+  }
+}
