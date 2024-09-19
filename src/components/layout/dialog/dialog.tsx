@@ -20,17 +20,10 @@ export const DialogTrigger = (props: ComponentPropsWithoutRef<typeof DialogRadix
 
 type DialogPortalProps = {
   className?: string
-  setIsOpen: (isOpen: boolean) => void
   title: string
 } & ComponentPropsWithoutRef<typeof DialogRadix.Portal>
 
-export const DialogPortal = ({
-  children,
-  className,
-  setIsOpen,
-  title,
-  ...rest
-}: DialogPortalProps) => {
+export const DialogPortal = ({ children, className, title, ...rest }: DialogPortalProps) => {
   return (
     <DialogRadix.Portal {...rest}>
       <DialogRadix.Overlay className={style.dialogOverlay} />
@@ -44,9 +37,11 @@ export const DialogPortal = ({
           <div className={style.header}>
             <Typography variant={'h3'}>{title}</Typography>
 
-            <Button className={style.closeButton} onClick={() => setIsOpen(false)}>
-              <FiX />
-            </Button>
+            <DialogRadix.Close asChild>
+              <Button className={style.closeButton}>
+                <FiX />
+              </Button>
+            </DialogRadix.Close>
           </div>
 
           <div className={style.content}>{children}</div>

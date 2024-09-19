@@ -32,8 +32,8 @@ export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const closeDialogHandler = () => {
-    setIsOpen(false)
+  const onOpenChangeHandler = () => {
+    setIsOpen(!isOpen)
     reset()
   }
 
@@ -44,12 +44,12 @@ export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
   }
 
   return (
-    <Dialog open={isOpen}>
-      <DialogTrigger onClick={() => setIsOpen(true)}>
+    <Dialog onOpenChange={onOpenChangeHandler} open={isOpen}>
+      <DialogTrigger>
         <Button className={style.button}>Add New Deck</Button>
       </DialogTrigger>
 
-      <DialogPortal className={style.portal} setIsOpen={closeDialogHandler} title={'Add New Deck'}>
+      <DialogPortal className={style.portal} title={'Add New Deck'}>
         <form className={style.form} onSubmit={handleSubmit(createDeckHandler)}>
           <ControlledTextField
             control={control}
@@ -70,7 +70,7 @@ export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
           />
 
           <div className={style.buttonsWrap}>
-            <Button onClick={closeDialogHandler} variant={'secondary'}>
+            <Button onClick={onOpenChangeHandler} variant={'secondary'}>
               Cancel
             </Button>
 

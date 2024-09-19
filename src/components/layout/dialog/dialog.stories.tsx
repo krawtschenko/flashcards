@@ -18,12 +18,12 @@ export const Primary = {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-      <Dialog open={isOpen}>
+      <Dialog onOpenChange={setIsOpen} open={isOpen}>
         <DialogTrigger>
           <Button>Test dialog</Button>
         </DialogTrigger>
 
-        <DialogPortal setIsOpen={setIsOpen} title={'Dialog'}>
+        <DialogPortal title={'Dialog'}>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad adipisci, aut
           delectus dolor dolorem doloribus ea earum eius, exercitationem ipsam omnis, perspiciatis
           quis tempora tenetur unde ut veritatis voluptatibus?
