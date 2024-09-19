@@ -7,7 +7,6 @@
 
 .tdName {
   width: 450px;
-  height: 50px;
 
   div {
     display: flex;
@@ -15,15 +14,16 @@
     align-items: center;
 
     img {
-      width: 40px;
-      max-height: 38px;
+      width: 118px;
+      height: 48px;
       object-fit: cover;
+      border-radius: 2px;
     }
   }
 }
 
 .tdCards {
-  width: 200px;
+  width: 100px;
 }
 
 .tdAuthor {

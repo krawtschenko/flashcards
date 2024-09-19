@@ -2,7 +2,7 @@ import { FiChevronDown, FiChevronUp, FiEdit, FiPlayCircle, FiTrash } from 'react
 
 import style from './decksTable.module.scss'
 
-import coverImg from '../../../assets/images/cover.png'
+import coverImg from '../../../assets/images/cover.svg'
 import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
@@ -61,7 +61,7 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
 
       <Tbody>
         {decks?.map(deck => {
-          const updatedAt = new Date(deck.updated).toLocaleDateString('ru-RU')
+          const updatedAt = new Date(deck.updated).toLocaleDateString()
           const name = deck.name.length > 30 ? `${deck.name.slice(0, 27)}...` : deck.name
           const cover = deck.cover || coverImg
 
