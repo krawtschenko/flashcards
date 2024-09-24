@@ -7,6 +7,7 @@ import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
 import { useDeleteDeckMutation } from '../../../features/decks/dekcsApi'
+import { DecksDialog } from '../decksDialog/decksDialog'
 
 type DecksTableProps = {
   className?: string
@@ -60,35 +61,42 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
       </Thead>
 
       <Tbody>
-        {decks?.map(deck => {
-          const updatedAt = new Date(deck.updated).toLocaleDateString()
-          const name = deck.name.length > 30 ? `${deck.name.slice(0, 27)}...` : deck.name
-          const cover = deck.cover || coverImg
+        {decks?.map(({ author, cardsCount, cover, id, isPrivate, name, updated }) => {
+          const updatedAt = new Date(updated).toLocaleDateString()
+          const deckName = name.length > 30 ? `${name.slice(0, 27)}...` : name
+          const deckCover = cover || coverImg
 
-          const isDisabled = meId !== deck.author.id
+          const isDisabled = meId !== author.id
 
           return (
-            <Tr key={deck.id}>
+            <Tr key={id}>
               <Td className={style.tdName}>
                 <div>
-                  <img alt={'cover'} src={cover} />
-                  {name}
+                  <img alt={'cover'} src={deckCover} />
+                  {deckName}
                 </div>
               </Td>
-              <Td className={style.tdCards}>{deck.cardsCount}</Td>
+              <Td className={style.tdCards}>{cardsCount}</Td>
               <Td>{updatedAt}</Td>
-              <Td className={style.tdAuthor}>{deck.author.name}</Td>
+              <Td className={style.tdAuthor}>{author.name}</Td>
               <Td className={style.tdActions}>
                 <div>
                   <Button>
                     <FiPlayCircle />
                   </Button>
 
-                  <Button disabled={isDisabled}>
-                    <FiEdit />
-                  </Button>
+                  <DecksDialog
+                    isPrivate={isPrivate}
+                    name={name}
+                    onSubmit={console.log}
+                    title={'Update Deck'}
+                  >
+                    <Button disabled={isDisabled}>
+                      <FiEdit />
+                    </Button>
+                  </DecksDialog>
 
-                  <Button disabled={isDisabled} onClick={() => deleteDeck(deck.id)}>
+                  <Button disabled={isDisabled} onClick={() => deleteDeck(id)}>
                     <FiTrash />
                   </Button>
                 </div>

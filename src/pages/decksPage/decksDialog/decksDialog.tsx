@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,12 +21,16 @@ const decksDialogSchema = z.object({
 type DecksDialogValue = z.infer<typeof decksDialogSchema>
 
 type DecksDialogProps = {
-  createDeck: (value: { cover?: string; isPrivate?: boolean; name: string }) => void
+  children: ReactNode
+  isPrivate?: boolean
+  name?: string
+  onSubmit: (value: { cover?: string; isPrivate?: boolean; name: string }) => void
+  title: string
 }
 
-export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
+export const DecksDialog = ({ children, isPrivate, name, onSubmit, title }: DecksDialogProps) => {
   const { control, handleSubmit, reset } = useForm<DecksDialogValue>({
-    defaultValues: { isPrivate: false, name: '' },
+    defaultValues: { isPrivate: isPrivate ?? false, name: name ?? '' },
     resolver: zodResolver(decksDialogSchema),
   })
 
@@ -38,18 +42,16 @@ export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
   }
 
   const createDeckHandler = (value: { cover?: string; isPrivate?: boolean; name: string }) => {
-    createDeck(value)
+    onSubmit(value)
     reset()
     setIsOpen(false)
   }
 
   return (
     <Dialog onOpenChange={onOpenChangeHandler} open={isOpen}>
-      <DialogTrigger>
-        <Button className={style.button}>Add New Deck</Button>
-      </DialogTrigger>
+      <DialogTrigger>{children}</DialogTrigger>
 
-      <DialogPortal className={style.portal} title={'Add New Deck'}>
+      <DialogPortal className={style.portal} title={title}>
         <form className={style.form} onSubmit={handleSubmit(createDeckHandler)}>
           <ControlledTextField
             control={control}
@@ -74,7 +76,7 @@ export const DecksDialog = ({ createDeck }: DecksDialogProps) => {
               Cancel
             </Button>
 
-            <Button>Add New Deck</Button>
+            <Button>{title}</Button>
           </div>
         </form>
       </DialogPortal>

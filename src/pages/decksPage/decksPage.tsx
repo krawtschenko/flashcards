@@ -85,7 +85,9 @@ export const DecksPage = () => {
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
 
-        <DecksDialog createDeck={createDeck} />
+        <DecksDialog onSubmit={createDeck} title={'Add New Deck'}>
+          <Button className={style.button}>Add New Deck</Button>
+        </DecksDialog>
       </div>
 
       <div className={style.filter}>
@@ -98,11 +100,11 @@ export const DecksPage = () => {
           value={name}
         />
 
-        <Tabs className={style.tabs} defaultValue={'All Cards'} title={'Show decks cards'}>
-          <TabsTrigger onClick={() => setCurrentTab('my')} value={'My Cards'}>
+        <Tabs className={style.tabs} defaultValue={currentTab} title={'Show decks cards'}>
+          <TabsTrigger onClick={() => setCurrentTab('my')} value={'my'}>
             My Cards
           </TabsTrigger>
-          <TabsTrigger onClick={() => setCurrentTab('all')} value={'All Cards'}>
+          <TabsTrigger onClick={() => setCurrentTab('all')} value={'all'}>
             All Cards
           </TabsTrigger>
         </Tabs>
