@@ -1,5 +1,5 @@
 import { baseApi } from '../../services/baseApi'
-import { CreateDeckBody, CreateDeckResponse, DecksArgs, DecksResponse } from './decksTypes'
+import { CreateDeckBody, CreateDeckResponse, Deck, DecksArgs, DecksResponse } from './decksTypes'
 
 const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -35,6 +35,16 @@ const decksApi = baseApi.injectEndpoints({
       getMinMaxCards: builder.query<{ max: number; min: number }, void>({
         query: () => '/v2/decks/min-max-cards',
       }),
+      updateDeck: builder.mutation<CreateDeckResponse, { id: string } & Partial<CreateDeckBody>>({
+        invalidatesTags: ['decks'],
+        query: ({ id, ...body }) => {
+          return {
+            body,
+            method: 'PATCH',
+            url: `/v1/decks/${id}`,
+          }
+        },
+      }),
     }
   },
 })
@@ -44,4 +54,5 @@ export const {
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
+  useUpdateDeckMutation,
 } = decksApi

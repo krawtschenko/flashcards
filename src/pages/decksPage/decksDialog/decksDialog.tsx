@@ -29,7 +29,7 @@ type DecksDialogProps = {
 }
 
 export const DecksDialog = ({ children, isPrivate, name, onSubmit, title }: DecksDialogProps) => {
-  const { control, handleSubmit, reset } = useForm<DecksDialogValue>({
+  const { control, handleSubmit, reset, watch } = useForm<DecksDialogValue>({
     defaultValues: { isPrivate: isPrivate ?? false, name: name ?? '' },
     resolver: zodResolver(decksDialogSchema),
   })
@@ -38,21 +38,23 @@ export const DecksDialog = ({ children, isPrivate, name, onSubmit, title }: Deck
 
   const onOpenChangeHandler = () => {
     setIsOpen(!isOpen)
-    reset()
+    name ?? reset()
   }
 
-  const createDeckHandler = (value: { cover?: string; isPrivate?: boolean; name: string }) => {
+  const onSubmitHandler = (value: { cover?: string; isPrivate?: boolean; name: string }) => {
     onSubmit(value)
-    reset()
     setIsOpen(false)
+    name ?? reset()
   }
+
+  const isDisabledBtn = name === watch().name && isPrivate === watch().isPrivate
 
   return (
     <Dialog onOpenChange={onOpenChangeHandler} open={isOpen}>
       <DialogTrigger>{children}</DialogTrigger>
 
       <DialogPortal className={style.portal} title={title}>
-        <form className={style.form} onSubmit={handleSubmit(createDeckHandler)}>
+        <form className={style.form} onSubmit={handleSubmit(onSubmitHandler)}>
           <ControlledTextField
             control={control}
             label={'Name Pack'}
@@ -76,7 +78,7 @@ export const DecksDialog = ({ children, isPrivate, name, onSubmit, title }: Deck
               Cancel
             </Button>
 
-            <Button>{title}</Button>
+            <Button disabled={isDisabledBtn}>{title}</Button>
           </div>
         </form>
       </DialogPortal>

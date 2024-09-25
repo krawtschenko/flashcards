@@ -100,7 +100,7 @@ export const DecksPage = () => {
           value={name}
         />
 
-        <Tabs className={style.tabs} defaultValue={currentTab} title={'Show decks cards'}>
+        <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>
           <TabsTrigger onClick={() => setCurrentTab('my')} value={'my'}>
             My Cards
           </TabsTrigger>

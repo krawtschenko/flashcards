@@ -6,7 +6,7 @@ import coverImg from '../../../assets/images/cover.svg'
 import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
-import { useDeleteDeckMutation } from '../../../features/decks/dekcsApi'
+import { useDeleteDeckMutation, useUpdateDeckMutation } from '../../../features/decks/dekcsApi'
 import { DecksDialog } from '../decksDialog/decksDialog'
 
 type DecksTableProps = {
@@ -19,6 +19,7 @@ type DecksTableProps = {
 
 export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: DecksTableProps) => {
   const [deleteDeck] = useDeleteDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
 
   const handleSort = (column: string) => {
     if (orderBy === `${column}-asc`) {
@@ -88,7 +89,7 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
                   <DecksDialog
                     isPrivate={isPrivate}
                     name={name}
-                    onSubmit={console.log}
+                    onSubmit={body => updateDeck({ id, ...body })}
                     title={'Update Deck'}
                   >
                     <Button disabled={isDisabled}>
