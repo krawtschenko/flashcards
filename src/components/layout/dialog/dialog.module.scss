@@ -1,3 +1,5 @@
+@import '../../../styles';
+
 .dialogOverlay {
   position: fixed;
   z-index: 2;
@@ -34,10 +36,17 @@
       border-bottom: 1px solid var(--color-dark-500);
 
       .closeButton {
+        position: relative;
+        z-index: 1;
+
         padding: unset;
+
         font-size: var(--font-size-l);
+
         background-color: unset;
         box-shadow: none;
+
+        @include button-hover;
       }
     }
 

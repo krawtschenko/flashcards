@@ -1,3 +1,5 @@
+@import '../../../styles';
+
 .th {
   cursor: pointer;
   display: flex;
@@ -65,31 +67,7 @@
       background-color: transparent;
       box-shadow: none;
 
-      &:not(:disabled)::before {
-        content: '';
-
-        position: absolute;
-        z-index: -1;
-        transform: scale(0);
-
-        display: block;
-
-        width: 150%;
-        height: 150%;
-
-        background-color: var(--color-dark-300);
-        border-radius: 100%;
-
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-      }
-
-      &:hover {
-        background-color: transparent;
-
-        &::before {
-          transform: scale(1);
-        }
-      }
+      @include button-hover;
 
       &:disabled {
         color: var(--color-dark-300);
