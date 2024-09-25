@@ -30,8 +30,8 @@ type LoginFormProps = {
 export const LoginForm = ({ className, login }: LoginFormProps) => {
   const { control, handleSubmit } = useForm<LoginFormValues>({
     defaultValues: {
-      email: 'kravchenko.eugene@outlook.com',
-      password: '123',
+      email: 'eugen.kravchenko@proinfo.poznan.pl',
+      password: '12345',
       rememberMe: true,
     },
     resolver: zodResolver(loginSchema),

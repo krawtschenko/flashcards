@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+
 import { ComponentPropsWithoutRef, useMemo } from 'react'
 
 import * as AvatarRadix from '@radix-ui/react-avatar'
@@ -16,24 +18,17 @@ export const Avatar = ({ avatar, className, fontSize, name, ...rest }: AvatarPro
   const fallback = name
     ?.split(' ')
     .slice(0, 2)
-    .map(word => word[0])
+    .map(word => word[0].toUpperCase())
     .join('')
 
-  // Generate two colors for the gradient background
-  const color1 = useMemo(() => getRandomColor(), [])
-  const color2 = useMemo(() => getRandomColor(), [])
+  // Generate a random background color
+  const backgroundColor = useMemo(() => getRandomColor(), [])
 
-  // Determine text color (white or black) based on the presence of '0' or '1' in the colors
-  const color = useMemo(
-    () => (shouldUseWhiteText(color1) || shouldUseWhiteText(color2) ? '#FFFFFF' : '#000000'),
-    [color1, color2]
-  )
+  // Create a lighter background color for the avatar
+  const lightBackground = useMemo(() => lightenColor(backgroundColor, 0.5), [backgroundColor])
 
-  // Create the CSS gradient string using the two colors
-  const background = useMemo(
-    () => `linear-gradient(135deg, ${color1}, ${color2})`,
-    [color1, color2]
-  )
+  // Create a darker version of the same color for the text
+  const textColor = useMemo(() => darkenColor(backgroundColor, 0.2), [backgroundColor])
 
   return (
     <AvatarRadix.Root className={clsx(style.avatarRoot, className)} {...rest}>
@@ -42,7 +37,7 @@ export const Avatar = ({ avatar, className, fontSize, name, ...rest }: AvatarPro
       <AvatarRadix.Fallback
         className={style.avatarFallback}
         delayMs={0}
-        style={{ background, color, fontSize }}
+        style={{ background: lightBackground, color: textColor, fontSize }}
       >
         {fallback}
       </AvatarRadix.Fallback>
@@ -50,7 +45,7 @@ export const Avatar = ({ avatar, className, fontSize, name, ...rest }: AvatarPro
   )
 }
 
-// Function to generate a random color in hex format
+// Function to generate a random hex color
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF'
   let color = '#'
@@ -62,7 +57,44 @@ const getRandomColor = () => {
   return color
 }
 
-// Function to check if the color contains '0' or '1'
-const shouldUseWhiteText = (color: string) => {
-  return color.includes('0') || color.includes('1') || color.includes('2')
+// Function to lighten a color by a percentage
+const lightenColor = (color: string, percent: number) => {
+  const num = parseInt(color.slice(1), 16),
+    amt = Math.round(2.55 * percent * 100),
+    R = (num >> 16) + amt,
+    G = ((num >> 8) & 0x00ff) + amt,
+    B = (num & 0x0000ff) + amt
+
+  return (
+    '#' +
+    (
+      0x1000000 +
+      (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+      (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+      (B < 255 ? (B < 1 ? 0 : B) : 255)
+    )
+      .toString(16)
+      .slice(1)
+  )
+}
+
+// Function to darken a color by a percentage
+const darkenColor = (color: string, percent: number) => {
+  const num = parseInt(color.slice(1), 16),
+    amt = Math.round(2.55 * percent * 100),
+    R = (num >> 16) - amt,
+    G = ((num >> 8) & 0x00ff) - amt,
+    B = (num & 0x0000ff) - amt
+
+  return (
+    '#' +
+    (
+      0x1000000 +
+      (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+      (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+      (B < 255 ? (B < 1 ? 0 : B) : 255)
+    )
+      .toString(16)
+      .slice(1)
+  )
 }
