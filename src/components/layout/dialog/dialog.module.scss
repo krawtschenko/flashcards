@@ -38,6 +38,10 @@
         font-size: var(--font-size-l);
         background-color: unset;
         box-shadow: none;
+
+        &:hover {
+          color: var(--color-danger-500);
+        }
       }
     }
 
