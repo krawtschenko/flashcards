@@ -139,7 +139,6 @@ const authApi = baseApi.injectEndpoints({
     ##token##\
   </h2>\
 </div>',
-              // html: '\n <div>\n <h1 style="margin-top:0;color:#333333;font-size:24px;font-weight:bold;text-align:left">\n Thanks for signing up for, ##name##!\n  </h1>\n\n  <p style="color:#51545e;margin:0.4em 0 1.1875em;font-size:16px;line-height:1.625">\n    We\'re happy you\'re here. Let\'s get your email address <span class="il">verified</span>:\n  </p>\n\n  <p style="color:#51545e;margin:0.4em 0 1.1875em;font-size:16px;line-height:1.625">Your <span class="il">code</span>:</p>\n\n  <h2 style="margin-top:0;margin-bottom:0.4em;color:#333333;font-size:20px;font-weight:bold;text-align:left">\n ##token##\n </h2>\n\n</div>\n',
               subject: 'verify',
               userId,
             },
