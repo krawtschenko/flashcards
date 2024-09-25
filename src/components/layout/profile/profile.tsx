@@ -16,7 +16,7 @@ import { ControlledTextField } from '../../ui/textField/controlledTextField'
 import { Typography } from '../../ui/typography/typography'
 
 const profileSchema = z.object({
-  name: z.string().min(1, 'Required'),
+  name: z.string().min(1, 'Required').optional(),
 })
 
 export type ProfileValue = z.infer<typeof profileSchema>
@@ -145,17 +145,25 @@ type EditableProps = {
   update: (e: ProfileValue) => void
 }
 
-const Editable = ({ name, update }: EditableProps) => {
-  const { control, handleSubmit } = useForm<ProfileValue>({
-    defaultValues: { name },
+const Editable = ({ update, ...rest }: EditableProps) => {
+  const { control, handleSubmit, watch } = useForm<ProfileValue>({
+    defaultValues: { name: rest.name },
     resolver: zodResolver(profileSchema),
   })
 
+  const handleSubmitHandler = handleSubmit(({ name }) => {
+    return update({ name: name === rest.name ? undefined : name })
+  })
+
+  const isDisabledBtn = rest.name === watch().name
+
   return (
-    <form className={style.form} onSubmit={handleSubmit(update)}>
+    <form className={style.form} onSubmit={handleSubmitHandler}>
       <ControlledTextField control={control} label={'Nickname'} name={'name'} />
 
-      <Button fullWidth>Save Changes</Button>
+      <Button disabled={isDisabledBtn} fullWidth>
+        Save Changes
+      </Button>
     </form>
   )
 }

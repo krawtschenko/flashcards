@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 
 import style from './profilePage.module.scss'
 
-import { Profile } from '../../components/layout/profile/profile'
+import { Profile, ProfileValue } from '../../components/layout/profile/profile'
 import {
   useLogoutMutation,
   useMeQuery,
@@ -27,6 +27,15 @@ export const ProfilePage = () => {
     }
   }
 
+  const updateHandler = async (e: ProfileValue) => {
+    try {
+      await update(e).unwrap()
+      toast.success('Profile is updated')
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
+  }
+
   return (
     <Profile
       avatar={me?.avatar}
@@ -35,7 +44,7 @@ export const ProfilePage = () => {
       isEmailVerified={me?.isEmailVerified}
       logout={logout}
       name={me?.name}
-      update={update}
+      update={updateHandler}
       verify={verifyHandler}
     />
   )
