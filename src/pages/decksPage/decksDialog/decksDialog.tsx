@@ -11,6 +11,7 @@ import { Dialog, DialogPortal, DialogTrigger } from '../../../components/layout/
 import { Button } from '../../../components/ui/button/button'
 import { ControlledCheckbox } from '../../../components/ui/checkbox/controlledCheckbox'
 import { ControlledTextField } from '../../../components/ui/textField/controlledTextField'
+import { DeckBody } from '../../../features/decks/decksTypes'
 
 const decksDialogSchema = z.object({
   cover: z.string().optional(),
@@ -24,13 +25,13 @@ type DecksDialogProps = {
   children: ReactNode
   isPrivate?: boolean
   name?: string
-  onSubmit: (value: { cover?: string; isPrivate?: boolean; name: string }) => void
+  onSubmit: (value: DeckBody) => void
   title: string
 }
 
-export const DecksDialog = ({ children, isPrivate, name, onSubmit, title }: DecksDialogProps) => {
+export const DecksDialog = ({ children, onSubmit, title, ...rest }: DecksDialogProps) => {
   const { control, handleSubmit, reset, watch } = useForm<DecksDialogValue>({
-    defaultValues: { isPrivate: isPrivate ?? false, name: name ?? '' },
+    defaultValues: { isPrivate: rest.isPrivate ?? false, name: rest.name ?? '' },
     resolver: zodResolver(decksDialogSchema),
   })
 
@@ -38,23 +39,30 @@ export const DecksDialog = ({ children, isPrivate, name, onSubmit, title }: Deck
 
   const onOpenChangeHandler = () => {
     setIsOpen(!isOpen)
-    name ?? reset()
+    rest.name ?? reset()
   }
 
-  const onSubmitHandler = (value: { cover?: string; isPrivate?: boolean; name: string }) => {
+  const onSubmitHandler = (value: DeckBody) => {
     onSubmit(value)
     setIsOpen(false)
-    name ?? reset()
+    rest.name ?? reset()
   }
 
-  const isDisabledBtn = name === watch().name && isPrivate === watch().isPrivate
+  const handleSubmitHandler = handleSubmit(({ isPrivate, name }) => {
+    return onSubmitHandler({
+      isPrivate: isPrivate === rest.isPrivate ? undefined : isPrivate,
+      name: name === rest.name ? undefined : name,
+    })
+  })
+
+  const isDisabledBtn = rest.name === watch().name && rest.isPrivate === watch().isPrivate
 
   return (
     <Dialog onOpenChange={onOpenChangeHandler} open={isOpen}>
       <DialogTrigger>{children}</DialogTrigger>
 
       <DialogPortal className={style.portal} title={title}>
-        <form className={style.form} onSubmit={handleSubmit(onSubmitHandler)}>
+        <form className={style.form} onSubmit={handleSubmitHandler}>
           <ControlledTextField
             control={control}
             label={'Name Pack'}

@@ -38,10 +38,10 @@ export type Author = {
   name: string
 }
 
-export type CreateDeckBody = {
+export type DeckBody = {
   cover?: string
   isPrivate?: boolean
-  name: string
+  name?: string
 }
 
 export type CreateDeckResponse = {
