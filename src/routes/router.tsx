@@ -1,5 +1,6 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
+import { Root } from '../components/root/root'
 import { DecksPage } from '../pages/decksPage/decksPage'
 import { ErrorPage } from '../pages/errorPage/errorPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
@@ -7,7 +8,6 @@ import { NewPassPage } from '../pages/newPassPage/newPassPage'
 import { ProfilePage } from '../pages/profilePage/profilePage'
 import { RecoveryPage } from '../pages/recoveryPage/recoveryPage'
 import { RegistrationPage } from '../pages/registrationPage/registrationPage'
-import { Root } from '../pages/root/root'
 import { VerifyPage } from '../pages/verifyPage/verifyPage'
 import { path } from './path'
 
