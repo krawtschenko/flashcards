@@ -112,7 +112,7 @@ const authApi = baseApi.injectEndpoints({
         },
       }),
       update: builder.mutation<Me, UpdateUser>({
-        invalidatesTags: ['me'],
+        invalidatesTags: ['me', 'decks'],
         query: body => {
           return {
             body,
