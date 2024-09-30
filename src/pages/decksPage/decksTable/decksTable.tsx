@@ -87,6 +87,7 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
                   </Button>
 
                   <DecksDialog
+                    cover={cover}
                     isPrivate={isPrivate}
                     name={name}
                     onSubmit={body => updateDeck({ id, ...body })}

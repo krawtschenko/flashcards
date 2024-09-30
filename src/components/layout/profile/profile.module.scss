@@ -33,22 +33,30 @@
     .deleteAvatar,
     .newAvatar {
       position: absolute;
-      right: 3px;
+      right: 0;
+
       padding: 4px;
-      font-size: 16px;
+
+      font-size: 20px;
+
+      border-radius: 100%;
     }
 
     .deleteAvatar {
-      top: 6px;
+      top: 0;
       background-color: var(--color-danger-500);
 
       &:hover {
         background-color: var(--color-danger-300);
       }
+
+      &:active {
+        background-color: var(--color-danger-700);
+      }
     }
 
     .newAvatar {
-      bottom: 6px;
+      bottom: 0;
     }
   }
 

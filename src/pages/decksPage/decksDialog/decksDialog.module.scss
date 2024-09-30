@@ -2,7 +2,38 @@
   width: 542px;
 
   .form {
-    margin-top: 24px;
+    position: relative;
+
+    img {
+      width: 100%;
+    }
+
+    .closeButton {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+
+      padding: 4px;
+
+      font-size: 26px;
+
+      background-color: unset;
+      background-color: var(--color-danger-500);
+      border-radius: 100%;
+      box-shadow: none;
+
+      &:hover {
+        background-color: var(--color-danger-300);
+      }
+
+      &:active {
+        background-color: var(--color-danger-700);
+      }
+    }
+
+    .textField {
+      margin-top: 24px;
+    }
 
     .uploadButton {
       margin-top: 24px;

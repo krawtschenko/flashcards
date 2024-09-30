@@ -2,6 +2,7 @@ import { ReactNode, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { FiTrash2 } from 'react-icons/fi'
 import { SlPicture } from 'react-icons/sl'
 import { z } from 'zod'
 
@@ -23,13 +24,14 @@ type DecksDialogValue = z.infer<typeof decksDialogSchema>
 
 type DecksDialogProps = {
   children: ReactNode
+  cover?: string
   isPrivate?: boolean
   name?: string
   onSubmit: (value: DeckBody) => void
   title: string
 }
 
-export const DecksDialog = ({ children, onSubmit, title, ...rest }: DecksDialogProps) => {
+export const DecksDialog = ({ children, cover, onSubmit, title, ...rest }: DecksDialogProps) => {
   const { control, handleSubmit, reset, watch } = useForm<DecksDialogValue>({
     defaultValues: { isPrivate: rest.isPrivate ?? false, name: rest.name ?? '' },
     resolver: zodResolver(decksDialogSchema),
@@ -65,7 +67,15 @@ export const DecksDialog = ({ children, onSubmit, title, ...rest }: DecksDialogP
 
       <DialogPortal className={style.portal} title={title}>
         <form className={style.form} onSubmit={handleSubmitHandler}>
+          {cover && <img alt={'cover'} src={cover} />}
+          {cover && (
+            <Button className={style.closeButton} type={'button'}>
+              <FiTrash2 />
+            </Button>
+          )}
+
           <ControlledTextField
+            className={style.textField}
             control={control}
             label={'Name Pack'}
             name={'name'}
