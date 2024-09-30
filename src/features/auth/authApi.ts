@@ -57,6 +57,9 @@ const authApi = baseApi.injectEndpoints({
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
 
+            localStorage.removeItem('lightBackground')
+            localStorage.removeItem('textColor')
+
             // Reset API state
             dispatch(authApi.util.resetApiState())
           } catch (error) {
