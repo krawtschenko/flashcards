@@ -9,6 +9,7 @@ import { Select, SelectItem } from '../select/select'
 type PaginationProps = {
   className?: string
   currentPage: number
+  disabled?: boolean
   itemsPerPage: number
   onItemsPerPageChange: (items: number) => void
   onPageChange: (page: number) => void
@@ -19,6 +20,7 @@ export const Pagination = (props: PaginationProps) => {
   const {
     className,
     currentPage,
+    disabled,
     itemsPerPage,
     onItemsPerPageChange,
     onPageChange,
@@ -34,7 +36,7 @@ export const Pagination = (props: PaginationProps) => {
   }
 
   return (
-    <div className={clsx(style.pagination, className)}>
+    <div aria-disabled={disabled} className={clsx(style.pagination, className)}>
       <button
         className={clsx(style.button, currentPage === 1 && style.arrowDisabled)}
         disabled={currentPage === 1}
@@ -71,6 +73,7 @@ export const Pagination = (props: PaginationProps) => {
       <span>Show</span>
       <Select
         className={style.select}
+        disabled={disabled}
         onValueChange={value => onItemsPerPageChange(Number(value))}
         value={itemsPerPage.toString()}
       >

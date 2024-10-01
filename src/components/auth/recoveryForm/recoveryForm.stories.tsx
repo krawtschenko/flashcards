@@ -13,6 +13,14 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    onRecovery: console.log,
+    isSuccess: false,
+    recovery: console.log,
+  },
+}
+
+export const Success: Story = {
+  args: {
+    isSuccess: true,
+    recovery: console.log,
   },
 }

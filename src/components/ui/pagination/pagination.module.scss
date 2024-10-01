@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 .pagination {
   display: flex;
   column-gap: 5px;
@@ -50,5 +52,22 @@
 
   .select {
     width: 44px;
+  }
+
+  &[aria-disabled='true'] {
+    .button {
+      cursor: not-allowed;
+      color: var(--color-dark-300);
+      background-color: transparent;
+
+      &.active {
+        color: var(--color-dark-900);
+        background-color: var(--color-dark-300);
+      }
+    }
+
+    span {
+      color: var(--color-dark-300);
+    }
   }
 }
