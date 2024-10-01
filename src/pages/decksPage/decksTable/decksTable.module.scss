@@ -1,10 +1,17 @@
 @import '../../../styles';
 
+.active {
+  background-color: var(--color-dark-300) !important;
+}
+
 .th {
   cursor: pointer;
+
   display: flex;
   column-gap: 5px;
   align-items: center;
+
+  transition: all 0.2s;
 }
 
 .tdName {
@@ -39,6 +46,10 @@
 
 .tdCards {
   width: 100px;
+
+  &.zero {
+    color: var(--color-danger-700);
+  }
 }
 
 .tdAuthor {
@@ -50,8 +61,9 @@
 
   div {
     display: flex;
+    column-gap: 10px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
     button {
       cursor: pointer;
@@ -69,9 +81,21 @@
 
       @include button-hover;
 
-      &:disabled {
-        color: var(--color-dark-300);
-        background-color: transparent;
+      &.play {
+        color: var(--color-success-500);
+
+        &:disabled {
+          color: var(--color-success-900);
+          background-color: transparent;
+        }
+      }
+
+      &.edit {
+        color: var(--color-info-500);
+      }
+
+      &.btnTrash {
+        color: var(--color-danger-500);
       }
     }
   }

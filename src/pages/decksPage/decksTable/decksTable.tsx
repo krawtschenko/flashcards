@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { FiChevronDown, FiChevronUp, FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
 
 import style from './decksTable.module.scss'
@@ -45,16 +46,28 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
     <Table className={className}>
       <Thead>
         <Tr>
-          <Th onClick={() => handleSort('name')}>
+          <Th
+            className={clsx(getSortIcon('name') && style.active)}
+            onClick={() => handleSort('name')}
+          >
             <div className={style.th}>Name {getSortIcon('name')}</div>
           </Th>
-          <Th onClick={() => handleSort('cardsCount')}>
+          <Th
+            className={clsx(getSortIcon('cardsCount') && style.active)}
+            onClick={() => handleSort('cardsCount')}
+          >
             <div className={style.th}>Cards {getSortIcon('cardsCount')}</div>
           </Th>
-          <Th onClick={() => handleSort('updated')}>
+          <Th
+            className={clsx(getSortIcon('updated') && style.active)}
+            onClick={() => handleSort('updated')}
+          >
             <div className={style.th}>Last Updated {getSortIcon('updated')}</div>
           </Th>
-          <Th onClick={() => handleSort('author.name')}>
+          <Th
+            className={clsx(getSortIcon('author.name') && style.active)}
+            onClick={() => handleSort('author.name')}
+          >
             <div className={style.th}>Created By {getSortIcon('author.name')}</div>
           </Th>
           <Th></Th>
@@ -67,7 +80,10 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
           const deckName = name.length > 30 ? `${name.slice(0, 27)}...` : name
           const deckCover = cover || coverImg
 
-          const isDisabled = meId !== author.id
+          const isMe = meId === author.id
+          const color = localStorage.getItem('lightBackground')
+
+          const styleForAuthor = { color: isMe ? color : '' }
 
           return (
             <Tr key={id}>
@@ -77,30 +93,36 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
                   {deckName}
                 </div>
               </Td>
-              <Td className={style.tdCards}>{cardsCount}</Td>
+              <Td className={clsx(style.tdCards, cardsCount === 0 && style.zero)}>{cardsCount}</Td>
               <Td>{updatedAt}</Td>
-              <Td className={style.tdAuthor}>{author.name}</Td>
+              <Td className={style.tdAuthor} style={styleForAuthor}>
+                {author.name}
+              </Td>
               <Td className={style.tdActions}>
                 <div>
-                  <Button>
+                  <Button className={style.play} disabled={cardsCount === 0}>
                     <FiPlayCircle />
                   </Button>
 
-                  <DecksDialog
-                    cover={cover}
-                    isPrivate={isPrivate}
-                    name={name}
-                    onSubmit={body => updateDeck({ id, ...body })}
-                    title={'Update Deck'}
-                  >
-                    <Button disabled={isDisabled}>
-                      <FiEdit />
-                    </Button>
-                  </DecksDialog>
+                  {isMe && (
+                    <DecksDialog
+                      cover={cover}
+                      isPrivate={isPrivate}
+                      name={name}
+                      onSubmit={body => updateDeck({ id, ...body })}
+                      title={'Update Deck'}
+                    >
+                      <Button className={style.edit}>
+                        <FiEdit />
+                      </Button>
+                    </DecksDialog>
+                  )}
 
-                  <Button disabled={isDisabled} onClick={() => deleteDeck(id)}>
-                    <FiTrash />
-                  </Button>
+                  {isMe && (
+                    <Button className={style.btnTrash} onClick={() => deleteDeck(id)}>
+                      <FiTrash />
+                    </Button>
+                  )}
                 </div>
               </Td>
             </Tr>

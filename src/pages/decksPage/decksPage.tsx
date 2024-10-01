@@ -66,6 +66,11 @@ export const DecksPage = () => {
     setName(e.currentTarget.value)
   }
 
+  const onChangeTab = (value: string) => {
+    setCurrentTab(value)
+    setCurrentPage(1)
+  }
+
   const onChangeSlider = (value: number[]) => {
     setCurrentPage(1)
     setMinCards(value[0])
@@ -102,10 +107,10 @@ export const DecksPage = () => {
         />
 
         <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>
-          <TabsTrigger onClick={() => setCurrentTab('my')} value={'my'}>
+          <TabsTrigger onClick={() => onChangeTab('my')} value={'my'}>
             My Cards
           </TabsTrigger>
-          <TabsTrigger onClick={() => setCurrentTab('all')} value={'all'}>
+          <TabsTrigger onClick={() => onChangeTab('all')} value={'all'}>
             All Cards
           </TabsTrigger>
         </Tabs>
