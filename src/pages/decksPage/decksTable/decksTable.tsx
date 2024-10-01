@@ -81,9 +81,6 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
           const deckCover = cover || coverImg
 
           const isMe = meId === author.id
-          const color = localStorage.getItem('lightBackground')
-
-          const styleForAuthor = { color: isMe ? color : '' }
 
           return (
             <Tr key={id}>
@@ -95,9 +92,7 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
               </Td>
               <Td className={clsx(style.tdCards, cardsCount === 0 && style.zero)}>{cardsCount}</Td>
               <Td>{updatedAt}</Td>
-              <Td className={style.tdAuthor} style={styleForAuthor}>
-                {author.name}
-              </Td>
+              <Td className={style.tdAuthor}>{author.name}</Td>
               <Td className={style.tdActions}>
                 <div>
                   <Button className={style.play} disabled={cardsCount === 0}>
