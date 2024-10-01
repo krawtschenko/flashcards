@@ -77,24 +77,23 @@ export const DecksPage = () => {
     setItemsPerPage(items)
   }
 
+  if (isLoading) {
+    return <LoadingBar id={'loader-root'} loading={isLoading} />
+  }
+
   return (
     <div className={style.decksPage}>
-      <LoadingBar id={'loader-root'} loading={isLoading} />
-
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
 
         <DecksDialog onSubmit={createDeck} title={'Add New Deck'}>
-          <Button className={style.button} disabled={isLoading}>
-            Add New Deck
-          </Button>
+          <Button className={style.button}>Add New Deck</Button>
         </DecksDialog>
       </div>
 
       <div className={style.filter}>
         <TextField
           className={style.search}
-          disabled={isLoading}
           icon={<FiSearch />}
           label={'Search'}
           onChange={onChangeName}
@@ -103,16 +102,15 @@ export const DecksPage = () => {
         />
 
         <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>
-          <TabsTrigger disabled={isLoading} onClick={() => setCurrentTab('my')} value={'my'}>
+          <TabsTrigger onClick={() => setCurrentTab('my')} value={'my'}>
             My Cards
           </TabsTrigger>
-          <TabsTrigger disabled={isLoading} onClick={() => setCurrentTab('all')} value={'all'}>
+          <TabsTrigger onClick={() => setCurrentTab('all')} value={'all'}>
             All Cards
           </TabsTrigger>
         </Tabs>
 
         <Slider
-          disabled={isLoading}
           max={minMax?.max}
           min={minMax?.min}
           onValueChange={setRange}
@@ -121,12 +119,7 @@ export const DecksPage = () => {
           value={range}
         />
 
-        <Button
-          className={style.button}
-          disabled={isLoading}
-          onClick={onClearFilters}
-          variant={'secondary'}
-        >
+        <Button className={style.button} onClick={onClearFilters} variant={'secondary'}>
           <FiTrash /> Clear Filter
         </Button>
       </div>
@@ -142,7 +135,6 @@ export const DecksPage = () => {
       <Pagination
         className={style.pagination}
         currentPage={currentPage}
-        disabled={isLoading}
         itemsPerPage={itemsPerPage}
         onItemsPerPageChange={onChangeItemsPerPage}
         onPageChange={setCurrentPage}

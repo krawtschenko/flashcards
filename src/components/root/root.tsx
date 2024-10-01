@@ -30,7 +30,7 @@ export const Root = () => {
         name={me?.name}
       />
 
-      <div id={'loader-root'}></div>
+      <div id={'loader-root'} />
 
       <Container>
         <Outlet />
