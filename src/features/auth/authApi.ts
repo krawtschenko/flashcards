@@ -125,6 +125,8 @@ const authApi = baseApi.injectEndpoints({
 
           if (avatar) {
             formData.append('avatar', avatar)
+          } else if (avatar === null) {
+            formData.append('avatar', '')
           }
 
           return {

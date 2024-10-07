@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -29,21 +29,33 @@ type ProfileProps = {
 
 export const Profile = (props: ProfileProps) => {
   const { avatar, className, email, isEmailVerified, logout, name, update, verify } = props
+
   const [editable, setEditable] = useState(false)
+
+  const [image, setImage] = useState<File | null>(null)
+  const [preview, setPreview] = useState<null | string>(null)
+
+  useEffect(() => {
+    if (avatar) {
+      setPreview(avatar)
+    }
+  }, [avatar])
 
   const onUpdateHandler = (data: UpdateUser) => {
     update(data)
     setEditable(!editable)
   }
 
-  const [image, setImage] = useState<File | null>(null)
-
-  const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const uploadAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
       setImage(file)
     }
+  }
+
+  const removeAvatarHandler = () => {
+    setImage(null)
   }
 
   return (
@@ -59,19 +71,23 @@ export const Profile = (props: ProfileProps) => {
       </Typography>
 
       <div className={style.avatarWrap}>
-        <Avatar avatar={avatar} className={style.avatar} fontSize={36} name={name} />
+        <Avatar avatar={preview ?? undefined} className={style.avatar} fontSize={36} name={name} />
 
         {editable && (
           <>
             {avatar && (
-              <Button className={style.deleteAvatar} variant={'secondary'}>
+              <Button
+                className={style.deleteAvatar}
+                onClick={removeAvatarHandler}
+                variant={'secondary'}
+              >
                 <FiTrash2 />
               </Button>
             )}
 
             <Button as={'label'} className={style.newAvatar} variant={'secondary'}>
               <FiEdit3 />
-              <input accept={'image/*'} onChange={uploadHandler} type={'file'} />
+              <input accept={'image/*'} onChange={uploadAvatarHandler} type={'file'} />
             </Button>
           </>
         )}
@@ -147,7 +163,7 @@ const NotEditable = ({
 }
 
 const profileSchema = z.object({
-  name: z.string().min(1, 'Required').optional(),
+  name: z.string().min(1),
 })
 
 type ProfileValue = z.infer<typeof profileSchema>
@@ -166,7 +182,7 @@ const Editable = ({ image, update, ...rest }: EditableProps) => {
 
   const handleSubmitHandler = handleSubmit(({ name }) => {
     return update({
-      avatar: !image ? undefined : image,
+      avatar: image || image === null ? image : undefined,
       name: name === rest.name ? undefined : name,
     })
   })
