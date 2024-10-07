@@ -31,7 +31,7 @@ export type RegistrationResponse = {
 }
 
 export type UpdateUser = {
-  avatar?: string
+  avatar?: File | null
   name?: string
 }
 

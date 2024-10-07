@@ -9,17 +9,12 @@ import { z } from 'zod'
 
 import style from './profile.module.scss'
 
+import { UpdateUser } from '../../../features/auth/authTypes'
 import { Avatar } from '../../ui/avatar/avatar'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { ControlledTextField } from '../../ui/textField/controlledTextField'
 import { Typography } from '../../ui/typography/typography'
-
-const profileSchema = z.object({
-  name: z.string().min(1, 'Required').optional(),
-})
-
-export type ProfileValue = z.infer<typeof profileSchema>
 
 type ProfileProps = {
   avatar?: string
@@ -28,7 +23,7 @@ type ProfileProps = {
   isEmailVerified?: boolean
   logout: () => void
   name?: string
-  update: (e: ProfileValue) => void
+  update: (data: UpdateUser) => void
   verify: () => void
 }
 
@@ -36,8 +31,8 @@ export const Profile = (props: ProfileProps) => {
   const { avatar, className, email, isEmailVerified, logout, name, update, verify } = props
   const [editable, setEditable] = useState(false)
 
-  const onUpdateHandler = (e: ProfileValue) => {
-    update(e)
+  const onUpdateHandler = (data: UpdateUser) => {
+    update(data)
     setEditable(!editable)
   }
 
@@ -95,7 +90,7 @@ export const Profile = (props: ProfileProps) => {
       )}
 
       {/*While editable*/}
-      {editable && <Editable name={name} update={onUpdateHandler} />}
+      {editable && <Editable image={image} name={name} update={onUpdateHandler} />}
     </Card>
   )
 }
@@ -151,22 +146,32 @@ const NotEditable = ({
   )
 }
 
+const profileSchema = z.object({
+  name: z.string().min(1, 'Required').optional(),
+})
+
+type ProfileValue = z.infer<typeof profileSchema>
+
 type EditableProps = {
+  image?: File | null
   name?: string
-  update: (e: ProfileValue) => void
+  update: (data: UpdateUser) => void
 }
 
-const Editable = ({ update, ...rest }: EditableProps) => {
+const Editable = ({ image, update, ...rest }: EditableProps) => {
   const { control, handleSubmit, watch } = useForm<ProfileValue>({
     defaultValues: { name: rest.name },
     resolver: zodResolver(profileSchema),
   })
 
   const handleSubmitHandler = handleSubmit(({ name }) => {
-    return update({ name: name === rest.name ? undefined : name })
+    return update({
+      avatar: !image ? undefined : image,
+      name: name === rest.name ? undefined : name,
+    })
   })
 
-  const isDisabledBtn = rest.name === watch().name
+  const isDisabledBtn = rest.name === watch().name && !image
 
   return (
     <form className={style.form} onSubmit={handleSubmitHandler}>

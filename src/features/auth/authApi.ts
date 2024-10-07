@@ -116,9 +116,19 @@ const authApi = baseApi.injectEndpoints({
       }),
       update: builder.mutation<Me, UpdateUser>({
         invalidatesTags: ['me', 'decks'],
-        query: body => {
+        query: ({ avatar, name }) => {
+          const formData = new FormData()
+
+          if (name) {
+            formData.append('name', name)
+          }
+
+          if (avatar) {
+            formData.append('avatar', avatar)
+          }
+
           return {
-            body,
+            body: formData,
             method: 'PATCH',
             url: '/v1/auth/me',
           }

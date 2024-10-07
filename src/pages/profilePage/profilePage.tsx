@@ -2,13 +2,14 @@ import { toast } from 'react-toastify'
 
 import style from './profilePage.module.scss'
 
-import { Profile, ProfileValue } from '../../components/layout/profile/profile'
+import { Profile } from '../../components/layout/profile/profile'
 import {
   useLogoutMutation,
   useMeQuery,
   useUpdateMutation,
   useVerifyMutation,
 } from '../../features/auth/authApi'
+import { UpdateUser } from '../../features/auth/authTypes'
 import { path } from '../../routes/path'
 import { router } from '../../routes/router'
 
@@ -27,9 +28,9 @@ export const ProfilePage = () => {
     }
   }
 
-  const updateHandler = async (e: ProfileValue) => {
+  const updateHandler = async (data: UpdateUser) => {
     try {
-      await update(e).unwrap()
+      await update(data).unwrap()
       toast.success('Profile is updated')
     } catch (error) {
       toast.error('Something went wrong')
