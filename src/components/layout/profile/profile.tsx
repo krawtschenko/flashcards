@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -41,6 +41,16 @@ export const Profile = (props: ProfileProps) => {
     setEditable(!editable)
   }
 
+  const [image, setImage] = useState<File | null>(null)
+
+  const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
+      const file = e.target.files[0]
+
+      setImage(file)
+    }
+  }
+
   return (
     <Card className={clsx(style.card, className)}>
       {editable && (
@@ -64,8 +74,9 @@ export const Profile = (props: ProfileProps) => {
               </Button>
             )}
 
-            <Button className={style.newAvatar} variant={'secondary'}>
+            <Button as={'label'} className={style.newAvatar} variant={'secondary'}>
               <FiEdit3 />
+              <input accept={'image/*'} onChange={uploadHandler} type={'file'} />
             </Button>
           </>
         )}
