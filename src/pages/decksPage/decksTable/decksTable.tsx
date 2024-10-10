@@ -8,7 +8,7 @@ import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck } from '../../../features/decks/decksTypes'
 import { useDeleteDeckMutation, useUpdateDeckMutation } from '../../../features/decks/dekcsApi'
-import { DecksDialog } from '../decksDialog/decksDialog'
+import { DecksDialog, DeleteDeckDialog } from '../decksDialog/decksDialog'
 
 type DecksTableProps = {
   className?: string
@@ -114,9 +114,11 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
                   )}
 
                   {isMe && (
-                    <Button className={style.btnTrash} onClick={() => deleteDeck(id)}>
-                      <FiTrash />
-                    </Button>
+                    <DeleteDeckDialog onDelete={() => deleteDeck(id)}>
+                      <Button className={style.btnTrash}>
+                        <FiTrash />
+                      </Button>
+                    </DeleteDeckDialog>
                   )}
                 </div>
               </Td>

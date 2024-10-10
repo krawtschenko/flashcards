@@ -45,11 +45,24 @@
     .checkbox {
       margin-top: 24px;
     }
+  }
 
-    .buttonsWrap {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 36px;
+  .buttonsWrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 36px;
+
+    .delete {
+      background-color: var(--color-danger-500);
+      box-shadow: 0 4px 18px 0 var(--color-danger-900);
+
+      &:hover {
+        background-color: var(--color-danger-300);
+      }
+
+      &:active {
+        background-color: var(--color-danger-700);
+      }
     }
   }
 }
