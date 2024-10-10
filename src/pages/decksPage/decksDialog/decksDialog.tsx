@@ -43,7 +43,7 @@ export const DecksDialog = ({ children, cover, onSubmit, title, ...rest }: Decks
   const onOpenChangeHandler = () => {
     setIsOpen(!isOpen)
 
-    if (rest.name) {
+    if (!rest.name) {
       reset()
     }
   }

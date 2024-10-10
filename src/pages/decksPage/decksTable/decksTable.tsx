@@ -6,21 +6,21 @@ import style from './decksTable.module.scss'
 import coverImg from '../../../assets/images/cover.svg'
 import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
-import { Deck } from '../../../features/decks/decksTypes'
-import { useDeleteDeckMutation, useUpdateDeckMutation } from '../../../features/decks/dekcsApi'
+import { Deck, DeckBody } from '../../../features/decks/decksTypes'
 import { DecksDialog, DeleteDeckDialog } from '../decksDialog/decksDialog'
 
 type DecksTableProps = {
   className?: string
   decks?: Deck[]
   meId?: string
+  onDeleteDeck: (id: string) => void
+  onUpdateDeck: (args: { id: string } & DeckBody) => void
   orderBy: null | string
   setOrderBy: (orderBy: null | string) => void
 }
 
-export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: DecksTableProps) => {
-  const [deleteDeck] = useDeleteDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
+export const DecksTable = (props: DecksTableProps) => {
+  const { className, decks, meId, onDeleteDeck, onUpdateDeck, orderBy, setOrderBy } = props
 
   const handleSort = (column: string) => {
     if (orderBy === `${column}-asc`) {
@@ -104,7 +104,7 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
                       cover={cover}
                       isPrivate={isPrivate}
                       name={name}
-                      onSubmit={body => updateDeck({ id, ...body })}
+                      onSubmit={body => onUpdateDeck({ id, ...body })}
                       title={'Update Deck'}
                     >
                       <Button className={style.edit}>
@@ -114,7 +114,7 @@ export const DecksTable = ({ className, decks, meId, orderBy, setOrderBy }: Deck
                   )}
 
                   {isMe && (
-                    <DeleteDeckDialog onDelete={() => deleteDeck(id)}>
+                    <DeleteDeckDialog onDelete={() => onDeleteDeck(id)}>
                       <Button className={style.btnTrash}>
                         <FiTrash />
                       </Button>

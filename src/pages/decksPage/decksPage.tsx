@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react'
+import { toast } from 'react-toastify'
 
 import { FiSearch, FiTrash } from 'react-icons/fi'
 
@@ -12,7 +13,13 @@ import { Tabs, TabsTrigger } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useMeQuery } from '../../features/auth/authApi'
-import { useCreateDeckMutation, useGetDecksQuery } from '../../features/decks/dekcsApi'
+import { DeckBody } from '../../features/decks/decksTypes'
+import {
+  useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useGetDecksQuery,
+  useUpdateDeckMutation,
+} from '../../features/decks/dekcsApi'
 import { useDeckParams } from '../../features/decks/useDeckParams'
 import { useDebounce } from '../../hooks/useDebounce'
 import { DecksDialog } from './decksDialog/decksDialog'
@@ -40,6 +47,8 @@ export const DecksPage = () => {
   } = useDeckParams()
 
   const [createDeck] = useCreateDeckMutation()
+  const [updateDeck] = useUpdateDeckMutation()
+  const [deleteDeck] = useDeleteDeckMutation()
   const { data: me } = useMeQuery()
 
   const { data: decks, isLoading } = useGetDecksQuery({
@@ -82,6 +91,33 @@ export const DecksPage = () => {
     setItemsPerPage(items)
   }
 
+  const onCreateDeckHandler = async (value: DeckBody) => {
+    try {
+      await createDeck(value).unwrap()
+      toast.success('Deck successfully created')
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
+  }
+
+  const onUpdateDeckHandler = async (args: { id: string } & DeckBody) => {
+    try {
+      await updateDeck(args).unwrap()
+      toast.success('Deck updated')
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
+  }
+
+  const onDeleteDeck = async (id: string) => {
+    try {
+      await deleteDeck(id).unwrap()
+      toast.warning('Deck successfully deleted')
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
+  }
+
   if (isLoading) {
     return <LoadingBar id={'loader-root'} loading={isLoading} />
   }
@@ -91,7 +127,7 @@ export const DecksPage = () => {
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
 
-        <DecksDialog onSubmit={createDeck} title={'Add New Deck'}>
+        <DecksDialog onSubmit={onCreateDeckHandler} title={'Add New Deck'}>
           <Button className={style.button}>Add New Deck</Button>
         </DecksDialog>
       </div>
@@ -133,6 +169,8 @@ export const DecksPage = () => {
         className={style.decksTable}
         decks={decks?.items}
         meId={me?.id}
+        onDeleteDeck={onDeleteDeck}
+        onUpdateDeck={onUpdateDeckHandler}
         orderBy={orderBy}
         setOrderBy={setOrderBy}
       />
