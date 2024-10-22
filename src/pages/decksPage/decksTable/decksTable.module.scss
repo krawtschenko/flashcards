@@ -36,10 +36,8 @@
   }
 
   &:hover {
-    color: var(--color-dark-100);
-
-    img {
-      transform: scale(1.1);
+    * {
+      transform: scale(1.05);
     }
   }
 }

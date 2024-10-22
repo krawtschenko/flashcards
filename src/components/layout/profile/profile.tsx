@@ -54,10 +54,6 @@ export const Profile = (props: ProfileProps) => {
     }
   }
 
-  const removeAvatarHandler = () => {
-    setImage(null)
-  }
-
   return (
     <Card className={clsx(style.card, className)}>
       {editable && (
@@ -78,7 +74,7 @@ export const Profile = (props: ProfileProps) => {
             {avatar && (
               <Button
                 className={style.deleteAvatar}
-                onClick={removeAvatarHandler}
+                onClick={() => setImage(null)}
                 variant={'secondary'}
               >
                 <FiTrash2 />
