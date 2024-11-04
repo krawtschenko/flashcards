@@ -32,7 +32,7 @@ export const Profile = (props: ProfileProps) => {
 
   const [editable, setEditable] = useState(false)
 
-  const [image, setImage] = useState<File | null>(null)
+  const [image, setImage] = useState<File | null | undefined>(undefined)
   const [preview, setPreview] = useState<null | string>(null)
 
   useEffect(() => {
@@ -41,9 +41,24 @@ export const Profile = (props: ProfileProps) => {
     }
   }, [avatar])
 
+  useEffect(() => {
+    if (image) {
+      const newPreview = URL.createObjectURL(image)
+
+      if (preview) {
+        URL.revokeObjectURL(preview)
+      }
+      setPreview(newPreview)
+
+      return () => URL.revokeObjectURL(newPreview)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [image])
+
   const onUpdateHandler = (data: UpdateUser) => {
     update(data)
     setEditable(!editable)
+    setImage(undefined)
   }
 
   const uploadAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,10 +69,25 @@ export const Profile = (props: ProfileProps) => {
     }
   }
 
+  const removeAvatarHandler = () => {
+    setImage(null)
+    setPreview(null)
+  }
+
+  const backHandler = () => {
+    if (avatar) {
+      setPreview(avatar)
+    } else {
+      setPreview(null)
+    }
+
+    setEditable(false)
+  }
+
   return (
     <Card className={clsx(style.card, className)}>
       {editable && (
-        <Button className={style.back} onClick={() => setEditable(false)}>
+        <Button className={style.back} onClick={backHandler}>
           <FiArrowLeft />
         </Button>
       )}
@@ -71,10 +101,10 @@ export const Profile = (props: ProfileProps) => {
 
         {editable && (
           <>
-            {avatar && (
+            {preview && (
               <Button
                 className={style.deleteAvatar}
-                onClick={() => setImage(null)}
+                onClick={removeAvatarHandler}
                 variant={'secondary'}
               >
                 <FiTrash2 />
@@ -170,28 +200,24 @@ type EditableProps = {
   update: (data: UpdateUser) => void
 }
 
-const Editable = ({ image, update, ...rest }: EditableProps) => {
-  const { control, handleSubmit, watch } = useForm<ProfileValue>({
-    defaultValues: { name: rest.name },
+const Editable = ({ image, name, update }: EditableProps) => {
+  const { control, handleSubmit } = useForm<ProfileValue>({
+    defaultValues: { name },
     resolver: zodResolver(profileSchema),
   })
 
-  const handleSubmitHandler = handleSubmit(({ name }) => {
+  const handleSubmitHandler = handleSubmit(value => {
     return update({
-      avatar: image || image === null ? image : undefined,
-      name: name === rest.name ? undefined : name,
+      avatar: image ?? (image === null ? null : undefined),
+      name: value.name === name ? undefined : value.name,
     })
   })
-
-  const isDisabledBtn = rest.name === watch().name && !image
 
   return (
     <form className={style.form} onSubmit={handleSubmitHandler}>
       <ControlledTextField control={control} label={'Nickname'} name={'name'} />
 
-      <Button disabled={isDisabledBtn} fullWidth>
-        Save Changes
-      </Button>
+      <Button fullWidth>Save Changes</Button>
     </form>
   )
 }
