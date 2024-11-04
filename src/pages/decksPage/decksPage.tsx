@@ -118,6 +118,12 @@ export const DecksPage = () => {
     }
   }
 
+  const noDecks = decks?.items.length === 0 && (
+    <Typography className={style.paragraph} position={'center'} variant={'body1'}>
+      Decks not found
+    </Typography>
+  )
+
   if (isLoading) {
     return <LoadingBar id={'loader-root'} loading={isLoading} />
   }
@@ -174,6 +180,8 @@ export const DecksPage = () => {
         orderBy={orderBy}
         setOrderBy={setOrderBy}
       />
+
+      {noDecks}
 
       <Pagination
         className={style.pagination}
