@@ -39,7 +39,7 @@ export type Author = {
 }
 
 export type DeckBody = {
-  cover?: string
+  cover?: File | null
   isPrivate?: boolean
   name?: string
 }

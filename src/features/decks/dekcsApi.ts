@@ -37,9 +37,25 @@ const decksApi = baseApi.injectEndpoints({
       }),
       updateDeck: builder.mutation<CreateDeckResponse, { id: string } & DeckBody>({
         invalidatesTags: ['decks'],
-        query: ({ id, ...body }) => {
+        query: ({ cover, id, isPrivate, name }) => {
+          const formData = new FormData()
+
+          if (name) {
+            formData.append('name', name)
+          }
+
+          if (isPrivate !== undefined) {
+            formData.append('isPrivate', isPrivate.toString())
+          }
+
+          if (cover) {
+            formData.append('cover', cover)
+          } else if (cover === null) {
+            formData.append('cover', '')
+          }
+
           return {
-            body,
+            body: formData,
             method: 'PATCH',
             url: `/v1/decks/${id}`,
           }

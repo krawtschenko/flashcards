@@ -40,6 +40,10 @@
 
     .uploadButton {
       margin-top: 24px;
+
+      input {
+        display: none;
+      }
     }
 
     .checkbox {

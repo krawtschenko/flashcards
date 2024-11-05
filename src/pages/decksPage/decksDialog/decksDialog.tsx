@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ChangeEvent, ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -32,18 +32,57 @@ type DecksDialogProps = {
   title: string
 }
 
-export const DecksDialog = ({ children, cover, onSubmit, title, ...rest }: DecksDialogProps) => {
-  const { control, handleSubmit, reset, watch } = useForm<DecksDialogValue>({
-    defaultValues: { isPrivate: rest.isPrivate ?? false, name: rest.name ?? '' },
+export const DecksDialog = (props: DecksDialogProps) => {
+  const { children, cover, isPrivate, name, onSubmit, title } = props
+
+  const { control, handleSubmit, reset } = useForm<DecksDialogValue>({
+    defaultValues: { isPrivate: isPrivate ?? false, name: name ?? '' },
     resolver: zodResolver(decksDialogSchema),
   })
 
   const [isOpen, setIsOpen] = useState(false)
 
+  const [image, setImage] = useState<File | null | undefined>(undefined)
+  const [preview, setPreview] = useState<null | string>(null)
+
+  useEffect(() => {
+    if (cover) {
+      setPreview(cover)
+    }
+  }, [cover])
+
+  useEffect(() => {
+    if (image) {
+      const newPreview = URL.createObjectURL(image)
+
+      if (preview) {
+        URL.revokeObjectURL(preview)
+      }
+      setPreview(newPreview)
+
+      return () => URL.revokeObjectURL(newPreview)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [image])
+
+  const uploadCoverHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
+      const file = e.target.files[0]
+
+      setImage(file)
+    }
+  }
+
   const onOpenChangeHandler = () => {
     setIsOpen(!isOpen)
 
-    if (!rest.name) {
+    if (cover) {
+      setPreview(cover)
+    } else {
+      setPreview(null)
+    }
+
+    if (!name) {
       reset()
     }
   }
@@ -51,16 +90,16 @@ export const DecksDialog = ({ children, cover, onSubmit, title, ...rest }: Decks
   const onSubmitHandler = (value: DeckBody) => {
     onSubmit(value)
     onOpenChangeHandler()
+    setImage(undefined)
   }
 
-  const handleSubmitHandler = handleSubmit(({ isPrivate, name }) => {
+  const handleSubmitHandler = handleSubmit(value => {
     return onSubmitHandler({
-      isPrivate: isPrivate === rest.isPrivate ? undefined : isPrivate,
-      name: name === rest.name ? undefined : name,
+      cover: image ?? (image === null ? null : undefined),
+      isPrivate: value.isPrivate === isPrivate ? undefined : value.isPrivate,
+      name: value.name === name ? undefined : value.name,
     })
   })
-
-  const isDisabledBtn = rest.name === watch().name && rest.isPrivate === watch().isPrivate
 
   return (
     <Dialog onOpenChange={onOpenChangeHandler} open={isOpen}>
@@ -68,12 +107,7 @@ export const DecksDialog = ({ children, cover, onSubmit, title, ...rest }: Decks
 
       <DialogPortal className={style.portal} title={title}>
         <form className={style.form} onSubmit={handleSubmitHandler}>
-          {cover && <img alt={'cover'} src={cover} />}
-          {cover && (
-            <Button className={style.closeButton} type={'button'}>
-              <FiTrash2 />
-            </Button>
-          )}
+          {preview && <img alt={'preview'} src={preview} />}
 
           <ControlledTextField
             className={style.textField}
@@ -83,8 +117,9 @@ export const DecksDialog = ({ children, cover, onSubmit, title, ...rest }: Decks
             placeholder={'Name'}
           />
 
-          <Button className={style.uploadButton} fullWidth variant={'secondary'}>
+          <Button as={'label'} className={style.uploadButton} fullWidth variant={'secondary'}>
             <SlPicture /> Upload Image
+            <input accept={'image/*'} onChange={uploadCoverHandler} type={'file'} />
           </Button>
 
           <ControlledCheckbox
@@ -99,7 +134,7 @@ export const DecksDialog = ({ children, cover, onSubmit, title, ...rest }: Decks
               Cancel
             </Button>
 
-            <Button disabled={isDisabledBtn}>{title}</Button>
+            <Button>{title}</Button>
           </div>
         </form>
       </DialogPortal>
