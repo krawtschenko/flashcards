@@ -58,7 +58,6 @@ export const Profile = (props: ProfileProps) => {
   const onUpdateHandler = (data: UpdateUser) => {
     update(data)
     setEditable(!editable)
-    setImage(undefined)
   }
 
   const uploadAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {

@@ -2,8 +2,7 @@ import { ChangeEvent, ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FiTrash2 } from 'react-icons/fi'
-import { SlPicture } from 'react-icons/sl'
+import { SlCloudUpload, SlTrash } from 'react-icons/sl'
 import { z } from 'zod'
 
 import style from './decksDialog.module.scss'
@@ -73,6 +72,11 @@ export const DecksDialog = (props: DecksDialogProps) => {
     }
   }
 
+  const removeCoverHandler = () => {
+    setImage(null)
+    setPreview(null)
+  }
+
   const onOpenChangeHandler = () => {
     setIsOpen(!isOpen)
 
@@ -90,7 +94,6 @@ export const DecksDialog = (props: DecksDialogProps) => {
   const onSubmitHandler = (value: DeckBody) => {
     onSubmit(value)
     onOpenChangeHandler()
-    setImage(undefined)
   }
 
   const handleSubmitHandler = handleSubmit(value => {
@@ -117,10 +120,18 @@ export const DecksDialog = (props: DecksDialogProps) => {
             placeholder={'Name'}
           />
 
-          <Button as={'label'} className={style.uploadButton} fullWidth variant={'secondary'}>
-            <SlPicture /> Upload Image
-            <input accept={'image/*'} onChange={uploadCoverHandler} type={'file'} />
-          </Button>
+          <div className={style.buttons}>
+            {preview && (
+              <Button className={style.removeButton} fullWidth onClick={removeCoverHandler}>
+                <SlTrash /> Remove Image
+              </Button>
+            )}
+
+            <Button as={'label'} className={style.uploadButton} fullWidth variant={'secondary'}>
+              <SlCloudUpload /> Upload Image
+              <input accept={'image/*'} onChange={uploadCoverHandler} type={'file'} />
+            </Button>
+          </div>
 
           <ControlledCheckbox
             className={style.checkbox}

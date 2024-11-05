@@ -13,13 +13,13 @@ import { Tabs, TabsTrigger } from '../../components/ui/tabs/tabs'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useMeQuery } from '../../features/auth/authApi'
-import { DeckBody } from '../../features/decks/decksTypes'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
-} from '../../features/decks/dekcsApi'
+} from '../../features/decks/decksApi'
+import { DeckBody } from '../../features/decks/decksTypes'
 import { useDeckParams } from '../../features/decks/useDeckParams'
 import { useDebounce } from '../../hooks/useDebounce'
 import { DecksDialog } from './decksDialog/decksDialog'
