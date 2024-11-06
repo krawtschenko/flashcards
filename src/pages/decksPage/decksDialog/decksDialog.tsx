@@ -94,6 +94,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
   const onSubmitHandler = (value: DeckBody) => {
     onSubmit(value)
     onOpenChangeHandler()
+    setImage(undefined)
   }
 
   const handleSubmitHandler = handleSubmit(value => {
