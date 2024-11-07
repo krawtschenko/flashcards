@@ -64,7 +64,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image])
 
-  const uploadCoverHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onUploadCoverHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
@@ -72,7 +72,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
     }
   }
 
-  const removeCoverHandler = () => {
+  const onRemoveCoverHandler = () => {
     setImage(null)
     setPreview(null)
   }
@@ -97,7 +97,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
     setImage(undefined)
   }
 
-  const handleSubmitHandler = handleSubmit(value => {
+  const onHandleSubmitHandler = handleSubmit(value => {
     return onSubmitHandler({
       cover: image ?? (image === null ? null : undefined),
       isPrivate: value.isPrivate === isPrivate ? undefined : value.isPrivate,
@@ -110,7 +110,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
       <DialogTrigger>{children}</DialogTrigger>
 
       <DialogPortal className={style.portal} title={title}>
-        <form className={style.form} onSubmit={handleSubmitHandler}>
+        <form className={style.form} onSubmit={onHandleSubmitHandler}>
           {preview && <img alt={'preview'} src={preview} />}
 
           <ControlledTextField
@@ -123,14 +123,14 @@ export const DecksDialog = (props: DecksDialogProps) => {
 
           <div className={style.buttons}>
             {preview && (
-              <Button className={style.removeButton} fullWidth onClick={removeCoverHandler}>
+              <Button className={style.removeButton} fullWidth onClick={onRemoveCoverHandler}>
                 <SlTrash /> Remove Image
               </Button>
             )}
 
             <Button as={'label'} className={style.uploadButton} fullWidth variant={'secondary'}>
               <SlCloudUpload /> Upload Image
-              <input accept={'image/*'} onChange={uploadCoverHandler} type={'file'} />
+              <input accept={'image/*'} onChange={onUploadCoverHandler} type={'file'} />
             </Button>
           </div>
 

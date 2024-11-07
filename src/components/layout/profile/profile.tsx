@@ -61,7 +61,7 @@ export const Profile = (props: ProfileProps) => {
     setImage(undefined)
   }
 
-  const uploadAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  const onUploadAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       const file = e.target.files[0]
 
@@ -69,12 +69,12 @@ export const Profile = (props: ProfileProps) => {
     }
   }
 
-  const removeAvatarHandler = () => {
+  const onRemoveAvatarHandler = () => {
     setImage(null)
     setPreview(null)
   }
 
-  const backHandler = () => {
+  const onBackHandler = () => {
     if (avatar) {
       setPreview(avatar)
     } else {
@@ -87,7 +87,7 @@ export const Profile = (props: ProfileProps) => {
   return (
     <Card className={clsx(style.card, className)}>
       {editable && (
-        <Button className={style.back} onClick={backHandler}>
+        <Button className={style.back} onClick={onBackHandler}>
           <FiArrowLeft />
         </Button>
       )}
@@ -104,7 +104,7 @@ export const Profile = (props: ProfileProps) => {
             {preview && (
               <Button
                 className={style.deleteAvatar}
-                onClick={removeAvatarHandler}
+                onClick={onRemoveAvatarHandler}
                 variant={'secondary'}
               >
                 <FiTrash2 />
@@ -113,7 +113,7 @@ export const Profile = (props: ProfileProps) => {
 
             <Button as={'label'} className={style.newAvatar} variant={'secondary'}>
               <FiEdit3 />
-              <input accept={'image/*'} onChange={uploadAvatarHandler} type={'file'} />
+              <input accept={'image/*'} onChange={onUploadAvatarHandler} type={'file'} />
             </Button>
           </>
         )}
