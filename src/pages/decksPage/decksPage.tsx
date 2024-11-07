@@ -112,7 +112,7 @@ export const DecksPage = () => {
   const onDeleteDeck = async (id: string) => {
     try {
       await deleteDeck(id).unwrap()
-      toast.warning('Deck successfully deleted')
+      toast.success('Deck successfully deleted')
     } catch (error) {
       toast.error('Something went wrong')
     }

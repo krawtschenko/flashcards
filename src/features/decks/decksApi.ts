@@ -6,9 +6,25 @@ const decksApi = baseApi.injectEndpoints({
     return {
       createDeck: builder.mutation<CreateDeckResponse, DeckBody>({
         invalidatesTags: ['decks'],
-        query: body => {
+        query: ({ cover, isPrivate, name }) => {
+          const formData = new FormData()
+
+          if (name) {
+            formData.append('name', name)
+          }
+
+          if (isPrivate !== undefined) {
+            formData.append('isPrivate', isPrivate.toString())
+          }
+
+          if (cover) {
+            formData.append('cover', cover)
+          } else if (cover === null) {
+            formData.append('cover', '')
+          }
+
           return {
-            body,
+            body: formData,
             method: 'POST',
             url: '/v1/decks',
           }
