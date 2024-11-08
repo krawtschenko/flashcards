@@ -1,5 +1,5 @@
 import { baseApi } from '../../services/baseApi'
-import { CreateDeckResponse, DeckBody, DecksArgs, DecksResponse } from './decksTypes'
+import { CreateDeckResponse, Deck, DeckBody, DecksArgs, DecksResponse } from './decksTypes'
 
 const decksApi = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -35,6 +35,13 @@ const decksApi = baseApi.injectEndpoints({
         query: id => {
           return {
             method: 'DELETE',
+            url: `/v1/decks/${id}`,
+          }
+        },
+      }),
+      getDeck: builder.query<Deck, { id?: string }>({
+        query: ({ id }) => {
+          return {
             url: `/v1/decks/${id}`,
           }
         },
@@ -84,6 +91,7 @@ const decksApi = baseApi.injectEndpoints({
 export const {
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetDeckQuery,
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
   useUpdateDeckMutation,
