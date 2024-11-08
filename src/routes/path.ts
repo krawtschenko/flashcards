@@ -1,5 +1,6 @@
 export const path = {
   confirmEmail: '/verify-email',
+  deck: '/decks/:id',
   decks: '/decks',
   login: '/login',
   newPassword: '/recover-password/:token',

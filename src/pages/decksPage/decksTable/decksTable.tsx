@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import clsx from 'clsx'
 import { FiChevronDown, FiChevronUp, FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
 
@@ -7,6 +9,7 @@ import coverImg from '../../../assets/images/cover.svg'
 import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
+import { path } from '../../../routes/path'
 import { DecksDialog, DeleteDeckDialog } from '../decksDialog/decksDialog'
 
 type DecksTableProps = {
@@ -85,10 +88,10 @@ export const DecksTable = (props: DecksTableProps) => {
           return (
             <Tr key={id}>
               <Td className={style.tdName}>
-                <div>
+                <Link className={style.link} to={`${path.decks}/${id}`}>
                   <img alt={'cover'} src={deckCover} />
                   {deckName}
-                </div>
+                </Link>
               </Td>
               <Td className={clsx(style.tdCards, cardsCount === 0 && style.zero)}>{cardsCount}</Td>
               <Td>{updatedAt}</Td>

@@ -1,6 +1,7 @@
 import { Navigate, Outlet, RouteObject, createBrowserRouter } from 'react-router-dom'
 
 import { Root } from '../components/root/root'
+import { DeckPage } from '../pages/deckPage/deckPage'
 import { DecksPage } from '../pages/decksPage/decksPage'
 import { ErrorPage } from '../pages/errorPage/errorPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
@@ -20,6 +21,7 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   { element: <DecksPage />, path: path.decks },
+  { element: <DeckPage />, path: path.deck },
   { element: <ProfilePage />, path: path.profile },
   { element: <VerifyPage />, path: path.confirmEmail },
 ]
