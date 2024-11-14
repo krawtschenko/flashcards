@@ -1,21 +1,34 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import { FiArrowLeft } from 'react-icons/fi'
 
 import style from './deckPage.module.scss'
 
+import coverImg from '../../assets/images/cover.svg'
+import { Button } from '../../components/ui/button/button'
 import { Typography } from '../../components/ui/typography/typography'
 import { useGetDeckQuery } from '../../features/decks/decksApi'
 
 type DeckPageProps = {}
 
 export const DeckPage = ({}: DeckPageProps) => {
+  const navigate = useNavigate()
   const { id } = useParams()
 
   const { data } = useGetDeckQuery({ id })
 
   return (
     <div className={style.deckPage}>
-      <Typography variant={'h2'}>Deck: {id}</Typography>
-      {data?.cover && <img alt={'cover'} src={data?.cover} />}
+      <Button className={style.back} onClick={() => navigate(-1)}>
+        <FiArrowLeft />
+        Back to Decks List
+      </Button>
+
+      <div className={style.deckName}>
+        <Typography variant={'h1'}>{data?.name}</Typography>
+      </div>
+
+      <img alt={'cover'} className={style.cover} src={data?.cover ? data?.cover : coverImg} />
     </div>
   )
 }

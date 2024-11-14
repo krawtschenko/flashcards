@@ -1,3 +1,31 @@
 .deckPage {
-  background-color: brown;
+  margin-top: 24px;
+
+  .back {
+    padding: unset;
+    background-color: unset;
+    box-shadow: none;
+    transition: all 0.3s ease;
+
+    svg {
+      font-size: 16px;
+    }
+
+    &:hover {
+      scale: 1.05;
+    }
+  }
+
+  .deckName {
+    margin-top: 30px;
+  }
+
+  .cover {
+    width: 250px;
+    height: 125px;
+    margin-top: 15px;
+
+    object-fit: cover;
+    border-radius: 2px;
+  }
 }

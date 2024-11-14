@@ -2,7 +2,8 @@ import type { Meta } from '@storybook/react'
 
 import { useState } from 'react'
 
-import { Profile, ProfileValue } from './profile'
+import { UpdateUser } from '../../../features/auth/authTypes'
+import { Profile } from './profile'
 
 const meta = {
   component: Profile,
@@ -14,7 +15,7 @@ export default meta
 
 export const Verified = {
   render: () => {
-    const [name, setName] = useState<ProfileValue>({ name: 'Eugene Kravchenko' })
+    const [name, setName] = useState<UpdateUser>({ name: 'Eugene Kravchenko' })
 
     return (
       <Profile
@@ -25,7 +26,7 @@ export const Verified = {
         isEmailVerified
         logout={() => {}}
         name={name.name}
-        update={(e: ProfileValue) => setName(e)}
+        update={(data: UpdateUser) => setName(data)}
         verify={() => {}}
       />
     )
@@ -34,7 +35,7 @@ export const Verified = {
 
 export const Unverified = {
   render: () => {
-    const [name, setName] = useState<ProfileValue>({ name: 'Eugene Kravchenko' })
+    const [name, setName] = useState<UpdateUser>({ name: 'Eugene Kravchenko' })
 
     return (
       <Profile
@@ -42,7 +43,7 @@ export const Unverified = {
         isEmailVerified={false}
         logout={() => {}}
         name={name.name}
-        update={(e: ProfileValue) => setName(e)}
+        update={(data: UpdateUser) => setName(data)}
         verify={() => {}}
       />
     )
