@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Meta } from '@storybook/react'
 
 import { DropdownItem, DropdownLabel, DropdownMenu } from './dropdownMenu'
@@ -12,8 +14,10 @@ export default meta
 
 export const WithIcon = {
   render: () => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     return (
-      <DropdownMenu variant={'icon'}>
+      <DropdownMenu onOpenChange={setIsModalOpen} open={isModalOpen} variant={'icon'}>
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
         <DropdownItem>Three</DropdownItem>
@@ -25,11 +29,19 @@ export const WithIcon = {
 
 export const WithAvatar = {
   render: () => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     const avatar =
       'https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80'
 
     return (
-      <DropdownMenu avatar={avatar} name={'Eugene'} variant={'avatar'}>
+      <DropdownMenu
+        avatar={avatar}
+        name={'Eugene'}
+        onOpenChange={setIsModalOpen}
+        open={isModalOpen}
+        variant={'avatar'}
+      >
         <DropdownLabel avatar={avatar} email={'eugene@example.com'} name={'Eugene'} />
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
@@ -42,8 +54,15 @@ export const WithAvatar = {
 
 export const WithoutAvatar = {
   render: () => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     return (
-      <DropdownMenu name={'Eugene'} variant={'avatar'}>
+      <DropdownMenu
+        name={'Eugene'}
+        onOpenChange={setIsModalOpen}
+        open={isModalOpen}
+        variant={'avatar'}
+      >
         <DropdownLabel email={'eugene@example.com'} name={'Eugene'} />
         <DropdownItem>One</DropdownItem>
         <DropdownItem>Two</DropdownItem>
