@@ -10,7 +10,6 @@ import { DropdownItem, DropdownMenu } from '../../components/ui/dropdownMenu/dro
 import { LoadingBar } from '../../components/ui/loadingBar/loadingBar'
 import { Typography } from '../../components/ui/typography/typography'
 import { useGetDeckQuery } from '../../features/decks/decksApi'
-import { DecksDialog } from '../decksPage/decksDialog/decksDialog'
 
 type DeckPageProps = {}
 
@@ -41,12 +40,8 @@ export const DeckPage = ({}: DeckPageProps) => {
           </DropdownItem>
 
           <DropdownItem>
-            <DecksDialog onSubmit={() => {}} title={'Add New Deck'}>
-              <Button>
-                <FiEdit />
-                Edit
-              </Button>
-            </DecksDialog>
+            <FiEdit />
+            Edit
           </DropdownItem>
 
           <DropdownItem>
