@@ -15,10 +15,10 @@ export default meta
 
 export const Primary = {
   render: () => {
-    const [isOpen, setIsOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     return (
-      <Dialog onOpenChange={setIsOpen} open={isOpen}>
+      <Dialog onOpenChange={setIsModalOpen} open={isModalOpen}>
         <DialogTrigger>
           <Button>Test dialog</Button>
         </DialogTrigger>
