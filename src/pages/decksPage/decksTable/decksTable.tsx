@@ -117,7 +117,7 @@ export const DecksTable = (props: DecksTableProps) => {
                   )}
 
                   {isMe && (
-                    <DeleteDeckDialog onDelete={() => onDeleteDeck(id)}>
+                    <DeleteDeckDialog name={name} onDelete={() => onDeleteDeck(id)}>
                       <Button className={style.btnTrash}>
                         <FiTrash />
                       </Button>

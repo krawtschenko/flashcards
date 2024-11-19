@@ -110,45 +110,47 @@ export const DecksDialog = (props: DecksDialogProps) => {
       <DialogTrigger>{children}</DialogTrigger>
 
       <DialogPortal className={style.portal} title={title}>
-        <form className={style.form} onSubmit={onHandleSubmitHandler}>
-          {preview && <img alt={'preview'} src={preview} />}
+        <div onClick={e => e.stopPropagation()}>
+          <form className={style.form} onSubmit={onHandleSubmitHandler}>
+            {preview && <img alt={'preview'} src={preview} />}
 
-          <ControlledTextField
-            className={style.textField}
-            control={control}
-            label={'Name Pack'}
-            name={'name'}
-            placeholder={'Name'}
-          />
+            <ControlledTextField
+              className={style.textField}
+              control={control}
+              label={'Name Pack'}
+              name={'name'}
+              placeholder={'Name'}
+            />
 
-          <div className={style.buttons}>
-            {preview && (
-              <Button className={style.removeButton} fullWidth onClick={onRemoveCoverHandler}>
-                <SlTrash /> Remove Image
+            <div className={style.buttons}>
+              {preview && (
+                <Button className={style.removeButton} fullWidth onClick={onRemoveCoverHandler}>
+                  <SlTrash /> Remove Image
+                </Button>
+              )}
+
+              <Button as={'label'} className={style.uploadButton} fullWidth variant={'secondary'}>
+                <SlCloudUpload /> Upload Image
+                <input accept={'image/*'} onChange={onUploadCoverHandler} type={'file'} />
               </Button>
-            )}
+            </div>
 
-            <Button as={'label'} className={style.uploadButton} fullWidth variant={'secondary'}>
-              <SlCloudUpload /> Upload Image
-              <input accept={'image/*'} onChange={onUploadCoverHandler} type={'file'} />
-            </Button>
-          </div>
+            <ControlledCheckbox
+              className={style.checkbox}
+              control={control}
+              label={'Private pack'}
+              name={'isPrivate'}
+            />
 
-          <ControlledCheckbox
-            className={style.checkbox}
-            control={control}
-            label={'Private pack'}
-            name={'isPrivate'}
-          />
+            <div className={style.buttonsWrap}>
+              <Button onClick={onOpenChangeHandler} variant={'secondary'}>
+                Cancel
+              </Button>
 
-          <div className={style.buttonsWrap}>
-            <Button onClick={onOpenChangeHandler} variant={'secondary'}>
-              Cancel
-            </Button>
-
-            <Button>{title}</Button>
-          </div>
-        </form>
+              <Button>{title}</Button>
+            </div>
+          </form>
+        </div>
       </DialogPortal>
     </Dialog>
   )
@@ -156,10 +158,11 @@ export const DecksDialog = (props: DecksDialogProps) => {
 
 type DeleteDeckDialogProps = {
   children: ReactNode
+  name?: string
   onDelete: () => void
 }
 
-export const DeleteDeckDialog = ({ children, onDelete }: DeleteDeckDialogProps) => {
+export const DeleteDeckDialog = ({ children, name, onDelete }: DeleteDeckDialogProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const onDeleteHandler = () => {
@@ -173,7 +176,7 @@ export const DeleteDeckDialog = ({ children, onDelete }: DeleteDeckDialogProps) 
 
       <DialogPortal className={style.portal} title={'Delete Deck'}>
         <Typography variant={'body1'}>
-          Do you want to remove <b>Deck</b>?<br />
+          Do you want to remove <b>{`Deck (${name})`}</b>?<br />
           All cards will be deleted
         </Typography>
 

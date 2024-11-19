@@ -39,7 +39,8 @@ const decksApi = baseApi.injectEndpoints({
           }
         },
       }),
-      getDeck: builder.query<Deck, { id?: string }>({
+      getDeck: builder.query<Deck, { id: string }>({
+        providesTags: ['deck'],
         query: ({ id }) => {
           return {
             url: `/v1/decks/${id}`,
@@ -59,7 +60,7 @@ const decksApi = baseApi.injectEndpoints({
         query: () => '/v2/decks/min-max-cards',
       }),
       updateDeck: builder.mutation<CreateDeckResponse, { id: string } & DeckBody>({
-        invalidatesTags: ['decks'],
+        invalidatesTags: ['decks', 'deck'],
         query: ({ cover, id, isPrivate, name }) => {
           const formData = new FormData()
 
