@@ -16,11 +16,17 @@
     }
   }
 
-  .deckName {
+  .options {
     display: flex;
-    column-gap: 10px;
     align-items: center;
+    justify-content: space-between;
     margin-top: 30px;
+
+    .deckName {
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+    }
   }
 
   .cover {
@@ -30,6 +36,22 @@
 
     object-fit: cover;
     border-radius: 2px;
+  }
+
+  .emptyDeck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+
+    .emptyDeckText {
+      color: var(--color-dark-100);
+    }
+
+    .emptyDeckButton {
+      width: 146px;
+      margin-top: 20px;
+    }
   }
 }
 

@@ -24,12 +24,12 @@ export const DeckPage = () => {
   const navigate = useNavigate()
   const { id } = useParams() as { id: string }
 
-  const { data, isLoading } = useGetDeckQuery({ id })
+  const { data: deck, isLoading } = useGetDeckQuery({ id })
   const { data: me } = useMeQuery()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
-  const isOwner = data?.userId === me?.id
+  const isOwner = deck?.userId === me?.id
 
   const onUpdateDeckHandler = async (args: { id: string } & DeckBody) => {
     try {
@@ -61,32 +61,31 @@ export const DeckPage = () => {
         Back to Decks List
       </Button>
 
-      <div className={style.deckName}>
-        <Typography variant={'h1'}>{data?.name}</Typography>
-
-        <DropdownMenu variant={'icon'}>
-          <DropdownItem
-            onSelect={event => {
-              event.preventDefault()
-            }}
-          >
-            <div className={style.dropdownItem}>
-              <FiPlayCircle />
-              Learn
-            </div>
-          </DropdownItem>
+      <div className={style.options}>
+        <div className={style.deckName}>
+          <Typography variant={'h1'}>{deck?.name}</Typography>
 
           {isOwner && (
-            <>
+            <DropdownMenu variant={'icon'}>
+              <DropdownItem
+                onSelect={event => {
+                  event.preventDefault()
+                }}
+              >
+                <div className={style.dropdownItem}>
+                  <FiPlayCircle />
+                  Learn
+                </div>
+              </DropdownItem>
               <DropdownItem
                 onSelect={event => {
                   event.preventDefault()
                 }}
               >
                 <DecksDialog
-                  cover={data?.cover}
-                  isPrivate={data?.isPrivate}
-                  name={data?.name}
+                  cover={deck?.cover}
+                  isPrivate={deck?.isPrivate}
+                  name={deck?.name}
                   onSubmit={body => onUpdateDeckHandler({ id, ...body })}
                   title={'Update Deck'}
                 >
@@ -102,19 +101,34 @@ export const DeckPage = () => {
                   event.preventDefault()
                 }}
               >
-                <DeleteDeckDialog name={data?.name} onDelete={() => onDeleteDeck(id)}>
+                <DeleteDeckDialog name={deck?.name} onDelete={() => onDeleteDeck(id)}>
                   <div className={style.dropdownItem}>
                     <FiTrash />
                     Delete
                   </div>
                 </DeleteDeckDialog>
               </DropdownItem>
-            </>
+            </DropdownMenu>
           )}
-        </DropdownMenu>
+        </div>
+
+        {isOwner && <Button>Add New Card</Button>}
+        {!isOwner && deck?.cardsCount !== 0 && <Button>Learn to Pack</Button>}
       </div>
 
-      <img alt={'cover'} className={style.cover} src={data?.cover ? data?.cover : coverImg} />
+      <img alt={'cover'} className={style.cover} src={deck?.cover ?? coverImg} />
+
+      {!deck?.cardsCount && (
+        <div className={style.emptyDeck}>
+          <Typography className={style.emptyDeckText} variant={'body1'}>
+            {isOwner
+              ? 'This deck is empty. Click add new card to fill this pack'
+              : 'This deck has no cards'}
+          </Typography>
+
+          {isOwner && <Button className={style.emptyDeckButton}>Add New Card</Button>}
+        </div>
+      )}
     </div>
   )
 }
