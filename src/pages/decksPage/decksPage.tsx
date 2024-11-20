@@ -20,7 +20,7 @@ import {
   useUpdateDeckMutation,
 } from '../../features/decks/decksApi'
 import { DeckBody } from '../../features/decks/decksTypes'
-import { useDeckParams } from '../../features/decks/useDeckParams'
+import { useDecksParams } from '../../features/decks/useDecksParams'
 import { useDebounce } from '../../hooks/useDebounce'
 import { DecksDialog } from './decksDialog/decksDialog'
 import { DecksTable } from './decksTable/decksTable'
@@ -44,12 +44,12 @@ export const DecksPage = () => {
     setName,
     setOrderBy,
     setRange,
-  } = useDeckParams()
+  } = useDecksParams()
 
+  const { data: me } = useMeQuery()
   const [createDeck] = useCreateDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
-  const { data: me } = useMeQuery()
 
   const { data: decks, isLoading } = useGetDecksQuery({
     authorId: currentTab === 'my' ? me?.id : undefined,
@@ -118,14 +118,8 @@ export const DecksPage = () => {
     }
   }
 
-  const noDecks = decks?.items.length === 0 && (
-    <Typography className={style.paragraph} position={'center'} variant={'body1'}>
-      Decks not found
-    </Typography>
-  )
-
   if (isLoading) {
-    return <LoadingBar id={'loader-root'} loading={isLoading} />
+    return <LoadingBar id={'loader-root'} />
   }
 
   return (
@@ -181,7 +175,11 @@ export const DecksPage = () => {
         setOrderBy={setOrderBy}
       />
 
-      {noDecks}
+      {decks?.items.length === 0 && (
+        <Typography className={style.paragraph} position={'center'} variant={'body1'}>
+          Decks not found
+        </Typography>
+      )}
 
       <Pagination
         className={style.pagination}

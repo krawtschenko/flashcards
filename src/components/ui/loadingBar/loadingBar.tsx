@@ -4,19 +4,14 @@ import style from './loadingBar.module.scss'
 
 type LoadingBarProps = {
   id?: string
-  loading: boolean
 }
 
-export const LoadingBar = ({ id, loading }: LoadingBarProps) => {
-  if (!loading) {
-    return null
-  }
-
+export const LoadingBar = ({ id }: LoadingBarProps) => {
   const loaderRoot = id ? document.getElementById(id) : null
 
   const loaderContent = (
     <div className={style.loadingBarWrap}>
-      {loading && <div className={style.loadingBar}></div>}
+      <div className={style.loadingBar}></div>
     </div>
   )
 
