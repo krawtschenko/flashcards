@@ -10,7 +10,8 @@ import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
 import { path } from '../../../routes/path'
-import { DecksDialog, DeleteDeckDialog } from '../decksDialog/decksDialog'
+import { DecksDialog } from '../decksDialog/decksDialog'
+import { DeleteDeckDialog } from '../decksDialog/decksDialogDelete'
 
 type DecksTableProps = {
   className?: string

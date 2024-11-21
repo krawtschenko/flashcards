@@ -4,7 +4,8 @@ import style from './dropdownCards.module.scss'
 
 import { DropdownItem, DropdownMenu } from '../../../components/ui/dropdownMenu/dropdownMenu'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
-import { DecksDialog, DeleteDeckDialog } from '../../decksPage/decksDialog/decksDialog'
+import { DecksDialog } from '../../decksPage/decksDialog/decksDialog'
+import { DeleteDeckDialog } from '../../decksPage/decksDialog/decksDialogDelete'
 
 type DropdownCardsProps = {
   deck?: Deck
