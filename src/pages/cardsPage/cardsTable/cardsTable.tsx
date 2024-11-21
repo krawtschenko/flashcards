@@ -1,6 +1,6 @@
 import style from './cardsTable.module.scss'
 
-import { Table, Th, Thead, Tr } from '../../../components/ui/table/table'
+import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Card } from '../../../features/decks/decksTypes'
 
 type DeckTableProps = {
@@ -35,6 +35,21 @@ export const CardsTable = (props: DeckTableProps) => {
           </Th>
         </Tr>
       </Thead>
+
+      <Tbody>
+        {cards?.map(({ answer, grade, id, question, updated }) => {
+          const updatedAt = new Date(updated).toLocaleDateString()
+
+          return (
+            <Tr key={id}>
+              <Td>{question}</Td>
+              <Td>{answer}</Td>
+              <Td>{updatedAt}</Td>
+              <Td>{grade}</Td>
+            </Tr>
+          )
+        })}
+      </Tbody>
     </Table>
   )
 }
