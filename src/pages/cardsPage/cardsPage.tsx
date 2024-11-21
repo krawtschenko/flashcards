@@ -133,6 +133,7 @@ export const CardsPage = () => {
           <CardsTable
             cards={cards?.items}
             className={style.cardsTable}
+            isOwner={isOwner}
             meId={me?.id}
             orderBy={orderBy}
             setOrderBy={setOrderBy}

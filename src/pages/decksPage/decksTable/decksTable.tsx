@@ -84,7 +84,7 @@ export const DecksTable = (props: DecksTableProps) => {
 
           return (
             <Tr key={id}>
-              <Td className={style.tdName}>
+              <Td className={style.tdName} title={name}>
                 <Link className={style.link} to={`${path.decks}/${id}`}>
                   <img alt={'cover'} src={deckCover} />
                   {deckName}

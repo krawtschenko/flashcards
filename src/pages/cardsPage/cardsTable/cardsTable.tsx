@@ -1,21 +1,24 @@
 import clsx from 'clsx'
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { FiChevronDown, FiChevronUp, FiEdit, FiTrash } from 'react-icons/fi'
+import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 
 import style from './cardsTable.module.scss'
 
+import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Card } from '../../../features/cards/cardsTypes'
 
 type CardsTableProps = {
   cards?: Card[]
   className?: string
+  isOwner: boolean
   meId?: string
   orderBy: null | string
   setOrderBy: (orderBy: null | string) => void
 }
 
 export const CardsTable = (props: CardsTableProps) => {
-  const { cards, className, meId, orderBy, setOrderBy } = props
+  const { cards, className, isOwner, meId, orderBy, setOrderBy } = props
 
   const onSort = (column: string) => {
     if (orderBy === `${column}-asc`) {
@@ -68,6 +71,12 @@ export const CardsTable = (props: CardsTableProps) => {
           >
             <div className={style.th}>Grade {getSortIcon('grade')}</div>
           </Th>
+
+          {isOwner && (
+            <Th>
+              <div className={style.th}></div>
+            </Th>
+          )}
         </Tr>
       </Thead>
 
@@ -77,16 +86,40 @@ export const CardsTable = (props: CardsTableProps) => {
           const cardQuestion = question.length > 40 ? `${question.slice(0, 37)}...` : question
           const cardAnswer = answer.length > 40 ? `${answer.slice(0, 37)}...` : answer
 
+          // Generate stars
+          const stars = Array.from({ length: 5 }, (_, index) =>
+            index < grade ? <IoIosStar key={index} /> : <IoIosStarOutline key={index} />
+          )
+
           return (
             <Tr key={id}>
               <Td className={style.tdQuestion} title={question}>
                 {cardQuestion}
               </Td>
+
               <Td className={style.tdAnswer} title={answer}>
                 {cardAnswer}
               </Td>
+
               <Td className={style.tdUpdated}>{updatedLocale}</Td>
-              <Td className={style.tdGrade}>{grade}</Td>
+
+              <Td className={style.tdGrade}>
+                <div className={style.stars}>{stars}</div>
+              </Td>
+
+              {isOwner && (
+                <Td>
+                  <div className={style.actions}>
+                    <Button className={style.edit} onClick={() => alert('yoy')}>
+                      <FiEdit />
+                    </Button>
+
+                    <Button className={style.btnTrash} onClick={() => alert('yoy')}>
+                      <FiTrash />
+                    </Button>
+                  </div>
+                </Td>
+              )}
             </Tr>
           )
         })}

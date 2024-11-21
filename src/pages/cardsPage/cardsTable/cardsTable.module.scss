@@ -1,3 +1,5 @@
+@import '../../../styles';
+
 .active {
   background-color: var(--color-dark-300) !important;
 }
@@ -21,9 +23,48 @@
 }
 
 .tdUpdated {
-  width: 250px;
+  width: 180px;
 }
 
 .tdGrade {
-  color: rebeccapurple;
+  width: 150px;
+
+  .stars {
+    display: flex;
+    column-gap: 2px;
+    font-size: 18px;
+    color: goldenrod;
+  }
+}
+
+.actions {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    cursor: pointer;
+
+    position: relative;
+    z-index: 1;
+
+    height: 16px;
+    padding: unset;
+
+    font-size: 16px;
+
+    background-color: transparent;
+    box-shadow: none;
+
+    @include button-hover;
+
+    &.edit {
+      color: var(--color-info-500);
+    }
+
+    &.btnTrash {
+      color: var(--color-danger-500);
+    }
+  }
 }
