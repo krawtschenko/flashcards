@@ -12,10 +12,10 @@ import { LoadingBar } from '../../components/ui/loadingBar/loadingBar'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useMeQuery } from '../../features/auth/authApi'
-import { useCardsParams } from '../../features/deck/useDeckParams'
+import { useGetCardsQuery } from '../../features/cards/cardsApi'
+import { useCardsParams } from '../../features/cards/useCardsParams'
 import {
   useDeleteDeckMutation,
-  useGetCardsQuery,
   useGetDeckQuery,
   useUpdateDeckMutation,
 } from '../../features/decks/decksApi'
@@ -47,6 +47,7 @@ export const CardsPage = () => {
   const { data: deck, isLoading } = useGetDeckQuery({ id: deckId })
   const { data: cards } = useGetCardsQuery({
     id: deckId,
+    orderBy: orderBy || undefined,
     question: useDebounce(question) || undefined,
   })
 
@@ -82,7 +83,7 @@ export const CardsPage = () => {
 
   return (
     <div className={style.cardsPage}>
-      <Button className={style.back} onClick={() => navigate(-1)}>
+      <Button className={style.back} onClick={() => navigate(path.decks)}>
         <FiArrowLeft />
         Back to Decks List
       </Button>

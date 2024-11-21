@@ -25,7 +25,7 @@ type DecksTableProps = {
 export const DecksTable = (props: DecksTableProps) => {
   const { className, decks, meId, onDeleteDeck, onUpdateDeck, orderBy, setOrderBy } = props
 
-  const handleSort = (column: string) => {
+  const onSort = (column: string) => {
     if (orderBy === `${column}-asc`) {
       setOrderBy(`${column}-desc`)
     } else if (orderBy === `${column}-desc`) {
@@ -49,27 +49,24 @@ export const DecksTable = (props: DecksTableProps) => {
     <Table className={className}>
       <Thead>
         <Tr>
-          <Th
-            className={clsx(getSortIcon('name') && style.active)}
-            onClick={() => handleSort('name')}
-          >
+          <Th className={clsx(getSortIcon('name') && style.active)} onClick={() => onSort('name')}>
             <div className={style.th}>Name {getSortIcon('name')}</div>
           </Th>
           <Th
             className={clsx(getSortIcon('cardsCount') && style.active)}
-            onClick={() => handleSort('cardsCount')}
+            onClick={() => onSort('cardsCount')}
           >
             <div className={style.th}>Cards {getSortIcon('cardsCount')}</div>
           </Th>
           <Th
             className={clsx(getSortIcon('updated') && style.active)}
-            onClick={() => handleSort('updated')}
+            onClick={() => onSort('updated')}
           >
             <div className={style.th}>Last Updated {getSortIcon('updated')}</div>
           </Th>
           <Th
             className={clsx(getSortIcon('author.name') && style.active)}
-            onClick={() => handleSort('author.name')}
+            onClick={() => onSort('author.name')}
           >
             <div className={style.th}>Created By {getSortIcon('author.name')}</div>
           </Th>
@@ -79,7 +76,7 @@ export const DecksTable = (props: DecksTableProps) => {
 
       <Tbody>
         {decks?.map(({ author, cardsCount, cover, id, isPrivate, name, updated }) => {
-          const updatedAt = new Date(updated).toLocaleDateString()
+          const updatedLocale = new Date(updated).toLocaleDateString()
           const deckName = name.length > 30 ? `${name.slice(0, 27)}...` : name
           const deckCover = cover || coverImg
 
@@ -94,7 +91,7 @@ export const DecksTable = (props: DecksTableProps) => {
                 </Link>
               </Td>
               <Td className={clsx(style.tdCards, cardsCount === 0 && style.zero)}>{cardsCount}</Td>
-              <Td>{updatedAt}</Td>
+              <Td>{updatedLocale}</Td>
               <Td className={style.tdAuthor}>{author.name}</Td>
               <Td className={style.tdActions}>
                 <div>

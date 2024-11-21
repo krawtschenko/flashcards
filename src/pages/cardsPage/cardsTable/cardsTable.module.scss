@@ -1,3 +1,7 @@
+.active {
+  background-color: var(--color-dark-300) !important;
+}
+
 .th {
   cursor: pointer;
 
@@ -6,4 +10,20 @@
   align-items: center;
 
   transition: all 0.2s;
+}
+
+.tdQuestion {
+  width: 400px;
+}
+
+.tdAnswer {
+  width: 400px;
+}
+
+.tdUpdated {
+  width: 250px;
+}
+
+.tdGrade {
+  color: rebeccapurple;
 }
