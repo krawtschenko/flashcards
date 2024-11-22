@@ -20,7 +20,7 @@ export const DialogTrigger = (props: ComponentPropsWithoutRef<typeof DialogRadix
 
 type DialogPortalProps = {
   className?: string
-  title: string
+  title?: string
 } & ComponentPropsWithoutRef<typeof DialogRadix.Portal>
 
 export const DialogPortal = ({ children, className, title, ...rest }: DialogPortalProps) => {
@@ -28,10 +28,8 @@ export const DialogPortal = ({ children, className, title, ...rest }: DialogPort
     <DialogRadix.Portal {...rest}>
       <DialogRadix.Overlay className={style.dialogOverlay} />
 
-      <DialogRadix.Content className={style.dialogContent}>
+      <DialogRadix.Content aria-describedby={undefined} className={style.dialogContent}>
         <DialogRadix.Title />
-
-        <DialogRadix.Description />
 
         <Card className={clsx(style.card, className)}>
           <div className={style.header}>

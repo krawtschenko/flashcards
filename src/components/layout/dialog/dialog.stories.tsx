@@ -32,3 +32,21 @@ export const Primary = {
     )
   },
 }
+
+export const WithoutTrigger = {
+  render: () => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    return (
+      <Dialog onOpenChange={setIsModalOpen} open={isModalOpen}>
+        <Button onClick={() => setIsModalOpen(true)}>Test dialog</Button>
+
+        <DialogPortal title={'Dialog'}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium ad adipisci, aut
+          delectus dolor dolorem doloribus ea earum eius, exercitationem ipsam omnis, perspiciatis
+          quis tempora tenetur unde ut veritatis voluptatibus?
+        </DialogPortal>
+      </Dialog>
+    )
+  },
+}

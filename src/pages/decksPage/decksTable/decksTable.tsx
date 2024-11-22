@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import clsx from 'clsx'
@@ -25,6 +26,9 @@ type DecksTableProps = {
 
 export const DecksTable = (props: DecksTableProps) => {
   const { className, decks, meId, onDeleteDeck, onUpdateDeck, orderBy, setOrderBy } = props
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
 
   const onSort = (column: string) => {
     if (orderBy === `${column}-asc`) {
@@ -85,15 +89,36 @@ export const DecksTable = (props: DecksTableProps) => {
 
           return (
             <Tr key={id}>
+              <DecksDialog
+                cover={cover}
+                isPrivate={isPrivate}
+                name={name}
+                onOpenChange={setIsOpenModal}
+                onSubmit={body => onUpdateDeck({ id, ...body })}
+                open={isOpenModal}
+                title={'Update Deck'}
+              />
+
+              <DeleteDeckDialog
+                name={name}
+                onDelete={() => onDeleteDeck(id)}
+                onOpenChange={setIsOpenModalDelete}
+                open={isOpenModalDelete}
+              />
+
               <Td className={style.tdName} title={name}>
                 <Link className={style.link} to={`${path.decks}/${id}`}>
                   <img alt={'cover'} src={deckCover} />
                   {deckName}
                 </Link>
               </Td>
+
               <Td className={clsx(style.tdCards, cardsCount === 0 && style.zero)}>{cardsCount}</Td>
+
               <Td>{updatedLocale}</Td>
+
               <Td className={style.tdAuthor}>{author.name}</Td>
+
               <Td className={style.tdActions}>
                 <div>
                   <Button className={style.play} disabled={cardsCount === 0}>
@@ -101,25 +126,15 @@ export const DecksTable = (props: DecksTableProps) => {
                   </Button>
 
                   {isMe && (
-                    <DecksDialog
-                      cover={cover}
-                      isPrivate={isPrivate}
-                      name={name}
-                      onSubmit={body => onUpdateDeck({ id, ...body })}
-                      title={'Update Deck'}
-                    >
-                      <Button className={style.edit}>
-                        <FiEdit />
-                      </Button>
-                    </DecksDialog>
+                    <Button className={style.edit} onClick={() => setIsOpenModal(true)}>
+                      <FiEdit />
+                    </Button>
                   )}
 
                   {isMe && (
-                    <DeleteDeckDialog name={name} onDelete={() => onDeleteDeck(id)}>
-                      <Button className={style.btnTrash}>
-                        <FiTrash />
-                      </Button>
-                    </DeleteDeckDialog>
+                    <Button className={style.btnTrash} onClick={() => setIsOpenModalDelete(true)}>
+                      <FiTrash />
+                    </Button>
                   )}
                 </div>
               </Td>

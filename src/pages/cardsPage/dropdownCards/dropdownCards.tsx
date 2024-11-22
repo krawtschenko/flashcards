@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
 
 import style from './dropdownCards.module.scss'
@@ -17,49 +19,50 @@ type DropdownCardsProps = {
 export const DropdownCards = (props: DropdownCardsProps) => {
   const { deck, deckId, onDeleteDeck, onUpdateDeckHandler } = props
 
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
+
   return (
-    <DropdownMenu variant={'icon'}>
-      <DropdownItem
-        onSelect={event => {
-          event.preventDefault()
-        }}
-      >
-        <div className={style.dropdownItem}>
-          <FiPlayCircle />
-          Learn
-        </div>
-      </DropdownItem>
-      <DropdownItem
-        onSelect={event => {
-          event.preventDefault()
-        }}
-      >
-        <DecksDialog
-          cover={deck?.cover}
-          isPrivate={deck?.isPrivate}
-          name={deck?.name}
-          onSubmit={body => onUpdateDeckHandler({ id: deckId, ...body })}
-          title={'Edit Deck'}
-        >
+    <>
+      <DecksDialog
+        cover={deck?.cover}
+        isPrivate={deck?.isPrivate}
+        name={deck?.name}
+        onOpenChange={setIsOpenModal}
+        onSubmit={body => onUpdateDeckHandler({ id: deckId, ...body })}
+        open={isOpenModal}
+        title={'Edit Deck'}
+      />
+
+      <DeleteDeckDialog
+        name={deck?.name}
+        onOpenChange={setIsOpenModalDelete}
+        onSubmit={() => onDeleteDeck(deckId)}
+        open={isOpenModalDelete}
+      />
+
+      <DropdownMenu variant={'icon'}>
+        <DropdownItem>
+          <div className={style.dropdownItem}>
+            <FiPlayCircle />
+            Learn
+          </div>
+        </DropdownItem>
+
+        <DropdownItem onSelect={() => setIsOpenModal(true)}>
           <div className={style.dropdownItem}>
             <FiEdit />
             Edit
           </div>
-        </DecksDialog>
-      </DropdownItem>
+        </DropdownItem>
 
-      <DropdownItem
-        onSelect={event => {
-          event.preventDefault()
-        }}
-      >
-        <DeleteDeckDialog name={deck?.name} onDelete={() => onDeleteDeck(deckId)}>
+        <DropdownItem onSelect={() => setIsOpenModalDelete(true)}>
           <div className={style.dropdownItem}>
             <FiTrash />
             Delete
           </div>
-        </DeleteDeckDialog>
-      </DropdownItem>
-    </DropdownMenu>
+        </DropdownItem>
+      </DropdownMenu>
+    </>
   )
 }

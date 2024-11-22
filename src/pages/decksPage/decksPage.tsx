@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { FiSearch, FiTrash } from 'react-icons/fi'
@@ -45,6 +45,8 @@ export const DecksPage = () => {
     setOrderBy,
     setRange,
   } = useDecksParams()
+
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const { data: me } = useMeQuery()
   const [createDeck] = useCreateDeckMutation()
@@ -124,12 +126,19 @@ export const DecksPage = () => {
 
   return (
     <div className={style.decksPage}>
+      <DecksDialog
+        onOpenChange={setIsOpenModal}
+        onSubmit={onCreateDeckHandler}
+        open={isOpenModal}
+        title={'Add New Deck'}
+      />
+
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
 
-        <DecksDialog onSubmit={onCreateDeckHandler} title={'Add New Deck'}>
-          <Button className={style.button}>Add New Deck</Button>
-        </DecksDialog>
+        <Button className={style.button} onClick={() => setIsOpenModal(true)}>
+          Add New Deck
+        </Button>
       </div>
 
       <div className={style.filter}>
@@ -146,6 +155,7 @@ export const DecksPage = () => {
           <TabsTrigger onClick={() => onChangeTab('my')} value={'my'}>
             My Cards
           </TabsTrigger>
+
           <TabsTrigger onClick={() => onChangeTab('all')} value={'all'}>
             All Cards
           </TabsTrigger>
