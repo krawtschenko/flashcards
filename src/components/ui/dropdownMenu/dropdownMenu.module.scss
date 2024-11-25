@@ -115,6 +115,10 @@ button {
     &[data-highlighted] {
       color: var(--color-accent-500);
     }
+
+    &[data-disabled] {
+      color: var(--color-dark-300);
+    }
   }
 }
 

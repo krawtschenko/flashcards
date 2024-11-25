@@ -42,7 +42,7 @@ export const DropdownCards = (props: DropdownCardsProps) => {
       />
 
       <DropdownMenu variant={'icon'}>
-        <DropdownItem>
+        <DropdownItem disabled={!deck?.cardsCount}>
           <div className={style.dropdownItem}>
             <FiPlayCircle />
             Learn

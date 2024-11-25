@@ -20,8 +20,8 @@ import {
   useUpdateDeckMutation,
 } from '../../features/decks/decksApi'
 import { DeckBody } from '../../features/decks/decksTypes'
-import { useDecksParams } from '../../features/decks/useDecksParams'
 import { useDebounce } from '../../hooks/useDebounce'
+import { useDecksParams } from '../../hooks/useDecksParams'
 import { DecksDialog } from './decksDialog/decksDialog'
 import { DecksTable } from './decksTable/decksTable'
 
@@ -191,14 +191,16 @@ export const DecksPage = () => {
         </Typography>
       )}
 
-      <Pagination
-        className={style.pagination}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        onItemsPerPageChange={onChangeItemsPerPage}
-        onPageChange={setCurrentPage}
-        totalPages={decks?.pagination.totalPages}
-      />
+      {decks?.items.length !== 0 && (
+        <Pagination
+          className={style.pagination}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          onItemsPerPageChange={onChangeItemsPerPage}
+          onPageChange={setCurrentPage}
+          totalPages={decks?.pagination.totalPages}
+        />
+      )}
     </div>
   )
 }

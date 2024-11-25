@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { FiChevronDown, FiChevronUp, FiEdit, FiTrash } from 'react-icons/fi'
+import { FiEdit, FiTrash } from 'react-icons/fi'
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 
 import style from './cardsTable.module.scss'
@@ -7,6 +7,7 @@ import style from './cardsTable.module.scss'
 import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Card } from '../../../features/cards/cardsTypes'
+import { getSortIcon, handleSort } from '../../../utilities/sortingUtils'
 
 type CardsTableProps = {
   cards?: Card[]
@@ -20,56 +21,36 @@ type CardsTableProps = {
 export const CardsTable = (props: CardsTableProps) => {
   const { cards, className, isOwner, meId, orderBy, setOrderBy } = props
 
-  const onSort = (column: string) => {
-    if (orderBy === `${column}-asc`) {
-      setOrderBy(`${column}-desc`)
-    } else if (orderBy === `${column}-desc`) {
-      setOrderBy(null)
-    } else {
-      setOrderBy(`${column}-asc`)
-    }
-  }
-
-  const getSortIcon = (column: string) => {
-    if (orderBy === `${column}-asc`) {
-      return <FiChevronUp />
-    } else if (orderBy === `${column}-desc`) {
-      return <FiChevronDown />
-    } else {
-      return null
-    }
-  }
-
   return (
     <Table className={className}>
       <Thead>
         <Tr>
           <Th
-            className={clsx(getSortIcon('question') && style.active)}
-            onClick={() => onSort('question')}
+            className={clsx(getSortIcon('question', orderBy) && style.active)}
+            onClick={() => handleSort('question', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Question {getSortIcon('question')}</div>
+            <div className={style.th}>Question {getSortIcon('question', orderBy)}</div>
           </Th>
 
           <Th
-            className={clsx(getSortIcon('answer') && style.active)}
-            onClick={() => onSort('answer')}
+            className={clsx(getSortIcon('answer', orderBy) && style.active)}
+            onClick={() => handleSort('answer', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Answer {getSortIcon('answer')}</div>
+            <div className={style.th}>Answer {getSortIcon('answer', orderBy)}</div>
           </Th>
 
           <Th
-            className={clsx(getSortIcon('updated') && style.active)}
-            onClick={() => onSort('updated')}
+            className={clsx(getSortIcon('updated', orderBy) && style.active)}
+            onClick={() => handleSort('updated', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Last Updated {getSortIcon('updated')}</div>
+            <div className={style.th}>Last Updated {getSortIcon('updated', orderBy)}</div>
           </Th>
 
           <Th
-            className={clsx(getSortIcon('grade') && style.active)}
-            onClick={() => onSort('grade')}
+            className={clsx(getSortIcon('grade', orderBy) && style.active)}
+            onClick={() => handleSort('grade', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Grade {getSortIcon('grade')}</div>
+            <div className={style.th}>Grade {getSortIcon('grade', orderBy)}</div>
           </Th>
 
           {isOwner && (
@@ -82,7 +63,7 @@ export const CardsTable = (props: CardsTableProps) => {
 
       <Tbody>
         {cards?.map(({ answer, grade, id, question, updated }) => {
-          const updatedLocale = new Date(updated).toLocaleDateString()
+          const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
           const cardQuestion = question.length > 40 ? `${question.slice(0, 37)}...` : question
           const cardAnswer = answer.length > 40 ? `${answer.slice(0, 37)}...` : answer
 

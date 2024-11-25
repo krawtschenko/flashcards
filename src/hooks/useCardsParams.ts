@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 
-import { useQueryParam } from '../../hooks/useQueryParam'
+import { useQueryParam } from './useQueryParam'
 
 export const useCardsParams = () => {
   const [searchParams, setSearchParams] = useSearchParams()

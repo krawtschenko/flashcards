@@ -13,13 +13,13 @@ import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useMeQuery } from '../../features/auth/authApi'
 import { useGetCardsQuery } from '../../features/cards/cardsApi'
-import { useCardsParams } from '../../features/cards/useCardsParams'
 import {
   useDeleteDeckMutation,
   useGetDeckQuery,
   useUpdateDeckMutation,
 } from '../../features/decks/decksApi'
 import { DeckBody } from '../../features/decks/decksTypes'
+import { useCardsParams } from '../../hooks/useCardsParams'
 import { useDebounce } from '../../hooks/useDebounce'
 import { path } from '../../routes/path'
 import { CardsTable } from './cardsTable/cardsTable'

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import clsx from 'clsx'
-import { FiChevronDown, FiChevronUp, FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
+import { FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
 
 import style from './decksTable.module.scss'
 
@@ -11,6 +11,7 @@ import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
 import { path } from '../../../routes/path'
+import { getSortIcon, handleSort } from '../../../utilities/sortingUtils'
 import { DecksDialog } from '../decksDialog/decksDialog'
 import { DeleteDeckDialog } from '../decksDialog/decksDialogDelete'
 
@@ -30,50 +31,33 @@ export const DecksTable = (props: DecksTableProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
 
-  const onSort = (column: string) => {
-    if (orderBy === `${column}-asc`) {
-      setOrderBy(`${column}-desc`)
-    } else if (orderBy === `${column}-desc`) {
-      setOrderBy(null)
-    } else {
-      setOrderBy(`${column}-asc`)
-    }
-  }
-
-  const getSortIcon = (column: string) => {
-    if (orderBy === `${column}-asc`) {
-      return <FiChevronUp />
-    } else if (orderBy === `${column}-desc`) {
-      return <FiChevronDown />
-    } else {
-      return null
-    }
-  }
-
   return (
     <Table className={className}>
       <Thead>
         <Tr>
-          <Th className={clsx(getSortIcon('name') && style.active)} onClick={() => onSort('name')}>
-            <div className={style.th}>Name {getSortIcon('name')}</div>
+          <Th
+            className={clsx(getSortIcon('name', orderBy) && style.active)}
+            onClick={() => handleSort('name', orderBy, setOrderBy)}
+          >
+            <div className={style.th}>Name {getSortIcon('name', orderBy)}</div>
           </Th>
           <Th
-            className={clsx(getSortIcon('cardsCount') && style.active)}
-            onClick={() => onSort('cardsCount')}
+            className={clsx(getSortIcon('cardsCount', orderBy) && style.active)}
+            onClick={() => handleSort('cardsCount', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Cards {getSortIcon('cardsCount')}</div>
+            <div className={style.th}>Cards {getSortIcon('cardsCount', orderBy)}</div>
           </Th>
           <Th
-            className={clsx(getSortIcon('updated') && style.active)}
-            onClick={() => onSort('updated')}
+            className={clsx(getSortIcon('updated', orderBy) && style.active)}
+            onClick={() => handleSort('updated', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Last Updated {getSortIcon('updated')}</div>
+            <div className={style.th}>Last Updated {getSortIcon('updated', orderBy)}</div>
           </Th>
           <Th
-            className={clsx(getSortIcon('author.name') && style.active)}
-            onClick={() => onSort('author.name')}
+            className={clsx(getSortIcon('author.name', orderBy) && style.active)}
+            onClick={() => handleSort('author.name', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Created By {getSortIcon('author.name')}</div>
+            <div className={style.th}>Created By {getSortIcon('author.name', orderBy)}</div>
           </Th>
           <Th></Th>
         </Tr>
@@ -81,7 +65,7 @@ export const DecksTable = (props: DecksTableProps) => {
 
       <Tbody>
         {decks?.map(({ author, cardsCount, cover, id, isPrivate, name, updated }) => {
-          const updatedLocale = new Date(updated).toLocaleDateString()
+          const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
           const deckName = name.length > 30 ? `${name.slice(0, 27)}...` : name
           const deckCover = cover || coverImg
 
@@ -101,8 +85,8 @@ export const DecksTable = (props: DecksTableProps) => {
 
               <DeleteDeckDialog
                 name={name}
-                onDelete={() => onDeleteDeck(id)}
                 onOpenChange={setIsOpenModalDelete}
+                onSubmit={() => onDeleteDeck(id)}
                 open={isOpenModalDelete}
               />
 
