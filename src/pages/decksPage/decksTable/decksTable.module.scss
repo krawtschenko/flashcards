@@ -1,102 +1,133 @@
 @import '../../../styles';
 
-.active {
-  background-color: var(--color-dark-300) !important;
-}
+.table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
 
-.th {
-  cursor: pointer;
-
-  display: flex;
-  column-gap: 5px;
-  align-items: center;
-
-  transition: all 0.2s;
-}
-
-.tdName {
-  cursor: pointer;
-  width: 450px;
-
-  * {
-    transition: all 0.3s;
+  .active {
+    background-color: var(--color-dark-300) !important;
   }
 
-  .link {
-    display: flex;
-    column-gap: 10px;
-    align-items: center;
-
-    color: unset;
-    text-decoration: none;
-
-    img {
-      width: 118px;
-      height: 48px;
-      object-fit: cover;
-      border-radius: 2px;
-    }
+  .th,
+  .td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  &:hover {
-    * {
-      transform: scale(1.05);
-    }
-  }
-}
-
-.tdCards {
-  width: 111px;
-
-  &.zero {
-    color: var(--color-danger-700);
-  }
-}
-
-.tdAuthor {
-  width: 250px;
-}
-
-.tdActions {
-  width: 120px;
-
-  div {
-    display: flex;
-    column-gap: 10px;
-    align-items: center;
-    justify-content: center;
-
-    button {
+  .th {
+    div {
       cursor: pointer;
 
-      position: relative;
-      z-index: 1;
+      display: flex;
+      column-gap: 5px;
+      align-items: center;
 
-      height: 16px;
-      padding: unset;
+      transition: all 0.2s;
+    }
+  }
 
-      font-size: 16px;
+  .tdName,
+  .thName {
+    width: 450px;
+  }
 
-      background-color: transparent;
-      box-shadow: none;
+  .tdCards,
+  .thCards {
+    width: 100px;
+  }
 
-      @include button-hover;
+  .tdUpdated,
+  .thUpdated {
+    width: 150px;
+  }
 
-      &.play {
-        color: var(--color-success-500);
+  .tdAuthor,
+  .thAuthor {
+    width: 300px;
+  }
 
-        &:disabled {
-          color: var(--color-success-900);
-          background-color: transparent;
+  .tdActions,
+  .thActions {
+    width: 120px;
+  }
+
+  .tdName {
+    cursor: pointer;
+
+    * {
+      transition: all 0.3s;
+    }
+
+    .link {
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+
+      color: unset;
+      text-decoration: none;
+
+      img {
+        width: 118px;
+        height: 48px;
+        object-fit: cover;
+        border-radius: 2px;
+      }
+    }
+
+    &:hover {
+      * {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .tdCards {
+    &.zero {
+      color: var(--color-danger-700);
+    }
+  }
+
+  .tdActions {
+    div {
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        cursor: pointer;
+
+        position: relative;
+        z-index: 1;
+
+        height: 16px;
+        padding: unset;
+
+        font-size: 16px;
+
+        background-color: transparent;
+        box-shadow: none;
+
+        @include button-hover;
+
+        &.play {
+          color: var(--color-success-500);
+
+          &:disabled {
+            color: var(--color-success-900);
+            background-color: transparent;
+          }
         }
-      }
 
-      &.edit {
-        color: var(--color-info-500);
-      }
+        &.edit {
+          color: var(--color-info-500);
+        }
 
-      &.btnTrash {
-        color: var(--color-danger-500);
+        &.btnTrash {
+          color: var(--color-danger-500);
+        }
       }
     }
   }

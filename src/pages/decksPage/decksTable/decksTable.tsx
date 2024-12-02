@@ -32,34 +32,50 @@ export const DecksTable = (props: DecksTableProps) => {
   const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
 
   return (
-    <Table className={className}>
+    <Table className={clsx(style.table, className)}>
       <Thead>
         <Tr>
           <Th
-            className={clsx(getSortIcon('name', orderBy) && style.active)}
+            className={clsx(style.th, style.thName, getSortIcon('name', orderBy) && style.active)}
             onClick={() => handleSort('name', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Name {getSortIcon('name', orderBy)}</div>
+            <div>Name {getSortIcon('name', orderBy)}</div>
           </Th>
+
           <Th
-            className={clsx(getSortIcon('cardsCount', orderBy) && style.active)}
+            className={clsx(
+              style.th,
+              style.thCards,
+              getSortIcon('cardsCount', orderBy) && style.active
+            )}
             onClick={() => handleSort('cardsCount', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Cards {getSortIcon('cardsCount', orderBy)}</div>
+            <div>Cards {getSortIcon('cardsCount', orderBy)}</div>
           </Th>
+
           <Th
-            className={clsx(getSortIcon('updated', orderBy) && style.active)}
+            className={clsx(
+              style.th,
+              style.thUpdated,
+              getSortIcon('updated', orderBy) && style.active
+            )}
             onClick={() => handleSort('updated', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Last Updated {getSortIcon('updated', orderBy)}</div>
+            <div>Last Updated {getSortIcon('updated', orderBy)}</div>
           </Th>
+
           <Th
-            className={clsx(getSortIcon('author.name', orderBy) && style.active)}
+            className={clsx(
+              style.th,
+              style.thAuthor,
+              getSortIcon('author.name', orderBy) && style.active
+            )}
             onClick={() => handleSort('author.name', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Created By {getSortIcon('author.name', orderBy)}</div>
+            <div>Created By {getSortIcon('author.name', orderBy)}</div>
           </Th>
-          <Th></Th>
+
+          <Th className={(style.th, style.thActions)}></Th>
         </Tr>
       </Thead>
 
@@ -90,20 +106,22 @@ export const DecksTable = (props: DecksTableProps) => {
                 open={isOpenModalDelete}
               />
 
-              <Td className={style.tdName} title={name}>
+              <Td className={(style.td, style.tdName)} title={name}>
                 <Link className={style.link} to={`${path.decks}/${id}`}>
                   <img alt={'cover'} src={deckCover} />
                   {deckName}
                 </Link>
               </Td>
 
-              <Td className={clsx(style.tdCards, cardsCount === 0 && style.zero)}>{cardsCount}</Td>
+              <Td className={clsx(style.td, style.tdCards, cardsCount === 0 && style.zero)}>
+                {cardsCount}
+              </Td>
 
-              <Td>{updatedLocale}</Td>
+              <Td className={(style.td, style.tdUpdated)}>{updatedLocale}</Td>
 
-              <Td className={style.tdAuthor}>{author.name}</Td>
+              <Td className={(style.td, style.tdAuthor)}>{author.name}</Td>
 
-              <Td className={style.tdActions}>
+              <Td className={(style.td, style.tdActions)}>
                 <div>
                   <Button className={style.play} disabled={cardsCount === 0}>
                     <FiPlayCircle />
