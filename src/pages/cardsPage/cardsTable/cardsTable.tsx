@@ -22,42 +22,50 @@ export const CardsTable = (props: CardsTableProps) => {
   const { cards, className, isOwner, meId, orderBy, setOrderBy } = props
 
   return (
-    <Table className={className}>
+    <Table className={clsx(style.table, className)}>
       <Thead>
         <Tr>
           <Th
-            className={clsx(getSortIcon('question', orderBy) && style.active)}
+            className={clsx(
+              style.th,
+              style.thQuestion,
+              getSortIcon('question', orderBy) && style.active
+            )}
             onClick={() => handleSort('question', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Question {getSortIcon('question', orderBy)}</div>
+            <div>Question {getSortIcon('question', orderBy)}</div>
           </Th>
 
           <Th
-            className={clsx(getSortIcon('answer', orderBy) && style.active)}
+            className={clsx(
+              style.th,
+              style.thAnswer,
+              getSortIcon('answer', orderBy) && style.active
+            )}
             onClick={() => handleSort('answer', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Answer {getSortIcon('answer', orderBy)}</div>
+            <div>Answer {getSortIcon('answer', orderBy)}</div>
           </Th>
 
           <Th
-            className={clsx(getSortIcon('updated', orderBy) && style.active)}
+            className={clsx(
+              style.th,
+              style.thUpdated,
+              getSortIcon('updated', orderBy) && style.active
+            )}
             onClick={() => handleSort('updated', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Last Updated {getSortIcon('updated', orderBy)}</div>
+            <div>Last Updated {getSortIcon('updated', orderBy)}</div>
           </Th>
 
           <Th
-            className={clsx(getSortIcon('grade', orderBy) && style.active)}
+            className={clsx(style.th, style.thGrade, getSortIcon('grade', orderBy) && style.active)}
             onClick={() => handleSort('grade', orderBy, setOrderBy)}
           >
-            <div className={style.th}>Grade {getSortIcon('grade', orderBy)}</div>
+            <div>Grade {getSortIcon('grade', orderBy)}</div>
           </Th>
 
-          {isOwner && (
-            <Th>
-              <div className={style.th}></div>
-            </Th>
-          )}
+          {isOwner && <Th className={(style.th, style.thActions)}></Th>}
         </Tr>
       </Thead>
 
@@ -89,8 +97,8 @@ export const CardsTable = (props: CardsTableProps) => {
               </Td>
 
               {isOwner && (
-                <Td>
-                  <div className={style.actions}>
+                <Td className={style.tdActions}>
+                  <div>
                     <Button className={style.edit} onClick={() => alert('yoy')}>
                       <FiEdit />
                     </Button>
