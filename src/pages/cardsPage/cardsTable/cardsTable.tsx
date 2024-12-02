@@ -72,8 +72,8 @@ export const CardsTable = (props: CardsTableProps) => {
       <Tbody>
         {cards?.map(({ answer, grade, id, question, updated }) => {
           const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
-          const cardQuestion = question.length > 40 ? `${question.slice(0, 37)}...` : question
-          const cardAnswer = answer.length > 40 ? `${answer.slice(0, 37)}...` : answer
+          const cardQuestion = question.length > 48 ? `${question.slice(0, 45)}...` : question
+          const cardAnswer = answer.length > 48 ? `${answer.slice(0, 45)}...` : answer
 
           // Generate stars
           const stars = Array.from({ length: 5 }, (_, index) =>

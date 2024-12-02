@@ -9,6 +9,7 @@ import style from './cardsPage.module.scss'
 import coverImg from '../../assets/images/cover.svg'
 import { Button } from '../../components/ui/button/button'
 import { LoadingBar } from '../../components/ui/loadingBar/loadingBar'
+import { Pagination } from '../../components/ui/pagination/pagination'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useMeQuery } from '../../features/auth/authApi'
@@ -46,7 +47,9 @@ export const CardsPage = () => {
 
   const { data: deck, isLoading } = useGetDeckQuery({ id: deckId })
   const { data: cards } = useGetCardsQuery({
+    currentPage: currentPage !== 1 ? currentPage : undefined,
     id: deckId,
+    itemsPerPage: itemsPerPage !== 10 ? itemsPerPage : undefined,
     orderBy: orderBy || undefined,
     question: useDebounce(question) || undefined,
   })
@@ -56,6 +59,11 @@ export const CardsPage = () => {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPage(1)
     setQuestion(e.currentTarget.value)
+  }
+
+  const onChangeItemsPerPage = (items: number) => {
+    setCurrentPage(1)
+    setItemsPerPage(items)
   }
 
   const onUpdateDeckHandler = async (args: { id: string } & DeckBody) => {
@@ -137,6 +145,15 @@ export const CardsPage = () => {
             meId={me?.id}
             orderBy={orderBy}
             setOrderBy={setOrderBy}
+          />
+
+          <Pagination
+            className={style.pagination}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            onItemsPerPageChange={onChangeItemsPerPage}
+            onPageChange={setCurrentPage}
+            totalPages={cards?.pagination.totalPages}
           />
         </>
       )}
