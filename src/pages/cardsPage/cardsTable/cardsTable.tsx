@@ -65,7 +65,7 @@ export const CardsTable = (props: CardsTableProps) => {
             <div>Grade {getSortIcon('grade', orderBy)}</div>
           </Th>
 
-          {isOwner && <Th className={(style.th, style.thActions)}></Th>}
+          {isOwner && <Th className={style.th}></Th>}
         </Tr>
       </Thead>
 
@@ -82,22 +82,22 @@ export const CardsTable = (props: CardsTableProps) => {
 
           return (
             <Tr key={id}>
-              <Td className={style.tdQuestion} title={question}>
+              <Td className={clsx(style.td, style.tdQuestion)} title={question}>
                 {cardQuestion}
               </Td>
 
-              <Td className={style.tdAnswer} title={answer}>
+              <Td className={clsx(style.td, style.tdAnswer)} title={answer}>
                 {cardAnswer}
               </Td>
 
-              <Td className={style.tdUpdated}>{updatedLocale}</Td>
+              <Td className={clsx(style.td, style.tdUpdated)}>{updatedLocale}</Td>
 
-              <Td className={style.tdGrade}>
+              <Td className={clsx(style.td, style.tdGrade)}>
                 <div className={style.stars}>{stars}</div>
               </Td>
 
               {isOwner && (
-                <Td className={style.tdActions}>
+                <Td className={(style.td, style.tdActions)}>
                   <div>
                     <Button className={style.edit} onClick={() => alert('yoy')}>
                       <FiEdit />
