@@ -28,8 +28,8 @@ type DecksTableProps = {
 export const DecksTable = (props: DecksTableProps) => {
   const { className, decks, meId, onDeleteDeck, onUpdateDeck, orderBy, setOrderBy } = props
 
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
+  const [openModalId, setOpenModalId] = useState<null | string>(null)
+  const [openDeleteModalId, setOpenDeleteModalId] = useState<null | string>(null)
 
   return (
     <Table className={clsx(style.table, className)}>
@@ -92,17 +92,17 @@ export const DecksTable = (props: DecksTableProps) => {
                 cover={cover}
                 isPrivate={isPrivate}
                 name={name}
-                onOpenChange={setIsOpenModal}
+                onOpenChange={() => setOpenModalId(null)}
                 onSubmit={body => onUpdateDeck({ id, ...body })}
-                open={isOpenModal}
+                open={openModalId === id}
                 title={'Update Deck'}
               />
 
               <DeleteDeckDialog
                 name={name}
-                onOpenChange={setIsOpenModalDelete}
+                onOpenChange={() => setOpenDeleteModalId(null)}
                 onSubmit={() => onDeleteDeck(id)}
-                open={isOpenModalDelete}
+                open={openDeleteModalId === id}
               />
 
               <Td className={(style.td, style.tdName)} title={name}>
@@ -127,13 +127,13 @@ export const DecksTable = (props: DecksTableProps) => {
                   </Button>
 
                   {isMe && (
-                    <Button className={style.edit} onClick={() => setIsOpenModal(true)}>
+                    <Button className={style.edit} onClick={() => setOpenModalId(id)}>
                       <FiEdit />
                     </Button>
                   )}
 
                   {isMe && (
-                    <Button className={style.btnTrash} onClick={() => setIsOpenModalDelete(true)}>
+                    <Button className={style.btnTrash} onClick={() => setOpenDeleteModalId(id)}>
                       <FiTrash />
                     </Button>
                   )}

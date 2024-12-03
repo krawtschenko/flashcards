@@ -33,7 +33,7 @@ export const DeleteDeckDialog = (props: DeleteDeckDialogProps) => {
           </Button>
 
           <Button className={style.delete} onClick={onDeleteHandler}>
-            Delete Deck
+            Delete
           </Button>
         </div>
       </DialogPortal>
