@@ -72,8 +72,6 @@ export const CardsTable = (props: CardsTableProps) => {
       <Tbody>
         {cards?.map(({ answer, grade, id, question, updated }) => {
           const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
-          const cardQuestion = question.length > 48 ? `${question.slice(0, 45)}...` : question
-          const cardAnswer = answer.length > 48 ? `${answer.slice(0, 45)}...` : answer
 
           // Generate stars
           const stars = Array.from({ length: 5 }, (_, index) =>
@@ -83,11 +81,11 @@ export const CardsTable = (props: CardsTableProps) => {
           return (
             <Tr key={id}>
               <Td className={clsx(style.td, style.tdQuestion)} title={question}>
-                {cardQuestion}
+                {question}
               </Td>
 
               <Td className={clsx(style.td, style.tdAnswer)} title={answer}>
-                {cardAnswer}
+                {answer}
               </Td>
 
               <Td className={clsx(style.td, style.tdUpdated)}>{updatedLocale}</Td>

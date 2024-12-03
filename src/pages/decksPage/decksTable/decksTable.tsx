@@ -82,7 +82,6 @@ export const DecksTable = (props: DecksTableProps) => {
       <Tbody>
         {decks?.map(({ author, cardsCount, cover, id, isPrivate, name, updated }) => {
           const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
-          const deckName = name.length > 30 ? `${name.slice(0, 27)}...` : name
           const deckCover = cover || coverImg
 
           const isMe = meId === author.id
@@ -109,7 +108,7 @@ export const DecksTable = (props: DecksTableProps) => {
               <Td className={(style.td, style.tdName)} title={name}>
                 <Link className={style.link} to={`${path.decks}/${id}`}>
                   <img alt={'cover'} src={deckCover} />
-                  {deckName}
+                  {name}
                 </Link>
               </Td>
 

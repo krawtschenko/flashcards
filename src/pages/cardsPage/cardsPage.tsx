@@ -6,7 +6,6 @@ import { FiArrowLeft, FiPlayCircle, FiSearch } from 'react-icons/fi'
 
 import style from './cardsPage.module.scss'
 
-import coverImg from '../../assets/images/cover.svg'
 import { Button } from '../../components/ui/button/button'
 import { LoadingBar } from '../../components/ui/loadingBar/loadingBar'
 import { Pagination } from '../../components/ui/pagination/pagination'
@@ -119,7 +118,7 @@ export const CardsPage = () => {
         )}
       </div>
 
-      <img alt={'cover'} className={style.cover} src={deck?.cover ?? coverImg} />
+      {deck?.cover && <img alt={'cover'} className={style.cover} src={deck?.cover} />}
 
       {!deck?.cardsCount && (
         <Typography className={style.emptyDeckText} position={'center'} variant={'body1'}>
