@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -12,7 +12,8 @@ import { Pagination } from '../../components/ui/pagination/pagination'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useMeQuery } from '../../features/auth/authApi'
-import { useGetCardsQuery } from '../../features/cards/cardsApi'
+import { useCreateCardMutation, useGetCardsQuery } from '../../features/cards/cardsApi'
+import { CardBody } from '../../features/cards/cardsTypes'
 import {
   useDeleteDeckMutation,
   useGetDeckQuery,
@@ -22,6 +23,7 @@ import { DeckBody } from '../../features/decks/decksTypes'
 import { useCardsParams } from '../../hooks/useCardsParams'
 import { useDebounce } from '../../hooks/useDebounce'
 import { path } from '../../routes/path'
+import { CardsDialog } from './cardsDialog/cardsDialog'
 import { CardsTable } from './cardsTable/cardsTable'
 import { DropdownCards } from './dropdownCards/dropdownCards'
 
@@ -37,15 +39,20 @@ export const CardsPage = () => {
     setQuestion,
   } = useCardsParams()
 
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
   const navigate = useNavigate()
   const { id: deckId } = useParams() as { id: string }
 
   const { data: me } = useMeQuery()
+
   const [updateDeck] = useUpdateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
 
-  const { data: deck, isLoading } = useGetDeckQuery({ id: deckId })
-  const { data: cards } = useGetCardsQuery({
+  const [createCard] = useCreateCardMutation()
+
+  const { data: deck, isLoading: isLoadingDeck } = useGetDeckQuery({ id: deckId })
+  const { data: cards, isLoading: isLoadingCards } = useGetCardsQuery({
     currentPage: currentPage !== 1 ? currentPage : undefined,
     id: deckId,
     itemsPerPage: itemsPerPage !== 10 ? itemsPerPage : undefined,
@@ -84,12 +91,28 @@ export const CardsPage = () => {
     }
   }
 
-  if (isLoading) {
+  const onCreateCardHandler = async (value: CardBody) => {
+    try {
+      await createCard({ id: deckId, ...value }).unwrap()
+      toast.success('Card successfully created')
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
+  }
+
+  if (isLoadingDeck || isLoadingCards) {
     return <LoadingBar id={'loader-root'} />
   }
 
   return (
     <div className={style.cardsPage}>
+      <CardsDialog
+        onOpenChange={setIsOpenModal}
+        onSubmit={onCreateCardHandler}
+        open={isOpenModal}
+        title={'Add New Card'}
+      />
+
       <Button className={style.back} onClick={() => navigate(path.decks)}>
         <FiArrowLeft />
         Back to Decks List
@@ -109,7 +132,8 @@ export const CardsPage = () => {
           )}
         </div>
 
-        {isOwner && <Button>Add New Card</Button>}
+        {isOwner && <Button onClick={() => setIsOpenModal(true)}>Add New Card</Button>}
+
         {!isOwner && !!deck?.cardsCount && (
           <Button>
             <FiPlayCircle />

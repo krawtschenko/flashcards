@@ -95,7 +95,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
     setImage(undefined)
   }
 
-  const onHandleSubmitHandler = handleSubmit(value => {
+  const onHandleSubmit = handleSubmit(value => {
     return onSubmitHandler({
       cover: image ?? (image === null ? null : undefined),
       isPrivate: value.isPrivate === isPrivate ? undefined : value.isPrivate,
@@ -106,11 +106,10 @@ export const DecksDialog = (props: DecksDialogProps) => {
   return (
     <Dialog onOpenChange={onOpenChangeHandler} open={open}>
       <DialogPortal className={style.portal} title={title}>
-        <form className={style.form} onSubmit={onHandleSubmitHandler}>
+        <form className={style.form} onSubmit={onHandleSubmit}>
           {preview && <img alt={'preview'} src={preview} />}
 
           <ControlledTextField
-            className={style.textField}
             control={control}
             label={'Name Pack'}
             name={'name'}

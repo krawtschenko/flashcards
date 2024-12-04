@@ -29,3 +29,10 @@ export type CardsArgs = {
   orderBy?: null | string
   question?: string
 }
+
+export type CardBody = {
+  answer: string
+  answerImg?: File | null
+  question: string
+  questionImg?: File | null
+}

@@ -2,17 +2,13 @@
   width: 542px;
 
   .form {
-    position: relative;
+    margin-top: 24px;
 
     img {
       width: 100%;
       max-height: 300px;
       object-fit: cover;
       border-radius: 2px;
-    }
-
-    .textField {
-      margin-top: 24px;
     }
 
     .buttons {

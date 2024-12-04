@@ -9,6 +9,12 @@
     background-color: var(--color-dark-300) !important;
   }
 
+  .tr {
+    &:hover {
+      background-color: var(--color-dark-700);
+    }
+  }
+
   .th,
   .td {
     overflow: hidden;
@@ -56,10 +62,6 @@
   .tdName {
     cursor: pointer;
 
-    * {
-      transition: all 0.3s;
-    }
-
     .link {
       display: flex;
       column-gap: 10px;
@@ -77,9 +79,7 @@
     }
 
     &:hover {
-      * {
-        transform: scale(1.05);
-      }
+      text-decoration: underline;
     }
   }
 

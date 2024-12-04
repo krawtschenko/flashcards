@@ -87,7 +87,7 @@ export const DecksTable = (props: DecksTableProps) => {
           const isMe = meId === author.id
 
           return (
-            <Tr key={id}>
+            <Tr className={style.tr} key={id}>
               <DecksDialog
                 cover={cover}
                 isPrivate={isPrivate}
@@ -105,7 +105,7 @@ export const DecksTable = (props: DecksTableProps) => {
                 open={openDeleteModalId === id}
               />
 
-              <Td className={(style.td, style.tdName)} title={name}>
+              <Td className={clsx(style.td, style.tdName)} title={name}>
                 <Link className={style.link} to={`${path.decks}/${id}`}>
                   <img alt={'cover'} src={deckCover} />
                   {name}
@@ -116,11 +116,11 @@ export const DecksTable = (props: DecksTableProps) => {
                 {cardsCount}
               </Td>
 
-              <Td className={(style.td, style.tdUpdated)}>{updatedLocale}</Td>
+              <Td className={clsx(style.td, style.tdUpdated)}>{updatedLocale}</Td>
 
-              <Td className={(style.td, style.tdAuthor)}>{author.name}</Td>
+              <Td className={clsx(style.td, style.tdAuthor)}>{author.name}</Td>
 
-              <Td className={(style.td, style.tdActions)}>
+              <Td className={clsx(style.td, style.tdActions)}>
                 <div>
                   <Button className={style.play} disabled={cardsCount === 0}>
                     <FiPlayCircle />
