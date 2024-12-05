@@ -6,6 +6,7 @@ import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
 
 import style from './cardsTable.module.scss'
 
+import coverImg from '../../../assets/images/cover.svg'
 import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Card, CardBody } from '../../../features/cards/cardsTypes'
@@ -78,8 +79,11 @@ export const CardsTable = (props: CardsTableProps) => {
       </Thead>
 
       <Tbody>
-        {cards?.map(({ answer, grade, id, question, updated }) => {
+        {cards?.map(({ answer, answerImg, grade, id, question, questionImg, updated }) => {
           const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
+
+          const questionCover = questionImg || coverImg
+          const answerCover = answerImg || coverImg
 
           // Generate stars
           const stars = Array.from({ length: 5 }, (_, index) =>
@@ -90,11 +94,13 @@ export const CardsTable = (props: CardsTableProps) => {
             <Tr key={id}>
               <CardsDialog
                 answer={answer}
+                answerImg={answerImg}
                 onOpenChange={() => setOpenModalId(null)}
                 onSubmit={body => onUpdateCard({ id, ...body })}
                 open={openModalId === id}
                 question={question}
-                title={'Edit'}
+                questionImg={questionImg}
+                title={'Edit Card'}
               />
 
               <CardDialogDelete
@@ -104,11 +110,17 @@ export const CardsTable = (props: CardsTableProps) => {
               />
 
               <Td className={clsx(style.td, style.tdQuestion)} title={question}>
-                {question}
+                <div>
+                  <img alt={'cover'} src={questionCover} />
+                  {question}
+                </div>
               </Td>
 
               <Td className={clsx(style.td, style.tdAnswer)} title={answer}>
-                {answer}
+                <div>
+                  <img alt={'cover'} src={answerCover} />
+                  {answer}
+                </div>
               </Td>
 
               <Td className={clsx(style.td, style.tdUpdated)}>{updatedLocale}</Td>

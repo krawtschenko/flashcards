@@ -9,7 +9,14 @@ html {
 *::before,
 *::after {
   user-select: none;
+
+  /* Hidden scroll */
+  scrollbar-width: none; // For Firefox
   box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    display: none; // For WebKit (Chrome, Safari, Edge)
+  }
 }
 
 input,
@@ -40,7 +47,7 @@ body {
   background-color: var(--color-dark-900);
 }
 
-// For disable autofill color (text field)
+/* For disable autofill color (text field) */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus input:-webkit-autofill,

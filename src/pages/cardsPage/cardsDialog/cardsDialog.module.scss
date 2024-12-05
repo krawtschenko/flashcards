@@ -1,11 +1,47 @@
 .portal {
+  overflow-y: auto;
   width: 542px;
+  max-height: 80vh;
 
   .form {
     margin-top: 24px;
 
     .textField {
       margin-top: 44px;
+    }
+
+    img {
+      margin-top: 15px;
+      width: 100%;
+      max-height: 250px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    .buttons {
+      display: flex;
+      column-gap: 36px;
+      justify-content: space-between;
+      margin-top: 10px;
+
+      .removeButton {
+        background-color: var(--color-danger-500);
+        box-shadow: 0 4px 18px 0 var(--color-danger-900);
+
+        &:hover {
+          background-color: var(--color-danger-300);
+        }
+
+        &:active {
+          background-color: var(--color-danger-700);
+        }
+      }
+
+      .uploadButton {
+        input {
+          display: none;
+        }
+      }
     }
   }
 

@@ -6,9 +6,31 @@ const cardsApi = baseApi.injectEndpoints({
     return {
       createCard: builder.mutation<Card, { id: string } & CardBody>({
         invalidatesTags: ['cards'],
-        query: ({ id, ...body }) => {
+        query: ({ answer, answerImg, id, question, questionImg }) => {
+          const formData = new FormData()
+
+          if (answer) {
+            formData.append('answer', answer)
+          }
+
+          if (question) {
+            formData.append('question', question)
+          }
+
+          if (answerImg) {
+            formData.append('answerImg', answerImg)
+          } else if (answerImg === null) {
+            formData.append('answerImg', '')
+          }
+
+          if (questionImg) {
+            formData.append('questionImg', questionImg)
+          } else if (questionImg === null) {
+            formData.append('questionImg', '')
+          }
+
           return {
-            body,
+            body: formData,
             method: 'POST',
             url: `/v1/decks/${id}/cards`,
           }
@@ -37,12 +59,24 @@ const cardsApi = baseApi.injectEndpoints({
         query: ({ answer, answerImg, id, question, questionImg }) => {
           const formData = new FormData()
 
+          if (answer) {
+            formData.append('answer', answer)
+          }
+
           if (question) {
             formData.append('question', question)
           }
 
-          if (answer) {
-            formData.append('answer', answer)
+          if (answerImg) {
+            formData.append('answerImg', answerImg)
+          } else if (answerImg === null) {
+            formData.append('answerImg', '')
+          }
+
+          if (questionImg) {
+            formData.append('questionImg', questionImg)
+          } else if (questionImg === null) {
+            formData.append('questionImg', '')
           }
 
           return {

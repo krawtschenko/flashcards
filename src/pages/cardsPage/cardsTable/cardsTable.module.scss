@@ -28,6 +28,15 @@
     }
   }
 
+  .td {
+    img {
+      width: 80px;
+      height: 35px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+  }
+
   .tdQuestion,
   .thQuestion {
     width: 400px;
@@ -36,6 +45,15 @@
   .tdAnswer,
   .thAnswer {
     width: 400px;
+  }
+
+  .tdQuestion,
+  .tdAnswer {
+    div {
+      display: flex;
+      column-gap: 10px;
+      align-items: center;
+    }
   }
 
   .tdUpdated,
