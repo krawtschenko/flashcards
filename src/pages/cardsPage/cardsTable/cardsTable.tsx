@@ -8,7 +8,7 @@ import style from './cardsTable.module.scss'
 
 import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
-import { Card } from '../../../features/cards/cardsTypes'
+import { Card, CardBody } from '../../../features/cards/cardsTypes'
 import { getSortIcon, handleSort } from '../../../utilities/sortingUtils'
 import { CardsDialog } from '../cardsDialog/cardsDialog'
 import { CardDialogDelete } from '../cardsDialog/cardsDialogDelete'
@@ -17,13 +17,14 @@ type CardsTableProps = {
   cards?: Card[]
   className?: string
   isOwner: boolean
-  meId?: string
+  onDeleteCard: (id: string) => void
+  onUpdateCard: (args: { id: string } & CardBody) => void
   orderBy: null | string
   setOrderBy: (orderBy: null | string) => void
 }
 
 export const CardsTable = (props: CardsTableProps) => {
-  const { cards, className, isOwner, meId, orderBy, setOrderBy } = props
+  const { cards, className, isOwner, onDeleteCard, onUpdateCard, orderBy, setOrderBy } = props
 
   const [openModalId, setOpenModalId] = useState<null | string>(null)
   const [openDeleteModalId, setOpenDeleteModalId] = useState<null | string>(null)
@@ -90,7 +91,7 @@ export const CardsTable = (props: CardsTableProps) => {
               <CardsDialog
                 answer={answer}
                 onOpenChange={() => setOpenModalId(null)}
-                onSubmit={() => alert(question)}
+                onSubmit={body => onUpdateCard({ id, ...body })}
                 open={openModalId === id}
                 question={question}
                 title={'Edit'}
@@ -98,7 +99,7 @@ export const CardsTable = (props: CardsTableProps) => {
 
               <CardDialogDelete
                 onOpenChange={() => setOpenDeleteModalId(null)}
-                onSubmit={() => alert('Delete')}
+                onSubmit={() => onDeleteCard(id)}
                 open={openDeleteModalId === id}
               />
 

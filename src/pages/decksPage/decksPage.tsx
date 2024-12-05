@@ -111,9 +111,9 @@ export const DecksPage = () => {
     }
   }
 
-  const onDeleteDeck = async (id: string) => {
+  const onDeleteDeckHandler = async (id: string) => {
     try {
-      await deleteDeck(id).unwrap()
+      await deleteDeck({ id }).unwrap()
       toast.success('Deck successfully deleted')
     } catch (error) {
       toast.error('Something went wrong')
@@ -179,7 +179,7 @@ export const DecksPage = () => {
         className={style.decksTable}
         decks={decks?.items}
         meId={me?.id}
-        onDeleteDeck={onDeleteDeck}
+        onDeleteDeck={onDeleteDeckHandler}
         onUpdateDeck={onUpdateDeckHandler}
         orderBy={orderBy}
         setOrderBy={setOrderBy}

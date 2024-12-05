@@ -31,8 +31,8 @@ export type CardsArgs = {
 }
 
 export type CardBody = {
-  answer: string
+  answer?: string
   answerImg?: File | null
-  question: string
+  question?: string
   questionImg?: File | null
 }

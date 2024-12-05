@@ -12,7 +12,12 @@ import { Pagination } from '../../components/ui/pagination/pagination'
 import { TextField } from '../../components/ui/textField/textField'
 import { Typography } from '../../components/ui/typography/typography'
 import { useMeQuery } from '../../features/auth/authApi'
-import { useCreateCardMutation, useGetCardsQuery } from '../../features/cards/cardsApi'
+import {
+  useCreateCardMutation,
+  useDeleteCardMutation,
+  useGetCardsQuery,
+  useUpdateCardMutation,
+} from '../../features/cards/cardsApi'
 import { CardBody } from '../../features/cards/cardsTypes'
 import {
   useDeleteDeckMutation,
@@ -50,6 +55,8 @@ export const CardsPage = () => {
   const [deleteDeck] = useDeleteDeckMutation()
 
   const [createCard] = useCreateCardMutation()
+  const [updateCard] = useUpdateCardMutation()
+  const [deleteCard] = useDeleteCardMutation()
 
   const { data: deck, isLoading: isLoadingDeck } = useGetDeckQuery({ id: deckId })
   const { data: cards, isLoading: isLoadingCards } = useGetCardsQuery({
@@ -83,7 +90,7 @@ export const CardsPage = () => {
 
   const onDeleteDeck = async (id: string) => {
     try {
-      await deleteDeck(id).unwrap()
+      await deleteDeck({ id }).unwrap()
       navigate(path.decks)
       toast.success('Deck successfully deleted')
     } catch (error) {
@@ -95,6 +102,24 @@ export const CardsPage = () => {
     try {
       await createCard({ id: deckId, ...value }).unwrap()
       toast.success('Card successfully created')
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
+  }
+
+  const onUpdateCardHandler = async (args: { id: string } & CardBody) => {
+    try {
+      await updateCard(args).unwrap()
+      toast.success('Deck updated')
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
+  }
+
+  const onDeleteCardHandler = async (id: string) => {
+    try {
+      await deleteCard({ id }).unwrap()
+      toast.success('Deck successfully deleted')
     } catch (error) {
       toast.error('Something went wrong')
     }
@@ -165,7 +190,8 @@ export const CardsPage = () => {
             cards={cards?.items}
             className={style.cardsTable}
             isOwner={isOwner}
-            meId={me?.id}
+            onDeleteCard={onDeleteCardHandler}
+            onUpdateCard={onUpdateCardHandler}
             orderBy={orderBy}
             setOrderBy={setOrderBy}
           />
