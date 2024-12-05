@@ -22,7 +22,7 @@ import {
 import { DeckBody } from '../../features/decks/decksTypes'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useDecksParams } from '../../hooks/useDecksParams'
-import { DecksDialog } from './decksDialog/decksDialog'
+import { DecksDialog } from './deckDialog/deckDialog'
 import { DecksTable } from './decksTable/decksTable'
 
 export const DecksPage = () => {
@@ -127,7 +127,7 @@ export const DecksPage = () => {
   return (
     <div className={style.decksPage}>
       <DecksDialog
-        onOpenChange={setIsOpenModal}
+        onOpenChange={() => setIsOpenModal(false)}
         onSubmit={onCreateDeckHandler}
         open={isOpenModal}
         title={'Add New Deck'}

@@ -1,34 +1,34 @@
-import style from './decksDialog.module.scss'
+import style from './deckDialog.module.scss'
 
 import { Dialog, DialogPortal } from '../../../components/layout/dialog/dialog'
 import { Button } from '../../../components/ui/button/button'
 import { Typography } from '../../../components/ui/typography/typography'
 
-type DeleteDeckDialogProps = {
+type DeckDialogDeleteProps = {
   name?: string
-  onOpenChange: (open: boolean) => void
+  onOpenChange: () => void
   onSubmit: () => void
   open: boolean
 }
 
-export const DeleteDeckDialog = (props: DeleteDeckDialogProps) => {
+export const DeckDialogDelete = (props: DeckDialogDeleteProps) => {
   const { name, onOpenChange, onSubmit, open } = props
 
   const onDeleteHandler = () => {
     onSubmit()
-    onOpenChange(false)
+    onOpenChange()
   }
 
   return (
-    <Dialog onOpenChange={() => onOpenChange(!open)} open={open}>
+    <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogPortal className={style.portal} title={'Delete Deck'}>
         <Typography variant={'body1'}>
-          Do you want to remove <b>{`Deck (${name})`}</b>?<br />
+          Do you want to remove Deck <b>{`(${name})`}</b>?<br />
           All cards will be deleted
         </Typography>
 
         <div className={style.buttonsWrap}>
-          <Button onClick={() => onOpenChange(false)} variant={'secondary'}>
+          <Button onClick={onOpenChange} variant={'secondary'}>
             Cancel
           </Button>
 

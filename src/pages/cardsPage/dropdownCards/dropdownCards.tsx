@@ -6,8 +6,8 @@ import style from './dropdownCards.module.scss'
 
 import { DropdownItem, DropdownMenu } from '../../../components/ui/dropdownMenu/dropdownMenu'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
-import { DecksDialog } from '../../decksPage/decksDialog/decksDialog'
-import { DeleteDeckDialog } from '../../decksPage/decksDialog/decksDialogDelete'
+import { DecksDialog } from '../../decksPage/deckDialog/deckDialog'
+import { DeckDialogDelete } from '../../decksPage/deckDialog/deckDialogDelete'
 
 type DropdownCardsProps = {
   deck?: Deck
@@ -34,7 +34,7 @@ export const DropdownCards = (props: DropdownCardsProps) => {
         title={'Edit Deck'}
       />
 
-      <DeleteDeckDialog
+      <DeckDialogDelete
         name={deck?.name}
         onOpenChange={setIsOpenModalDelete}
         onSubmit={() => onDeleteDeck(deckId)}

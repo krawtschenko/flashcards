@@ -18,27 +18,39 @@ const cardsDialogSchema = z.object({
 type CardsDialogValue = z.infer<typeof cardsDialogSchema>
 
 type CardsDialogProps = {
-  onOpenChange: (open: boolean) => void
+  answer?: string
+  answerImg?: string
+  onOpenChange: () => void
   onSubmit: (value: CardBody) => void
   open: boolean
+  question?: string
+  questionImg?: string
   title?: string
 }
 
 export const CardsDialog = (props: CardsDialogProps) => {
-  const { onOpenChange, onSubmit, open, title } = props
+  const { answer, answerImg, onOpenChange, onSubmit, open, question, questionImg, title } = props
 
   const { control, handleSubmit, reset } = useForm<CardsDialogValue>({
-    defaultValues: { answer: '', question: '' },
+    defaultValues: { answer: answer ?? '', question: question ?? '' },
     resolver: zodResolver(cardsDialogSchema),
   })
 
+  const onOpenChangeHandler = () => {
+    onOpenChange()
+
+    if (!question && !answer) {
+      reset()
+    }
+  }
+
   const onSubmitHandler = (value: CardBody) => {
     onSubmit(value)
-    onOpenChange(!open)
+    onOpenChangeHandler()
   }
 
   return (
-    <Dialog onOpenChange={onOpenChange} open={open}>
+    <Dialog onOpenChange={onOpenChangeHandler} open={open}>
       <DialogPortal className={style.portal} title={title}>
         <form className={style.form} onSubmit={handleSubmit(onSubmitHandler)}>
           <ControlledTextField
@@ -57,7 +69,7 @@ export const CardsDialog = (props: CardsDialogProps) => {
           />
 
           <div className={style.buttonsWrap}>
-            <Button onClick={() => onOpenChange(false)} variant={'secondary'}>
+            <Button onClick={onOpenChangeHandler} variant={'secondary'}>
               Cancel
             </Button>
 

@@ -107,7 +107,7 @@ export const CardsPage = () => {
   return (
     <div className={style.cardsPage}>
       <CardsDialog
-        onOpenChange={setIsOpenModal}
+        onOpenChange={() => setIsOpenModal(false)}
         onSubmit={onCreateCardHandler}
         open={isOpenModal}
         title={'Add New Card'}

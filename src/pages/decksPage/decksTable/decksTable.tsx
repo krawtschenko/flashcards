@@ -12,8 +12,8 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/ta
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
 import { path } from '../../../routes/path'
 import { getSortIcon, handleSort } from '../../../utilities/sortingUtils'
-import { DecksDialog } from '../decksDialog/decksDialog'
-import { DeleteDeckDialog } from '../decksDialog/decksDialogDelete'
+import { DecksDialog } from '../deckDialog/deckDialog'
+import { DeckDialogDelete } from '../deckDialog/deckDialogDelete'
 
 type DecksTableProps = {
   className?: string
@@ -98,7 +98,7 @@ export const DecksTable = (props: DecksTableProps) => {
                 title={'Update Deck'}
               />
 
-              <DeleteDeckDialog
+              <DeckDialogDelete
                 name={name}
                 onOpenChange={() => setOpenDeleteModalId(null)}
                 onSubmit={() => onDeleteDeck(id)}

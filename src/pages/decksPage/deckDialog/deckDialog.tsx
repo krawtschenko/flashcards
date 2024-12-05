@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { SlCloudUpload, SlTrash } from 'react-icons/sl'
 import { z } from 'zod'
 
-import style from './decksDialog.module.scss'
+import style from './deckDialog.module.scss'
 
 import { Dialog, DialogPortal } from '../../../components/layout/dialog/dialog'
 import { Button } from '../../../components/ui/button/button'
@@ -25,7 +25,7 @@ type DecksDialogProps = {
   cover?: string
   isPrivate?: boolean
   name?: string
-  onOpenChange: (open: boolean) => void
+  onOpenChange: () => void
   onSubmit: (value: DeckBody) => void
   open: boolean
   title?: string
@@ -76,7 +76,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
   }
 
   const onOpenChangeHandler = () => {
-    onOpenChange(!open)
+    onOpenChange()
 
     if (cover) {
       setPreview(cover)

@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import clsx from 'clsx'
 import { FiEdit, FiTrash } from 'react-icons/fi'
 import { IoIosStar, IoIosStarOutline } from 'react-icons/io'
@@ -8,6 +10,8 @@ import { Button } from '../../../components/ui/button/button'
 import { Table, Tbody, Td, Th, Thead, Tr } from '../../../components/ui/table/table'
 import { Card } from '../../../features/cards/cardsTypes'
 import { getSortIcon, handleSort } from '../../../utilities/sortingUtils'
+import { CardsDialog } from '../cardsDialog/cardsDialog'
+import { CardDialogDelete } from '../cardsDialog/cardsDialogDelete'
 
 type CardsTableProps = {
   cards?: Card[]
@@ -20,6 +24,9 @@ type CardsTableProps = {
 
 export const CardsTable = (props: CardsTableProps) => {
   const { cards, className, isOwner, meId, orderBy, setOrderBy } = props
+
+  const [openModalId, setOpenModalId] = useState<null | string>(null)
+  const [openDeleteModalId, setOpenDeleteModalId] = useState<null | string>(null)
 
   return (
     <Table className={clsx(style.table, className)}>
@@ -80,6 +87,21 @@ export const CardsTable = (props: CardsTableProps) => {
 
           return (
             <Tr key={id}>
+              <CardsDialog
+                answer={answer}
+                onOpenChange={() => setOpenModalId(null)}
+                onSubmit={() => alert(question)}
+                open={openModalId === id}
+                question={question}
+                title={'Edit'}
+              />
+
+              <CardDialogDelete
+                onOpenChange={() => setOpenDeleteModalId(null)}
+                onSubmit={() => alert('Delete')}
+                open={openDeleteModalId === id}
+              />
+
               <Td className={clsx(style.td, style.tdQuestion)} title={question}>
                 {question}
               </Td>
@@ -97,11 +119,11 @@ export const CardsTable = (props: CardsTableProps) => {
               {isOwner && (
                 <Td className={(style.td, style.tdActions)}>
                   <div>
-                    <Button className={style.edit} onClick={() => alert('yoy')}>
+                    <Button className={style.edit} onClick={() => setOpenModalId(id)}>
                       <FiEdit />
                     </Button>
 
-                    <Button className={style.btnTrash} onClick={() => alert('yoy')}>
+                    <Button className={style.btnTrash} onClick={() => setOpenDeleteModalId(id)}>
                       <FiTrash />
                     </Button>
                   </div>
