@@ -46,7 +46,26 @@
     }
 
     .content {
+      scrollbar-color: var(--color-dark-500) transparent;
+      scrollbar-width: thin;
+
+      overflow-y: auto;
+
+      max-height: 80vh;
       padding: 24px;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: var(--color-dark-500);
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
     }
   }
 }
