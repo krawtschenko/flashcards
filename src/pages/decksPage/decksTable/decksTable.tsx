@@ -107,18 +107,22 @@ export const DecksTable = (props: DecksTableProps) => {
 
               <Td className={clsx(style.td, style.tdName)} title={name}>
                 <Link className={style.link} to={`${path.decks}/${id}`}>
-                  <img alt={'cover'} src={deckCover} />
-                  {name}
+                  <img alt={'cover'} className={style.cover} src={deckCover} />
+                  <span className={style.text}>{name}</span>
                 </Link>
               </Td>
 
               <Td className={clsx(style.td, style.tdCards, cardsCount === 0 && style.zero)}>
-                {cardsCount}
+                <span className={style.text}>{cardsCount}</span>
               </Td>
 
-              <Td className={clsx(style.td, style.tdUpdated)}>{updatedLocale}</Td>
+              <Td className={clsx(style.td, style.tdUpdated)}>
+                <span className={style.text}>{updatedLocale}</span>
+              </Td>
 
-              <Td className={clsx(style.td, style.tdAuthor)}>{author.name}</Td>
+              <Td className={clsx(style.td, style.tdAuthor)}>
+                <span className={style.text}>{author.name}</span>
+              </Td>
 
               <Td className={clsx(style.td, style.tdActions)}>
                 <div>

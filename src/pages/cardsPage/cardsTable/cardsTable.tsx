@@ -110,16 +110,16 @@ export const CardsTable = (props: CardsTableProps) => {
               />
 
               <Td className={clsx(style.td, style.tdQuestion)} title={question}>
-                <div>
-                  <img alt={'cover'} src={questionCover} />
-                  {question}
+                <div className={style.content}>
+                  <img alt={'cover'} className={style.cover} src={questionCover} />
+                  <span className={style.text}>{question}</span>
                 </div>
               </Td>
 
               <Td className={clsx(style.td, style.tdAnswer)} title={answer}>
-                <div>
-                  <img alt={'cover'} src={answerCover} />
-                  {answer}
+                <div className={style.content}>
+                  <img alt={'cover'} className={style.cover} src={answerCover} />
+                  <span className={style.text}>{answer}</span>
                 </div>
               </Td>
 

@@ -25,7 +25,7 @@ export const useCardsParams = () => {
     searchParams,
     setSearchParams,
     'itemsPerPage',
-    10
+    5
   )
 
   return {
