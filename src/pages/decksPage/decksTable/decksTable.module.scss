@@ -37,16 +37,16 @@
 
   .td {
     .link {
-      overflow: hidden; /* Скрывает текст за границами */
-      display: flex; /* Flex-контейнер для изображения и текста */
-      gap: 10px; /* Расстояние между изображением и текстом */
-      align-items: center; /* Выравнивает изображение и текст по вертикали */
+      overflow: hidden;
+      display: flex;
+      gap: 10px;
+      align-items: center;
 
       color: unset;
       text-decoration: none;
 
       .cover {
-        flex-shrink: 0; /* Запрещает уменьшение изображения */
+        flex-shrink: 0;
 
         width: 118px;
         height: 48px;
@@ -56,10 +56,10 @@
       }
 
       .text {
-        overflow: hidden; /* Скрывает текст за границами */
-        flex-shrink: 1; /* Текст уменьшается, если места недостаточно */
-        text-overflow: ellipsis; /* Добавляет многоточие */
-        white-space: nowrap; /* Не позволяет тексту переноситься */
+        overflow: hidden;
+        flex-shrink: 1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       &:hover {
