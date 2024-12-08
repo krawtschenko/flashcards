@@ -9,14 +9,6 @@ html {
 *::before,
 *::after {
   user-select: none;
-
-  /* Hidden scroll */
-  scrollbar-width: none; // For Firefox
-  box-sizing: border-box;
-
-  &::-webkit-scrollbar {
-    display: none; // For WebKit (Chrome, Safari, Edge)
-  }
 }
 
 input,
