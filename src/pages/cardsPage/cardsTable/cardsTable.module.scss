@@ -1,7 +1,8 @@
 @import '../../../styles';
 
 .table {
-  table-layout: fixed;
+  overflow-x: auto;
+  table-layout: auto;
   border-collapse: collapse;
   width: 100%;
 
@@ -48,7 +49,7 @@
 
       .text {
         overflow: hidden;
-        flex-shrink: 1;
+        flex-grow: 1;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
@@ -57,12 +58,16 @@
 
   .tdQuestion,
   .thQuestion {
-    width: 400px;
+    width: 30%;
+    min-width: 200px;
+    max-width: 400px;
   }
 
   .tdAnswer,
   .thAnswer {
-    width: 400px;
+    width: 30%;
+    min-width: 200px;
+    max-width: 400px;
   }
 
   .tdQuestion,
@@ -76,12 +81,12 @@
 
   .tdUpdated,
   .thUpdated {
-    width: 180px;
+    width: 20%;
   }
 
   .tdGrade,
   .thGrade {
-    width: 150px;
+    width: 15%;
   }
 
   .tdGrade {
@@ -94,6 +99,8 @@
   }
 
   .tdActions {
+    width: 5%;
+
     div {
       display: flex;
       column-gap: 10px;

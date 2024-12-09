@@ -1,7 +1,8 @@
 @import '../../../styles';
 
 .table {
-  table-layout: fixed;
+  overflow-x: auto;
+  table-layout: auto;
   border-collapse: collapse;
   width: 100%;
 
@@ -57,7 +58,7 @@
 
       .text {
         overflow: hidden;
-        flex-shrink: 1;
+        flex-grow: 1;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
@@ -70,27 +71,31 @@
 
   .tdName,
   .thName {
-    width: 450px;
+    width: 30%;
+    min-width: 200px;
+    max-width: 400px;
   }
 
   .tdCards,
   .thCards {
-    width: 100px;
+    width: 15%;
   }
 
   .tdUpdated,
   .thUpdated {
-    width: 150px;
+    width: 20%;
   }
 
   .tdAuthor,
   .thAuthor {
-    width: 300px;
+    width: 25%;
+    min-width: 50px;
+    max-width: 100px;
   }
 
   .tdActions,
   .thActions {
-    width: 120px;
+    width: 10%;
   }
 
   .tdName {
