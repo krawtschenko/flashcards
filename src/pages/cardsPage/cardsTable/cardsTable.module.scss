@@ -6,6 +6,10 @@
   border-collapse: collapse;
   width: 100%;
 
+  &.withActions {
+    display: block;
+  }
+
   .active {
     background-color: var(--color-dark-300) !important;
   }

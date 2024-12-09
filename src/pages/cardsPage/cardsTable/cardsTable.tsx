@@ -31,7 +31,7 @@ export const CardsTable = (props: CardsTableProps) => {
   const [openDeleteModalId, setOpenDeleteModalId] = useState<null | string>(null)
 
   return (
-    <Table className={clsx(style.table, className)}>
+    <Table className={clsx(style.table, className, isOwner && style.withActions)}>
       <Thead>
         <Tr>
           <Th
