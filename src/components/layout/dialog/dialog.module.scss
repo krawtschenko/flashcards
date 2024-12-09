@@ -45,8 +45,13 @@
       }
     }
 
-    .content {
-      padding: 24px;
+    .scrollArea {
+      height: 80vh;
+
+      .content {
+        // height: calc(80vh - 61px);
+        padding: 24px;
+      }
     }
   }
 }

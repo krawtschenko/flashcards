@@ -9,6 +9,7 @@ import style from './dialog.module.scss'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { Typography } from '../../ui/typography/typography'
+import { ScrollArea } from '../../ui/scrollArea/scrollArea'
 
 export const Dialog = (props: ComponentPropsWithoutRef<typeof DialogRadix.Root>) => {
   return <DialogRadix.Root {...props} />
@@ -42,7 +43,9 @@ export const DialogPortal = ({ children, className, title, ...rest }: DialogPort
             </DialogRadix.Close>
           </div>
 
-          <div className={style.content}>{children}</div>
+          <ScrollArea className={style.scrollArea}>
+            <div className={style.content}>{children}</div>
+          </ScrollArea>
         </Card>
       </DialogRadix.Content>
     </DialogRadix.Portal>

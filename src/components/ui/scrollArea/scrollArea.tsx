@@ -3,11 +3,12 @@ import { ComponentPropsWithoutRef } from 'react'
 import * as ScrollAreaRadix from '@radix-ui/react-scroll-area'
 
 import style from './scrollArea.module.scss'
+import clsx from 'clsx'
 
 type ScrollAreaProps = {} & ComponentPropsWithoutRef<typeof ScrollAreaRadix.Root>
 
-export const ScrollArea = ({ children, ...rest }: ScrollAreaProps) => (
-  <ScrollAreaRadix.Root className={style.scrollAreaRoot} {...rest}>
+export const ScrollArea = ({ children, className, ...rest }: ScrollAreaProps) => (
+  <ScrollAreaRadix.Root className={clsx(style.scrollAreaRoot, className)} {...rest}>
     <ScrollAreaRadix.Viewport className={style.scrollAreaViewport}>
       <div className={style.content}>{children}</div>
     </ScrollAreaRadix.Viewport>
