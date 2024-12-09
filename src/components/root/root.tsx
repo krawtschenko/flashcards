@@ -22,7 +22,7 @@ export const Root = () => {
   }
 
   return (
-    <ScrollArea>
+    <>
       <Header
         avatar={me?.avatar}
         email={me?.email}
@@ -33,9 +33,11 @@ export const Root = () => {
 
       <div id={'loader-root'} />
 
-      <Container>
-        <Outlet />
-      </Container>
+      <ScrollArea>
+        <Container>
+          <Outlet />
+        </Container>
+      </ScrollArea>
 
       <ToastContainer
         autoClose={5000}
@@ -47,6 +49,6 @@ export const Root = () => {
         rtl={false}
         theme={'dark'}
       />
-    </ScrollArea>
+    </>
   )
 }

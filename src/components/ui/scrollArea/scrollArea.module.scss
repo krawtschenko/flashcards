@@ -2,7 +2,7 @@
   --scrollbar-size: 10px;
 
   overflow: hidden;
-  height: 100vh;
+  height: calc(100vh - 69px);
 
   .scrollAreaViewport {
     width: 100%;
