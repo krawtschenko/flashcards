@@ -110,6 +110,7 @@ export const DecksDialog = (props: DecksDialogProps) => {
           {preview && <img alt={'preview'} src={preview} />}
 
           <ControlledTextField
+            className={style.textField}
             control={control}
             label={'Name Pack'}
             name={'name'}
