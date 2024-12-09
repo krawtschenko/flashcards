@@ -2,7 +2,7 @@
 
 .table {
   overflow-x: auto;
-  table-layout: auto;
+  table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
 
@@ -72,8 +72,6 @@
   .tdName,
   .thName {
     width: 30%;
-    min-width: 200px;
-    max-width: 400px;
   }
 
   .tdCards,
@@ -89,8 +87,6 @@
   .tdAuthor,
   .thAuthor {
     width: 25%;
-    min-width: 50px;
-    max-width: 100px;
   }
 
   .tdActions,

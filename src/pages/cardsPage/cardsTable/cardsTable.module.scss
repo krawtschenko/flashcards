@@ -2,7 +2,7 @@
 
 .table {
   overflow-x: auto;
-  table-layout: auto;
+  table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
 
@@ -59,15 +59,11 @@
   .tdQuestion,
   .thQuestion {
     width: 30%;
-    min-width: 200px;
-    max-width: 400px;
   }
 
   .tdAnswer,
   .thAnswer {
     width: 30%;
-    min-width: 200px;
-    max-width: 400px;
   }
 
   .tdQuestion,
