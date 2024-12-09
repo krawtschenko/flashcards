@@ -32,7 +32,9 @@ export const Slider = (props: SliderProps) => {
         <SliderRadix.Track className={style.sliderTrack}>
           <SliderRadix.Range className={style.sliderRange} />
         </SliderRadix.Track>
+
         <SliderRadix.Thumb aria-label={'Volume'} className={style.sliderThumb} />
+
         <SliderRadix.Thumb aria-label={'Volume'} className={style.sliderThumb} />
       </SliderRadix.Root>
 
