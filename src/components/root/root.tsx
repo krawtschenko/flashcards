@@ -33,7 +33,7 @@ export const Root = () => {
 
       <div id={'loader-root'} />
 
-      <ScrollArea>
+      <ScrollArea className={style.scrollArea}>
         <Container>
           <Outlet />
         </Container>

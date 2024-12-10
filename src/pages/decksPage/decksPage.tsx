@@ -72,6 +72,11 @@ export const DecksPage = () => {
     setOrderBy(null)
   }
 
+  const onChangeOrderBy = (value: null | string) => {
+    setCurrentPage(1)
+    setOrderBy(value)
+  }
+
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setCurrentPage(1)
     setName(e.currentTarget.value)
@@ -182,7 +187,7 @@ export const DecksPage = () => {
         onDeleteDeck={onDeleteDeckHandler}
         onUpdateDeck={onUpdateDeckHandler}
         orderBy={orderBy}
-        setOrderBy={setOrderBy}
+        setOrderBy={onChangeOrderBy}
       />
 
       {decks?.items.length === 0 && (

@@ -2,7 +2,6 @@
   --scrollbar-size: 10px;
 
   overflow: hidden;
-  height: calc(100vh - 69px);
 
   .scrollAreaViewport {
     width: 100%;
@@ -11,14 +10,9 @@
 
   .scrollAreaScrollbar {
     touch-action: none;
-
     display: flex;
-
     padding: 2px;
-
     background: transparent;
-
-    transition: background 160ms ease-out;
 
     &[data-orientation='vertical'] {
       width: 8px;
@@ -31,9 +25,13 @@
 
     .scrollAreaThumb {
       position: relative;
+
       flex: 1;
+
       background: var(--color-dark-500);
       border-radius: 5px;
+
+      transition: background 160ms ease-out;
 
       &::before {
         content: '';

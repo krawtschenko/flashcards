@@ -74,6 +74,11 @@ export const CardsPage = () => {
     setQuestion(e.currentTarget.value)
   }
 
+  const onChangeOrderBy = (value: null | string) => {
+    setCurrentPage(1)
+    setOrderBy(value)
+  }
+
   const onChangeItemsPerPage = (items: number) => {
     setCurrentPage(1)
     setItemsPerPage(items)
@@ -193,7 +198,7 @@ export const CardsPage = () => {
             onDeleteCard={onDeleteCardHandler}
             onUpdateCard={onUpdateCardHandler}
             orderBy={orderBy}
-            setOrderBy={setOrderBy}
+            setOrderBy={onChangeOrderBy}
           />
 
           <Pagination
