@@ -8,6 +8,7 @@ import style from './dialog.module.scss'
 
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
+import { ScrollArea } from '../../ui/scrollArea/scrollArea'
 import { Typography } from '../../ui/typography/typography'
 
 export const Dialog = (props: ComponentPropsWithoutRef<typeof DialogRadix.Root>) => {
@@ -20,10 +21,13 @@ export const DialogTrigger = (props: ComponentPropsWithoutRef<typeof DialogRadix
 
 type DialogPortalProps = {
   className?: string
+  isScroll?: boolean
   title?: string
 } & ComponentPropsWithoutRef<typeof DialogRadix.Portal>
 
-export const DialogPortal = ({ children, className, title, ...rest }: DialogPortalProps) => {
+export const DialogPortal = (props: DialogPortalProps) => {
+  const { children, className, isScroll, title, ...rest } = props
+
   return (
     <DialogRadix.Portal {...rest}>
       <DialogRadix.Overlay className={style.dialogOverlay} />
@@ -43,7 +47,9 @@ export const DialogPortal = ({ children, className, title, ...rest }: DialogPort
             </DialogRadix.Close>
           </div>
 
-          <div className={style.content}>{children}</div>
+          <ScrollArea style={{ height: isScroll ? '80vh' : 'auto' }}>
+            <div className={style.content}>{children}</div>
+          </ScrollArea>
         </Card>
       </DialogRadix.Content>
     </DialogRadix.Portal>

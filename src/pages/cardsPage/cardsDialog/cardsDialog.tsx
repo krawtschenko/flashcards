@@ -146,7 +146,11 @@ export const CardsDialog = (props: CardsDialogProps) => {
 
   return (
     <Dialog onOpenChange={onOpenChangeHandler} open={open}>
-      <DialogPortal className={style.portal} title={title}>
+      <DialogPortal
+        className={style.portal}
+        isScroll={!!questionPreview && !!answerPreview}
+        title={title}
+      >
         <form className={style.form} onSubmit={onHandleSubmit}>
           <ControlledTextField
             control={control}
