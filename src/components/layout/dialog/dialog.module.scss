@@ -4,6 +4,7 @@
   inset: 0;
 
   background-color: rgb(0 0 0 / 80%);
+  backdrop-filter: blur(4px);
 
   animation: overlay-show 250ms ease;
 }
@@ -45,13 +46,9 @@
       }
     }
 
-    .scrollArea {
-      height: 80vh;
-
-      .content {
-        // height: calc(80vh - 61px);
-        padding: 24px;
-      }
+    .content {
+      // height: calc(80vh - 61px);
+      padding: 24px;
     }
   }
 }

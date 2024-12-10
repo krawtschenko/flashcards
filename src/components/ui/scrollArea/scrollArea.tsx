@@ -1,9 +1,9 @@
 import { ComponentPropsWithoutRef } from 'react'
 
 import * as ScrollAreaRadix from '@radix-ui/react-scroll-area'
+import clsx from 'clsx'
 
 import style from './scrollArea.module.scss'
-import clsx from 'clsx'
 
 type ScrollAreaProps = {} & ComponentPropsWithoutRef<typeof ScrollAreaRadix.Root>
 

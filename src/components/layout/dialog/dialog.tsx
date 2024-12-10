@@ -9,7 +9,6 @@ import style from './dialog.module.scss'
 import { Button } from '../../ui/button/button'
 import { Card } from '../../ui/card/card'
 import { Typography } from '../../ui/typography/typography'
-import { ScrollArea } from '../../ui/scrollArea/scrollArea'
 
 export const Dialog = (props: ComponentPropsWithoutRef<typeof DialogRadix.Root>) => {
   return <DialogRadix.Root {...props} />
@@ -29,12 +28,13 @@ export const DialogPortal = ({ children, className, title, ...rest }: DialogPort
     <DialogRadix.Portal {...rest}>
       <DialogRadix.Overlay className={style.dialogOverlay} />
 
-      <DialogRadix.Content aria-describedby={undefined} className={style.dialogContent}>
+      <DialogRadix.Content className={style.dialogContent}>
         <DialogRadix.Title />
+        <DialogRadix.Description />
 
         <Card className={clsx(style.card, className)}>
           <div className={style.header}>
-            <Typography variant={'h3'}>{title}</Typography>
+            {title && <Typography variant={'h3'}>{title}</Typography>}
 
             <DialogRadix.Close asChild>
               <Button className={style.closeButton}>
@@ -43,9 +43,7 @@ export const DialogPortal = ({ children, className, title, ...rest }: DialogPort
             </DialogRadix.Close>
           </div>
 
-          <ScrollArea className={style.scrollArea}>
-            <div className={style.content}>{children}</div>
-          </ScrollArea>
+          <div className={style.content}>{children}</div>
         </Card>
       </DialogRadix.Content>
     </DialogRadix.Portal>
