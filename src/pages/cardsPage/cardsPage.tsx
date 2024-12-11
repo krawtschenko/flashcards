@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -36,11 +36,12 @@ export const CardsPage = () => {
   const {
     currentPage,
     itemsPerPage,
+    onChangeItemsPerPage,
+    onChangeOrderBy,
+    onChangeQuestion,
     orderBy,
     question,
     setCurrentPage,
-    setItemsPerPage,
-    setOrderBy,
     setQuestion,
   } = useCardsParams()
 
@@ -68,21 +69,6 @@ export const CardsPage = () => {
   })
 
   const isOwner = deck?.userId === me?.id
-
-  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentPage(1)
-    setQuestion(e.currentTarget.value)
-  }
-
-  const onChangeOrderBy = (value: null | string) => {
-    setCurrentPage(1)
-    setOrderBy(value)
-  }
-
-  const onChangeItemsPerPage = (items: number) => {
-    setCurrentPage(1)
-    setItemsPerPage(items)
-  }
 
   const onUpdateDeckHandler = async (args: { id: string } & DeckBody) => {
     try {
@@ -186,7 +172,7 @@ export const CardsPage = () => {
             className={style.search}
             icon={<FiSearch />}
             label={'Search'}
-            onChange={onChangeName}
+            onChange={onChangeQuestion}
             onClearValue={() => setQuestion('')}
             value={question}
           />

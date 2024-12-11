@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { useGetMinMaxCardsQuery } from '../features/decks/decksApi'
@@ -24,18 +24,18 @@ export const useDecksParams = () => {
     minMax?.max
   )
 
+  const [currentTab, setCurrentTab] = useQueryParam(
+    searchParams,
+    setSearchParams,
+    'currentTab',
+    'all'
+  )
+
   const [orderBy, setOrderBy] = useQueryParam<null | string>(
     searchParams,
     setSearchParams,
     'orderBy',
     null
-  )
-
-  const [currentPage, setCurrentPage] = useQueryParam(
-    searchParams,
-    setSearchParams,
-    'currentPage',
-    1
   )
 
   const [itemsPerPage, setItemsPerPage] = useQueryParam(
@@ -45,14 +45,40 @@ export const useDecksParams = () => {
     10
   )
 
-  const [currentTab, setCurrentTab] = useQueryParam(
+  const [currentPage, setCurrentPage] = useQueryParam(
     searchParams,
     setSearchParams,
-    'currentTab',
-    'all'
+    'currentPage',
+    1
   )
 
   const [range, setRange] = useState([minCards, maxCards])
+
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
+    setCurrentPage(1)
+    setName(e.currentTarget.value)
+  }
+
+  const onChangeSlider = (value: number[]) => {
+    setCurrentPage(1)
+    setMinCards(value[0])
+    setMaxCards(value[1])
+  }
+
+  const onChangeTab = (value: string) => {
+    setCurrentTab(value)
+    setCurrentPage(1)
+  }
+
+  const onChangeOrderBy = (value: null | string) => {
+    setCurrentPage(1)
+    setOrderBy(value)
+  }
+
+  const onChangeItemsPerPage = (items: number) => {
+    setCurrentPage(1)
+    setItemsPerPage(items)
+  }
 
   useEffect(() => {
     setRange([minCards, maxCards])
@@ -66,6 +92,11 @@ export const useDecksParams = () => {
     minCards,
     minMax,
     name,
+    onChangeItemsPerPage,
+    onChangeName,
+    onChangeOrderBy,
+    onChangeSlider,
+    onChangeTab,
     orderBy,
     range,
     setCurrentPage,

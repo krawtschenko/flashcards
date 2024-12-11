@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 
 import { FiSearch, FiTrash } from 'react-icons/fi'
@@ -34,10 +34,14 @@ export const DecksPage = () => {
     minCards,
     minMax,
     name,
+    onChangeItemsPerPage,
+    onChangeName,
+    onChangeOrderBy,
+    onChangeSlider,
+    onChangeTab,
     orderBy,
     range,
     setCurrentPage,
-    setCurrentTab,
     setItemsPerPage,
     setMaxCards,
     setMinCards,
@@ -70,32 +74,6 @@ export const DecksPage = () => {
     setMinCards(minMax?.min)
     setMaxCards(minMax?.max)
     setOrderBy(null)
-  }
-
-  const onChangeOrderBy = (value: null | string) => {
-    setCurrentPage(1)
-    setOrderBy(value)
-  }
-
-  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentPage(1)
-    setName(e.currentTarget.value)
-  }
-
-  const onChangeTab = (value: string) => {
-    setCurrentTab(value)
-    setCurrentPage(1)
-  }
-
-  const onChangeSlider = (value: number[]) => {
-    setCurrentPage(1)
-    setMinCards(value[0])
-    setMaxCards(value[1])
-  }
-
-  const onChangeItemsPerPage = (items: number) => {
-    setCurrentPage(1)
-    setItemsPerPage(items)
   }
 
   const onCreateDeckHandler = async (value: DeckBody) => {
