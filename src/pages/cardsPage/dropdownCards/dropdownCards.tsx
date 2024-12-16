@@ -28,7 +28,7 @@ export const DropdownCards = (props: DropdownCardsProps) => {
         cover={deck?.cover}
         isPrivate={deck?.isPrivate}
         name={deck?.name}
-        onOpenChange={setIsOpenModal}
+        onOpenChange={() => setIsOpenModal(false)}
         onSubmit={body => onUpdateDeckHandler({ id: deckId, ...body })}
         open={isOpenModal}
         title={'Edit Deck'}
@@ -36,7 +36,7 @@ export const DropdownCards = (props: DropdownCardsProps) => {
 
       <DeckDialogDelete
         name={deck?.name}
-        onOpenChange={setIsOpenModalDelete}
+        onOpenChange={() => setIsOpenModalDelete(false)}
         onSubmit={() => onDeleteDeck(deckId)}
         open={isOpenModalDelete}
       />
