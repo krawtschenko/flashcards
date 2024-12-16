@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
 
@@ -6,6 +7,7 @@ import style from './dropdownCards.module.scss'
 
 import { DropdownItem, DropdownMenu } from '../../../components/ui/dropdownMenu/dropdownMenu'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
+import { path } from '../../../routes/path'
 import { DecksDialog } from '../../decksPage/deckDialog/deckDialog'
 import { DeckDialogDelete } from '../../decksPage/deckDialog/deckDialogDelete'
 
@@ -43,10 +45,10 @@ export const DropdownCards = (props: DropdownCardsProps) => {
 
       <DropdownMenu variant={'icon'}>
         <DropdownItem disabled={!deck?.cardsCount}>
-          <div className={style.dropdownItem}>
+          <Link className={style.dropdownItem} to={`/decks/${deckId}/learn`}>
             <FiPlayCircle />
             Learn
-          </div>
+          </Link>
         </DropdownItem>
 
         <DropdownItem onSelect={() => setIsOpenModal(true)}>

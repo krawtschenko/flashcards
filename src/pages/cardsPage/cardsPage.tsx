@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { FiArrowLeft, FiPlayCircle, FiSearch } from 'react-icons/fi'
@@ -151,7 +151,7 @@ export const CardsPage = () => {
         {isOwner && <Button onClick={() => setIsOpenModal(true)}>Add New Card</Button>}
 
         {!isOwner && !!deck?.cardsCount && (
-          <Button>
+          <Button as={Link} to={`/decks/${deckId}/learn`}>
             <FiPlayCircle />
             Learn to Pack
           </Button>

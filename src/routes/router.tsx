@@ -4,6 +4,7 @@ import { Root } from '../components/root/root'
 import { CardsPage } from '../pages/cardsPage/cardsPage'
 import { DecksPage } from '../pages/decksPage/decksPage'
 import { ErrorPage } from '../pages/errorPage/errorPage'
+import { LearnPage } from '../pages/learnPage/learnPage'
 import { LoginPage } from '../pages/loginPage/loginPage'
 import { NewPassPage } from '../pages/newPassPage/newPassPage'
 import { ProfilePage } from '../pages/profilePage/profilePage'
@@ -22,6 +23,7 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   { element: <DecksPage />, path: path.decks },
   { element: <CardsPage />, path: path.deck },
+  { element: <LearnPage />, path: path.learn },
   { element: <ProfilePage />, path: path.profile },
   { element: <VerifyPage />, path: path.confirmEmail },
 ]
