@@ -7,7 +7,6 @@ import style from './dropdownCards.module.scss'
 
 import { DropdownItem, DropdownMenu } from '../../../components/ui/dropdownMenu/dropdownMenu'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
-import { path } from '../../../routes/path'
 import { DecksDialog } from '../../decksPage/deckDialog/deckDialog'
 import { DeckDialogDelete } from '../../decksPage/deckDialog/deckDialogDelete'
 

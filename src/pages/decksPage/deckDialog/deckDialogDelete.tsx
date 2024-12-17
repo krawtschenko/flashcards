@@ -23,7 +23,7 @@ export const DeckDialogDelete = (props: DeckDialogDeleteProps) => {
     <Dialog onOpenChange={onOpenChange} open={open}>
       <DialogPortal className={style.portal} title={'Delete Deck'}>
         <Typography variant={'body1'}>
-          Do you want to remove Deck <b>{`(${name})`}</b>?<br />
+          Do you want to remove Deck <b>{`«${name}»`}</b>?<br />
           All cards will be deleted
         </Typography>
 
