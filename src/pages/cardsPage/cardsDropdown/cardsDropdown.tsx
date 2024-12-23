@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
 
-import style from './dropdownCards.module.scss'
+import style from './cardsDropdown.module.scss'
 
 import { DropdownItem, DropdownMenu } from '../../../components/ui/dropdownMenu/dropdownMenu'
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
@@ -17,7 +17,7 @@ type DropdownCardsProps = {
   onUpdateDeckHandler: (args: { id: string } & DeckBody) => void
 }
 
-export const DropdownCards = (props: DropdownCardsProps) => {
+export const CardsDropdown = (props: DropdownCardsProps) => {
   const { deck, deckId, onDeleteDeck, onUpdateDeckHandler } = props
 
   const [isOpenModal, setIsOpenModal] = useState(false)

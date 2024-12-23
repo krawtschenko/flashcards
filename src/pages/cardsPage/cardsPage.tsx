@@ -29,8 +29,8 @@ import { useCardsParams } from '../../hooks/useCardsParams'
 import { useDebounce } from '../../hooks/useDebounce'
 import { path } from '../../routes/path'
 import { CardsDialog } from './cardsDialog/cardsDialog'
+import { CardsDropdown } from './cardsDropdown/cardsDropdown'
 import { CardsTable } from './cardsTable/cardsTable'
-import { DropdownCards } from './dropdownCards/dropdownCards'
 
 export const CardsPage = () => {
   const {
@@ -139,7 +139,7 @@ export const CardsPage = () => {
           <Typography variant={'h1'}>{deck?.name}</Typography>
 
           {isOwner && (
-            <DropdownCards
+            <CardsDropdown
               deck={deck}
               deckId={deckId}
               onDeleteDeck={onDeleteDeck}
