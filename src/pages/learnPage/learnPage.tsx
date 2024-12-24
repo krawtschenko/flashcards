@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { FiArrowLeft } from 'react-icons/fi'
+import { z } from 'zod'
 
 import style from './learnPage.module.scss'
 
@@ -9,15 +12,25 @@ import { Button } from '../../components/ui/button/button'
 import { Card } from '../../components/ui/card/card'
 import { LoadingBar } from '../../components/ui/loadingBar/loadingBar'
 import { ControlledRadioGroup } from '../../components/ui/radioGroup/controlledRadioGroup'
-import { RadioGroup } from '../../components/ui/radioGroup/radioGroup'
 import { Typography } from '../../components/ui/typography/typography'
 import { useGetDeckQuery } from '../../features/decks/decksApi'
 import { path } from '../../routes/path'
 
 type LearnPageProps = {}
 
+const learnSchema = z.object({
+  grade: z.string(),
+})
+
+export type learnValues = z.infer<typeof learnSchema>
+
 export const LearnPage = ({}: LearnPageProps) => {
   const [isAnswer, setIsAnswer] = useState(true)
+
+  const { control, handleSubmit } = useForm<learnValues>({
+    defaultValues: { grade: '1' },
+    resolver: zodResolver(learnSchema),
+  })
 
   const navigate = useNavigate()
   const { id: deckId } = useParams() as { id: string }
@@ -27,23 +40,23 @@ export const LearnPage = ({}: LearnPageProps) => {
   const options = [
     {
       label: 'Did not know',
-      value: 'Did not know',
+      value: '1',
     },
     {
       label: 'Forgot',
-      value: 'Forgot',
+      value: '2',
     },
     {
       label: 'A lot of thought',
-      value: 'A lot of thought',
+      value: '3',
     },
     {
-      label: 'Сonfused',
-      value: 'Сonfused',
+      label: 'Confused',
+      value: '4',
     },
     {
       label: 'Knew the answer',
-      value: 'Knew the answer',
+      value: '5',
     },
   ]
 
@@ -78,7 +91,7 @@ export const LearnPage = ({}: LearnPageProps) => {
         )}
 
         {isAnswer && (
-          <>
+          <form onSubmit={handleSubmit(({ grade }) => console.log(`grade: ${grade}`))}>
             <Typography className={style.answer} variant={'body1'}>
               <b>Answer:</b> This is how This works in JavaScript
             </Typography>
@@ -87,8 +100,17 @@ export const LearnPage = ({}: LearnPageProps) => {
               Rate yourself:
             </Typography>
 
-            <RadioGroup className={style.radioGroup} options={options} />
-          </>
+            <ControlledRadioGroup
+              className={style.radioGroup}
+              control={control}
+              name={'grade'}
+              options={options}
+            />
+
+            <Button className={style.acceptBtn} fullWidth>
+              Next Question
+            </Button>
+          </form>
         )}
       </Card>
     </div>
