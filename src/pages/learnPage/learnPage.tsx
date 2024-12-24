@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import { FiArrowLeft } from 'react-icons/fi'
-import { z } from 'zod'
 
 import style from './learnPage.module.scss'
 
@@ -16,26 +14,8 @@ import { Typography } from '../../components/ui/typography/typography'
 import { useGetDeckQuery } from '../../features/decks/decksApi'
 import { path } from '../../routes/path'
 
-type LearnPageProps = {}
-
-const learnSchema = z.object({
-  grade: z.string(),
-})
-
-export type learnValues = z.infer<typeof learnSchema>
-
-export const LearnPage = ({}: LearnPageProps) => {
-  const [isAnswer, setIsAnswer] = useState(true)
-
-  const { control, handleSubmit } = useForm<learnValues>({
-    defaultValues: { grade: '1' },
-    resolver: zodResolver(learnSchema),
-  })
-
-  const navigate = useNavigate()
-  const { id: deckId } = useParams() as { id: string }
-
-  const { data: deck, isLoading } = useGetDeckQuery({ id: deckId })
+export const LearnPage = () => {
+  const [isAnswer, setIsAnswer] = useState(false)
 
   const options = [
     {
@@ -59,6 +39,15 @@ export const LearnPage = ({}: LearnPageProps) => {
       value: '5',
     },
   ]
+
+  const { control, handleSubmit } = useForm<{ grade: string }>({
+    defaultValues: { grade: '1' },
+  })
+
+  const navigate = useNavigate()
+  const { id: deckId } = useParams() as { id: string }
+
+  const { data: deck, isLoading } = useGetDeckQuery({ id: deckId })
 
   if (isLoading) {
     return <LoadingBar id={'loader-root'} />
