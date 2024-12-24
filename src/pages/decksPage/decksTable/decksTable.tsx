@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import clsx from 'clsx'
 import { FiEdit, FiPlayCircle, FiTrash } from 'react-icons/fi'
@@ -27,6 +27,8 @@ type DecksTableProps = {
 
 export const DecksTable = (props: DecksTableProps) => {
   const { className, decks, meId, onDeleteDeck, onUpdateDeck, orderBy, setOrderBy } = props
+
+  const navigate = useNavigate()
 
   const [openModalId, setOpenModalId] = useState<null | string>(null)
   const [openDeleteModalId, setOpenDeleteModalId] = useState<null | string>(null)
@@ -126,18 +128,28 @@ export const DecksTable = (props: DecksTableProps) => {
 
               <Td className={clsx(style.td, style.tdActions)}>
                 <div>
-                  <Button className={style.play} disabled={cardsCount === 0}>
+                  <Button
+                    className={clsx(style.action, style.play)}
+                    disabled={cardsCount === 0}
+                    onClick={() => navigate(`/decks/${id}/learn`)}
+                  >
                     <FiPlayCircle />
                   </Button>
 
                   {isMe && (
-                    <Button className={style.edit} onClick={() => setOpenModalId(id)}>
+                    <Button
+                      className={clsx(style.action, style.edit)}
+                      onClick={() => setOpenModalId(id)}
+                    >
                       <FiEdit />
                     </Button>
                   )}
 
                   {isMe && (
-                    <Button className={style.btnTrash} onClick={() => setOpenDeleteModalId(id)}>
+                    <Button
+                      className={clsx(style.action, style.btnTrash)}
+                      onClick={() => setOpenDeleteModalId(id)}
+                    >
                       <FiTrash />
                     </Button>
                   )}
