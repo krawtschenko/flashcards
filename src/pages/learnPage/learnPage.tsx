@@ -13,7 +13,6 @@ import { ControlledRadioGroup } from '../../components/ui/radioGroup/controlledR
 import { Typography } from '../../components/ui/typography/typography'
 import { useGetRandomCardQuery, useGiveGradeMutation } from '../../features/cards/cardsApi'
 import { useGetDeckQuery } from '../../features/decks/decksApi'
-import { path } from '../../routes/path'
 
 export const LearnPage = () => {
   const navigate = useNavigate()
