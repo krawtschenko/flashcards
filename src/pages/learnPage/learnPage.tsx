@@ -43,7 +43,7 @@ export const LearnPage = () => {
     },
   ]
 
-  const { control, handleSubmit } = useForm<{ grade: string }>({
+  const { control, handleSubmit, reset } = useForm<{ grade: string }>({
     defaultValues: { grade: '1' },
   })
 
@@ -54,7 +54,9 @@ export const LearnPage = () => {
 
   const onSubmit = async (data: { grade: string }) => {
     await giveGrade({ cardId: card?.id ?? '', deckId, grade: Number(data.grade) })
+
     setIsAnswer(false)
+    reset()
   }
 
   if (isLoadingDeck) {
