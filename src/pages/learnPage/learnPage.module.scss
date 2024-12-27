@@ -24,12 +24,22 @@
       margin-top: 30px;
     }
 
+    .image {
+      width: 100%;
+      max-height: 200px;
+      margin-top: 14px;
+
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
     .answerNumber {
+      margin-top: 5px;
       color: var(--color-dark-100);
     }
 
     .showAnswer {
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
     .answer {
@@ -46,6 +56,21 @@
 
     .acceptBtn {
       margin-top: 15px;
+
+      .btnLoader {
+        font-size: 18px;
+        animation: loading 2s linear infinite;
+      }
     }
+  }
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }

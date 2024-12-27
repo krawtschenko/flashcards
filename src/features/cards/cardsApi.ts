@@ -54,6 +54,24 @@ const cardsApi = baseApi.injectEndpoints({
           }
         },
       }),
+      getRandomCard: builder.query<Card, { id: string }>({
+        providesTags: ['randomCard'],
+        query: ({ id }) => {
+          return {
+            url: `/v1/decks/${id}/learn`,
+          }
+        },
+      }),
+      giveGrade: builder.mutation<Card, { cardId: string; deckId: string; grade: number }>({
+        invalidatesTags: ['cards', 'randomCard'],
+        query: ({ deckId, ...body }) => {
+          return {
+            body,
+            method: 'POST',
+            url: `/v1/decks/${deckId}/learn`,
+          }
+        },
+      }),
       updateCard: builder.mutation<Card, { id: string } & CardBody>({
         invalidatesTags: ['cards'],
         query: ({ answer, answerImg, id, question, questionImg }) => {
@@ -94,5 +112,7 @@ export const {
   useCreateCardMutation,
   useDeleteCardMutation,
   useGetCardsQuery,
+  useGetRandomCardQuery,
+  useGiveGradeMutation,
   useUpdateCardMutation,
 } = cardsApi

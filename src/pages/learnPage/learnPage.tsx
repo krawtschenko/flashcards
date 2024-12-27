@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { FiArrowLeft } from 'react-icons/fi'
+import { FiArrowLeft, FiLoader } from 'react-icons/fi'
 
 import style from './learnPage.module.scss'
 
@@ -11,10 +11,14 @@ import { Card } from '../../components/ui/card/card'
 import { LoadingBar } from '../../components/ui/loadingBar/loadingBar'
 import { ControlledRadioGroup } from '../../components/ui/radioGroup/controlledRadioGroup'
 import { Typography } from '../../components/ui/typography/typography'
+import { useGetRandomCardQuery, useGiveGradeMutation } from '../../features/cards/cardsApi'
 import { useGetDeckQuery } from '../../features/decks/decksApi'
 import { path } from '../../routes/path'
 
 export const LearnPage = () => {
+  const navigate = useNavigate()
+  const { id: deckId } = useParams() as { id: string }
+
   const [isAnswer, setIsAnswer] = useState(false)
 
   const options = [
@@ -44,20 +48,25 @@ export const LearnPage = () => {
     defaultValues: { grade: '1' },
   })
 
-  const navigate = useNavigate()
-  const { id: deckId } = useParams() as { id: string }
+  const { data: deck, isLoading: isLoadingDeck } = useGetDeckQuery({ id: deckId })
+  const { data: card } = useGetRandomCardQuery({ id: deckId })
 
-  const { data: deck, isLoading } = useGetDeckQuery({ id: deckId })
+  const [giveGrade, { isLoading: isLoadingGrade }] = useGiveGradeMutation()
 
-  if (isLoading) {
+  const onSubmit = async (data: { grade: string }) => {
+    await giveGrade({ cardId: card?.id ?? '', deckId, grade: Number(data.grade) })
+    setIsAnswer(false)
+  }
+
+  if (isLoadingDeck) {
     return <LoadingBar id={'loader-root'} />
   }
 
   return (
     <div className={style.learnPage}>
-      <Button className={style.back} onClick={() => navigate(`${path.decks}/${deckId}`)}>
+      <Button className={style.back} onClick={() => navigate(-1)}>
         <FiArrowLeft />
-        Back to Decks List
+        Back
       </Button>
 
       <Card className={style.card}>
@@ -66,11 +75,15 @@ export const LearnPage = () => {
         </Typography>
 
         <Typography className={style.question} variant={'body1'}>
-          <b>Question:</b> How This works in JavaScript?
+          <b>Question:</b> {card?.question}
         </Typography>
 
+        {card?.questionImg && (
+          <img alt={'questionImg'} className={style.image} src={card?.questionImg} />
+        )}
+
         <Typography className={style.answerNumber} variant={'body2'}>
-          Number of attempts to answer the question: 10
+          Number of attempts to answer the question: {card?.shots}
         </Typography>
 
         {!isAnswer && (
@@ -80,10 +93,14 @@ export const LearnPage = () => {
         )}
 
         {isAnswer && (
-          <form onSubmit={handleSubmit(({ grade }) => console.log(`grade: ${grade}`))}>
+          <form onSubmit={handleSubmit(({ grade }) => onSubmit({ grade }))}>
             <Typography className={style.answer} variant={'body1'}>
-              <b>Answer:</b> This is how This works in JavaScript
+              <b>Answer:</b> {card?.answer}
             </Typography>
+
+            {card?.answerImg && (
+              <img alt={'questionImg'} className={style.image} src={card?.answerImg} />
+            )}
 
             <Typography className={style.subtitle} variant={'subtitle1'}>
               Rate yourself:
@@ -96,7 +113,8 @@ export const LearnPage = () => {
               options={options}
             />
 
-            <Button className={style.acceptBtn} fullWidth>
+            <Button className={style.acceptBtn} disabled={isLoadingGrade} fullWidth>
+              {isLoadingGrade && <FiLoader className={style.btnLoader} />}
               Next Question
             </Button>
           </form>
