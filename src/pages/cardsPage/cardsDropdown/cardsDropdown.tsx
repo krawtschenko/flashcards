@@ -9,6 +9,7 @@ import { DropdownItem, DropdownMenu } from '../../../components/ui/dropdownMenu/
 import { Deck, DeckBody } from '../../../features/decks/decksTypes'
 import { DecksDialog } from '../../decksPage/deckDialog/deckDialog'
 import { DeckDialogDelete } from '../../decksPage/deckDialog/deckDialogDelete'
+import { path } from '../../../routes/path'
 
 type DropdownCardsProps = {
   deck?: Deck
@@ -44,7 +45,7 @@ export const CardsDropdown = (props: DropdownCardsProps) => {
 
       <DropdownMenu variant={'icon'}>
         <DropdownItem disabled={!deck?.cardsCount}>
-          <Link className={style.dropdownItem} to={`/decks/${deckId}/learn`}>
+          <Link className={style.dropdownItem} to={`${path.decks}/${deckId}/learn`}>
             <FiPlayCircle />
             Learn
           </Link>

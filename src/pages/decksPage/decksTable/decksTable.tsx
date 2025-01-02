@@ -131,7 +131,7 @@ export const DecksTable = (props: DecksTableProps) => {
                   <Button
                     className={clsx(style.action, style.play)}
                     disabled={cardsCount === 0}
-                    onClick={() => navigate(`/decks/${id}/learn`)}
+                    onClick={() => navigate(`${path.decks}/${id}/learn`)}
                   >
                     <FiPlayCircle />
                   </Button>
