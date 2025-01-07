@@ -124,7 +124,7 @@ export const DecksPage = () => {
         </Button>
       </div>
 
-      <div className={style.filter}>
+      <div className={style.options}>
         <TextField
           className={style.search}
           icon={<FiSearch />}
@@ -134,28 +134,30 @@ export const DecksPage = () => {
           value={name}
         />
 
-        <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>
-          <TabsTrigger onClick={() => onChangeTab('my')} value={'my'}>
-            My Cards
-          </TabsTrigger>
+        <div className={style.filters}>
+          <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>
+            <TabsTrigger onClick={() => onChangeTab('my')} value={'my'}>
+              My Cards
+            </TabsTrigger>
 
-          <TabsTrigger onClick={() => onChangeTab('all')} value={'all'}>
-            All Cards
-          </TabsTrigger>
-        </Tabs>
+            <TabsTrigger onClick={() => onChangeTab('all')} value={'all'}>
+              All Cards
+            </TabsTrigger>
+          </Tabs>
 
-        <Slider
-          max={minMax?.max}
-          min={minMax?.min}
-          onValueChange={setRange}
-          onValueCommit={onChangeSlider}
-          title={'Number of cards'}
-          value={range}
-        />
+          <Slider
+            max={minMax?.max}
+            min={minMax?.min}
+            onValueChange={setRange}
+            onValueCommit={onChangeSlider}
+            title={'Number of cards'}
+            value={range}
+          />
 
-        <Button className={style.button} onClick={onClearFilters} variant={'secondary'}>
-          <FiTrash /> Clear Filter
-        </Button>
+          <Button className={style.button} onClick={onClearFilters} variant={'secondary'}>
+            <FiTrash /> Clear Filter
+          </Button>
+        </div>
       </div>
 
       <DecksTable
