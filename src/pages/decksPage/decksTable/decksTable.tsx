@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import clsx from 'clsx'
@@ -30,8 +30,79 @@ export const DecksTable = (props: DecksTableProps) => {
 
   const navigate = useNavigate()
 
+  const [isMobile, setIsMobile] = useState(false)
   const [openModalId, setOpenModalId] = useState<null | string>(null)
   const [openDeleteModalId, setOpenDeleteModalId] = useState<null | string>(null)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  if (isMobile) {
+    return (
+      <div className={style.wrapper}>
+        {decks?.map(({ author, cardsCount, cover, id, isPrivate, name, updated }) => {
+          const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
+
+          const isMe = meId === author.id
+
+          return (
+            <div className={style.deck} key={id}>
+              <DecksDialog
+                cover={cover}
+                isPrivate={isPrivate}
+                name={name}
+                onOpenChange={() => setOpenModalId(null)}
+                onSubmit={body => onUpdateDeck({ id, ...body })}
+                open={openModalId === id}
+                title={'Update Deck'}
+              />
+
+              <DeckDialogDelete
+                name={name}
+                onOpenChange={() => setOpenDeleteModalId(null)}
+                onSubmit={() => onDeleteDeck(id)}
+                open={openDeleteModalId === id}
+              />
+
+              <div className={style.wrapInfo}>
+                <div className={style.label}>Name</div>
+                <div className={style.value}>{name}</div>
+
+                <div className={style.label}>Cards</div>
+                <div className={style.value}>{cardsCount}</div>
+
+                <div className={style.label}>Last Updated</div>
+                <div className={style.value}>{updatedLocale}</div>
+
+                <div className={style.label}>Created by</div>
+                <div className={style.value}>{author.name}</div>
+              </div>
+
+              <div className={style.buttons}>
+                <Button className={clsx(style.button, style.play)} disabled={cardsCount === 0}>
+                  <FiPlayCircle />
+                </Button>
+
+                <Button className={clsx(style.button, style.edit)} disabled={!isMe}>
+                  <FiEdit />
+                </Button>
+
+                <Button className={clsx(style.button, style.trash)} disabled={!isMe}>
+                  <FiTrash />
+                </Button>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
 
   return (
     <Table className={clsx(style.table, className)}>
