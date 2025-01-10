@@ -85,15 +85,27 @@ export const DecksTable = (props: DecksTableProps) => {
               </div>
 
               <div className={style.buttons}>
-                <Button className={clsx(style.button, style.play)} disabled={cardsCount === 0}>
+                <Button
+                  className={clsx(style.button, style.play)}
+                  disabled={cardsCount === 0}
+                  onClick={() => navigate(`${path.decks}/${id}/learn`)}
+                >
                   <FiPlayCircle />
                 </Button>
 
-                <Button className={clsx(style.button, style.edit)} disabled={!isMe}>
+                <Button
+                  className={clsx(style.button, style.edit)}
+                  disabled={!isMe}
+                  onClick={() => setOpenModalId(id)}
+                >
                   <FiEdit />
                 </Button>
 
-                <Button className={clsx(style.button, style.trash)} disabled={!isMe}>
+                <Button
+                  className={clsx(style.button, style.trash)}
+                  disabled={!isMe}
+                  onClick={() => setOpenDeleteModalId(id)}
+                >
                   <FiTrash />
                 </Button>
               </div>
