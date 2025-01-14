@@ -52,7 +52,12 @@ export const RegistrationForm = ({ className, registration }: RegistrationProps)
         className={style.form}
         onSubmit={handleSubmit(({ email, password }) => registration({ email, password }))}
       >
-        <ControlledTextField control={control} label={'Email'} name={'email'} />
+        <ControlledTextField
+          className={style.email}
+          control={control}
+          label={'Email'}
+          name={'email'}
+        />
 
         <ControlledTextField
           className={style.password}

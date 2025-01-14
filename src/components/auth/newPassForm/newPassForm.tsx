@@ -44,6 +44,7 @@ export const NewPassForm = ({ className, resetPassword }: NewPassFormProps) => {
         )}
       >
         <ControlledTextField
+          className={style.password}
           control={control}
           label={'Password'}
           name={'password'}

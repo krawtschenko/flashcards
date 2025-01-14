@@ -42,7 +42,12 @@ export const VerifyForm = ({ className, confirmEmail, email }: VerifyProps) => {
       </Typography>
 
       <form className={style.form} onSubmit={handleSubmit(confirmEmail)}>
-        <ControlledTextField control={control} label={'Enter code'} name={'code'} />
+        <ControlledTextField
+          className={style.code}
+          control={control}
+          label={'Enter code'}
+          name={'code'}
+        />
 
         <Button className={style.buttonSubmit} fullWidth>
           Confirm

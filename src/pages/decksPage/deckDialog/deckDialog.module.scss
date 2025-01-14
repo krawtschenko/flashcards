@@ -1,9 +1,5 @@
 .portal {
-  width: 542px;
-
   .form {
-    margin-top: 24px;
-
     img {
       width: 100%;
       max-height: 300px;
@@ -38,6 +34,10 @@
         input {
           display: none;
         }
+      }
+
+      @media (width <= 375px) {
+        column-gap: 8px;
       }
     }
 

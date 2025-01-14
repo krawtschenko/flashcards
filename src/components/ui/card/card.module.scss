@@ -7,4 +7,12 @@
   box-shadow:
     1px 1px 2px hsl(0deg 0% 0% / 10%),
     -1px -1px 2px hsl(0deg 0% 0% / 10%);
+
+  @media (width <= 525px) {
+    padding: 22px 25px;
+  }
+
+  @media (width <= 375px) {
+    padding: 12px 15px;
+  }
 }

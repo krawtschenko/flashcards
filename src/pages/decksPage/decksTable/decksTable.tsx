@@ -70,7 +70,7 @@ export const DecksTable = (props: DecksTableProps) => {
                 open={openDeleteModalId === id}
               />
 
-              <div className={style.wrapInfo}>
+              <Link className={style.wrapInfo} to={`${path.decks}/${id}`}>
                 <div className={style.label}>Name</div>
                 <div className={style.value}>{name}</div>
 
@@ -82,7 +82,7 @@ export const DecksTable = (props: DecksTableProps) => {
 
                 <div className={style.label}>Created by</div>
                 <div className={style.value}>{author.name}</div>
-              </div>
+              </Link>
 
               <div className={style.buttons}>
                 <Button

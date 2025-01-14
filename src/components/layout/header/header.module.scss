@@ -16,6 +16,11 @@
       &:hover {
         scale: 1.05;
       }
+
+      @media (width <= 425px) {
+        height: 30px;
+      }
+
     }
 
     .info {

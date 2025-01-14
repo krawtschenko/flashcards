@@ -2,48 +2,88 @@
   font-size: var(--font-size-xxl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-l);
+
+  @media (width <= 425px) {
+    font-size: 24px;
+    line-height: 34px;
+  }
 }
 
 .h2 {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-l);
+
+  @media (width <= 425px) {
+    font-size: var(--font-size-l);
+    line-height: var(--line-height-m);
+  }
 }
 
 .h3 {
   font-size: var(--font-size-l);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
+
+  @media (width <= 425px) {
+    font-size: var(--font-size-m);
+    line-height: var(--line-height-s);
+  }
 }
 
 .h4 {
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
+
+  @media (width <= 425px) {
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-s);
+  }
 }
 
 .body1 {
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
+
+  @media (width <= 425px) {
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-s);
+  }
 }
 
 .subtitle1 {
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
+
+  @media (width <= 425px) {
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-s);
+  }
 }
 
 .body2 {
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
+
+  @media (width <= 425px) {
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-s);
+  }
 }
 
 .subtitle2 {
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
+
+  @media (width <= 425px) {
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-s);
+  }
 }
 
 .caption {
@@ -62,6 +102,10 @@
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
+
+  @media (width <= 425px) {
+    line-height: var(--line-height-s);
+  }
 }
 
 .link2 {

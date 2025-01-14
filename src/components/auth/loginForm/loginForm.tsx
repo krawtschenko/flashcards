@@ -44,7 +44,12 @@ export const LoginForm = ({ className, login }: LoginFormProps) => {
       </Typography>
 
       <form className={style.form} onSubmit={handleSubmit(login)}>
-        <ControlledTextField control={control} label={'Email'} name={'email'} />
+        <ControlledTextField
+          className={style.email}
+          control={control}
+          label={'Email'}
+          name={'email'}
+        />
 
         <ControlledTextField
           className={style.password}

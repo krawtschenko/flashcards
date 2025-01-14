@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { FaFilter } from 'react-icons/fa'
 import { FiSearch, FiTrash } from 'react-icons/fi'
 
 import style from './decksPage.module.scss'
@@ -125,14 +126,20 @@ export const DecksPage = () => {
       </div>
 
       <div className={style.options}>
-        <TextField
-          className={style.search}
-          icon={<FiSearch />}
-          label={'Search'}
-          onChange={onChangeName}
-          onClearValue={() => setName('')}
-          value={name}
-        />
+        <div className={style.textFieldWrap}>
+          <TextField
+            className={style.search}
+            icon={<FiSearch />}
+            label={'Search'}
+            onChange={onChangeName}
+            onClearValue={() => setName('')}
+            value={name}
+          />
+
+          <Button className={style.openFilters}>
+            <FaFilter />
+          </Button>
+        </div>
 
         <div className={style.filters}>
           <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>

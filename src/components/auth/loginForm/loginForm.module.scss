@@ -1,11 +1,12 @@
 .card {
-  width: 420px;
+  max-width: 420px;
 
   .form {
     margin-top: 26px;
 
     .password {
       margin-top: 48px;
+
     }
 
     .checkbox {
@@ -34,5 +35,11 @@
     margin-top: 10px;
     color: var(--color-accent-500);
     text-decoration: underline;
+  }
+
+  @media (width <= 525px) {
+    .email, .password {
+      font-size: 14px;
+    }
   }
 }

@@ -197,7 +197,11 @@
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 24px 16px;
+
       padding: 16px;
+
+      color: unset;
+      text-decoration: none;
 
       .label {
         font-weight: bold;

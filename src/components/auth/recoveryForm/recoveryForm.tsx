@@ -57,7 +57,12 @@ const EmailCheck = ({ control, handleSubmit, recovery }: EmailCheckProps) => {
       </Typography>
 
       <form className={style.form} onSubmit={handleSubmit(recovery)}>
-        <ControlledTextField control={control} label={'Email'} name={'email'} />
+        <ControlledTextField
+          className={style.email}
+          control={control}
+          label={'Email'}
+          name={'email'}
+        />
 
         <Typography className={style.instructions} position={'start'} variant={'body2'}>
           Enter your email address and we will send you further instructions

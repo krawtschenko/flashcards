@@ -1,5 +1,5 @@
 .card {
-  width: 420px;
+  max-width: 420px;
 
   .icon {
     display: block;
@@ -17,6 +17,12 @@
 
     .buttonSubmit {
       margin-top: 20px;
+    }
+
+    @media (width <= 525px) {
+      .code {
+        font-size: 14px;
+      }
     }
   }
 
@@ -41,6 +47,14 @@
     &:hover {
       text-decoration: none;
       background-color: transparent;
+    }
+
+    @media (width <= 525px) {
+      font-size: var(--font-size-s);
+    }
+
+    @media (width <= 525px) {
+      font-size: var(--font-size-xs);
     }
   }
 }

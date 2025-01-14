@@ -1,5 +1,5 @@
 .card {
-  width: 420px;
+  max-width: 420px;
 
   .form {
     margin-top: 50px;
@@ -11,6 +11,12 @@
 
     .buttonSubmit {
       margin-top: 80px;
+    }
+  }
+
+  @media (width <= 525px) {
+    .password {
+      font-size: 14px;
     }
   }
 }

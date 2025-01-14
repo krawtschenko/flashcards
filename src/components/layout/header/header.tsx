@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { FiLogOut, FiUser } from 'react-icons/fi'
 
 import style from './header.module.scss'
@@ -28,7 +30,11 @@ export const Header = ({ avatar, email, isAuthenticated, logout, name }: HeaderP
           <DropdownAvatar avatar={avatar} email={email} logout={logout} name={name} />
         )}
 
-        {!isAuthenticated && <Button variant={'secondary'}>Sign In</Button>}
+        {!isAuthenticated && (
+          <Button as={Link} to={path.login} variant={'secondary'}>
+            Sign In
+          </Button>
+        )}
       </Container>
     </div>
   )

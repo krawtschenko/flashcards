@@ -16,8 +16,26 @@
     align-items: center;
     margin-top: 34px;
 
-    .search {
+    .textFieldWrap {
+      display: flex;
+      column-gap: 8px;
       width: 100%;
+
+      .search {
+        width: 100%;
+      }
+
+      .openFilters {
+        display: none;
+
+        width: 30px;
+        padding: unset;
+
+        font-size: 16px;
+
+        background-color: transparent;
+        box-shadow: none;
+      }
     }
 
     .filters {
@@ -43,6 +61,12 @@
     @media (width <= 768px) {
       .filters {
         display: none;
+      }
+
+      .textFieldWrap {
+        .openFilters {
+          display: flex;
+        }
       }
     }
   }

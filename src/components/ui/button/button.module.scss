@@ -29,6 +29,11 @@
     cursor: not-allowed !important;
     color: var(--color-light-900);
   }
+
+  @media (width <= 525px) {
+    padding: 4px 22px;
+    font-size: var(--font-size-xs);
+  }
 }
 
 .primary {
