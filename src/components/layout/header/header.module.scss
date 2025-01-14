@@ -25,6 +25,10 @@
 
       .name {
         border-bottom: 1px dashed;
+
+        @media (width < 425px) {
+          display: none;
+        }
       }
     }
   }

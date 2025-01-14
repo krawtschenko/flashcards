@@ -37,52 +37,57 @@ export const Pagination = (props: PaginationProps) => {
 
   return (
     <div aria-disabled={disabled} className={clsx(style.pagination, className)}>
-      <button
-        className={clsx(style.button, currentPage === 1 && style.arrowDisabled)}
-        disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
-        type={'button'}
-      >
-        <FiChevronLeft />
-      </button>
-
-      {pages.map((page, index) => (
+      <div className={style.buttons}>
         <button
-          className={clsx(style.button, page === currentPage && style.active)}
-          disabled={page === '...'}
-          key={index}
-          onClick={() => handlePageClick(Number(page))}
+          className={clsx(style.button, currentPage === 1 && style.arrowDisabled)}
+          disabled={currentPage === 1}
+          onClick={() => onPageChange(currentPage - 1)}
           type={'button'}
         >
-          {page}
+          <FiChevronLeft />
         </button>
-      ))}
 
-      <button
-        className={clsx(
-          style.button,
-          (currentPage === totalPages || totalPages === 0) && style.arrowDisabled
-        )}
-        disabled={currentPage === totalPages || totalPages === 0}
-        onClick={() => onPageChange(currentPage + 1)}
-        type={'button'}
-      >
-        <FiChevronRight />
-      </button>
+        {pages.map((page, index) => (
+          <button
+            className={clsx(style.button, page === currentPage && style.active)}
+            disabled={page === '...'}
+            key={index}
+            onClick={() => handlePageClick(Number(page))}
+            type={'button'}
+          >
+            {page}
+          </button>
+        ))}
 
-      <span>Show</span>
-      <Select
-        className={style.select}
-        disabled={disabled}
-        onValueChange={value => onItemsPerPageChange(Number(value))}
-        value={itemsPerPage.toString()}
-      >
-        <SelectItem value={'5'}>5</SelectItem>
-        <SelectItem value={'10'}>10</SelectItem>
-        <SelectItem value={'50'}>50</SelectItem>
-        <SelectItem value={'100'}>100</SelectItem>
-      </Select>
-      <span>per page</span>
+        <button
+          className={clsx(
+            style.button,
+            (currentPage === totalPages || totalPages === 0) && style.arrowDisabled
+          )}
+          disabled={currentPage === totalPages || totalPages === 0}
+          onClick={() => onPageChange(currentPage + 1)}
+          type={'button'}
+        >
+          <FiChevronRight />
+        </button>
+      </div>
+
+      <div className={style.selectWrapper}>
+        <span>Show</span>
+
+        <Select
+          className={style.select}
+          disabled={disabled}
+          onValueChange={value => onItemsPerPageChange(Number(value))}
+          value={itemsPerPage.toString()}
+        >
+          <SelectItem value={'5'}>5</SelectItem>
+          <SelectItem value={'10'}>10</SelectItem>
+          <SelectItem value={'50'}>50</SelectItem>
+          <SelectItem value={'100'}>100</SelectItem>
+        </Select>
+        <span>per page</span>
+      </div>
     </div>
   )
 }
