@@ -25,8 +25,10 @@ export const Select = (props: SelectProps) => {
           {label}
         </Typography>
       )}
-      <SelectRadix.Trigger aria-label={'Food'} className={clsx(style.selectTrigger, className)}>
+
+      <SelectRadix.Trigger className={clsx(style.selectTrigger, className)}>
         <SelectRadix.Value placeholder={rest.value} />
+
         <SelectRadix.Icon className={style.selectIcon}>
           <FiChevronDown />
         </SelectRadix.Icon>

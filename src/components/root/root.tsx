@@ -7,7 +7,6 @@ import { Container } from '../../components/layout/container/contaiter'
 import { Header } from '../../components/layout/header/header'
 import { Loader } from '../../components/ui/loader/loader'
 import { useLogoutMutation, useMeQuery } from '../../features/auth/authApi'
-import { ScrollArea } from '../ui/scrollArea/scrollArea'
 
 export const Root = () => {
   const { data: me, isError, isLoading } = useMeQuery()
@@ -33,11 +32,11 @@ export const Root = () => {
 
       <div id={'loader-root'} />
 
-      <ScrollArea className={style.scrollArea}>
+      <div className={style.scrollArea}>
         <Container>
           <Outlet />
         </Container>
-      </ScrollArea>
+      </div>
 
       <ToastContainer
         autoClose={5000}

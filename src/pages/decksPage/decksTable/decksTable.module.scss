@@ -115,7 +115,6 @@
         cursor: pointer;
 
         position: relative;
-        z-index: 1;
 
         height: 16px;
         padding: unset;
@@ -255,6 +254,10 @@
 
         &:nth-child(2) {
           border-inline: 1px solid var(--color-dark-500);
+        }
+
+        @media (width < 425px) {
+          font-size: 14px;
         }
       }
     }

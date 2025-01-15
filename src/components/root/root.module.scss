@@ -6,5 +6,21 @@
 }
 
 .scrollArea {
+  scrollbar-color: var(--color-dark-500) transparent;
+  scrollbar-width: thin;
+  overflow-y: auto;
   height: calc(100vh - 69px);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-500);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }

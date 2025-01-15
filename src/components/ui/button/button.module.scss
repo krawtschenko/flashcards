@@ -32,6 +32,11 @@
 
   @media (width <= 525px) {
     padding: 4px 22px;
+    font-size: var(--font-size-s);
+  }
+
+  @media (width < 425px) {
+    padding: 4px 14px;
     font-size: var(--font-size-xs);
   }
 }
