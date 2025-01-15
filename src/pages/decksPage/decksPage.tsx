@@ -24,6 +24,7 @@ import { DeckBody } from '../../features/decks/decksTypes'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useDecksParams } from '../../hooks/useDecksParams'
 import { DecksDialog } from './deckDialog/deckDialog'
+import { DeckSidePanel } from './deckSidePanel/deckSidePanel'
 import { DecksTable } from './decksTable/decksTable'
 
 export const DecksPage = () => {
@@ -52,6 +53,7 @@ export const DecksPage = () => {
   } = useDecksParams()
 
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false)
 
   const { data: me } = useMeQuery()
   const [createDeck] = useCreateDeckMutation()
@@ -117,6 +119,14 @@ export const DecksPage = () => {
         title={'Add New Deck'}
       />
 
+      <DeckSidePanel
+        closePanel={() => setIsSidePanelOpen(false)}
+        id={'side-panel'}
+        isOpen={isSidePanelOpen}
+      />
+
+      <div className={style.overlay}></div>
+
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
 
@@ -136,7 +146,7 @@ export const DecksPage = () => {
             value={name}
           />
 
-          <Button className={style.openFilters}>
+          <Button className={style.openFilters} onClick={() => setIsSidePanelOpen(true)}>
             <FaFilter />
           </Button>
         </div>

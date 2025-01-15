@@ -22,6 +22,8 @@ export const Root = () => {
 
   return (
     <>
+      <div id={'side-panel'}></div>
+
       <Header
         avatar={me?.avatar}
         email={me?.email}

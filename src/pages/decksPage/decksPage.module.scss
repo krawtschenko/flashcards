@@ -35,6 +35,14 @@
 
         background-color: transparent;
         box-shadow: none;
+
+        &:hover {
+          color: var(--color-accent-500);
+        }
+
+        &:active {
+          color: var(--color-accent-700);
+        }
       }
     }
 

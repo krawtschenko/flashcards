@@ -63,5 +63,9 @@
         background-color: var(--color-danger-700);
       }
     }
+
+    @media (width <= 425px) {
+      margin-top: 25px;
+    }
   }
 }
