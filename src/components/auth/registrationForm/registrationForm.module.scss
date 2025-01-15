@@ -24,10 +24,4 @@
     color: var(--color-accent-500);
     text-decoration: underline;
   }
-
-  @media (width <= 525px) {
-    .email, .password {
-      font-size: 14px;
-    }
-  }
 }

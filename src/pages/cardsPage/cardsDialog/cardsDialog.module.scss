@@ -1,6 +1,4 @@
 .portal {
-  width: 542px;
-
   .form {
     margin-top: 24px;
 
@@ -41,6 +39,10 @@
           display: none;
         }
       }
+
+      @media (width <= 375px) {
+        column-gap: 8px;
+      }
     }
   }
 
@@ -60,6 +62,10 @@
       &:active {
         background-color: var(--color-danger-700);
       }
+    }
+
+    @media (width <= 425px) {
+      margin-top: 25px;
     }
   }
 }

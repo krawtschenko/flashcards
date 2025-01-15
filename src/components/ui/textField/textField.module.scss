@@ -53,6 +53,14 @@
       &::placeholder {
         color: var(--color-dark-100);
       }
+
+      @media (width <= 525px) {
+        font-size: var(--font-size-s);
+      }
+
+      @media (width <= 375px) {
+        font-size: var(--font-size-xs);
+      }
     }
 
     .clearIcon,
