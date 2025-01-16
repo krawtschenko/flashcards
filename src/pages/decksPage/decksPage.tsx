@@ -110,6 +110,18 @@ export const DecksPage = () => {
     return <LoadingBar id={'loader-root'} />
   }
 
+  const tabs = (
+    <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>
+      <TabsTrigger onClick={() => onChangeTab('my')} value={'my'}>
+        My Cards
+      </TabsTrigger>
+
+      <TabsTrigger onClick={() => onChangeTab('all')} value={'all'}>
+        All Cards
+      </TabsTrigger>
+    </Tabs>
+  )
+
   return (
     <div className={style.decksPage}>
       <DecksDialog
@@ -120,12 +132,27 @@ export const DecksPage = () => {
       />
 
       <DeckSidePanel
+        className={style.sidePanel}
         closePanel={() => setIsSidePanelOpen(false)}
         id={'side-panel'}
         isOpen={isSidePanelOpen}
-      />
+      >
+        {tabs}
 
-      <div className={style.overlay}></div>
+        <Slider
+          className={style.slider}
+          max={minMax?.max}
+          min={minMax?.min}
+          onValueChange={setRange}
+          onValueCommit={onChangeSlider}
+          title={'Number of cards'}
+          value={range}
+        />
+
+        <Button className={style.button} fullWidth onClick={onClearFilters} variant={'secondary'}>
+          <FiTrash /> Clear Filter
+        </Button>
+      </DeckSidePanel>
 
       <div className={style.title}>
         <Typography variant={'h1'}>Decks list</Typography>
@@ -152,24 +179,18 @@ export const DecksPage = () => {
         </div>
 
         <div className={style.filters}>
-          <Tabs className={style.tabs} title={'Show decks cards'} value={currentTab}>
-            <TabsTrigger onClick={() => onChangeTab('my')} value={'my'}>
-              My Cards
-            </TabsTrigger>
+          {tabs}
 
-            <TabsTrigger onClick={() => onChangeTab('all')} value={'all'}>
-              All Cards
-            </TabsTrigger>
-          </Tabs>
-
-          <Slider
-            max={minMax?.max}
-            min={minMax?.min}
-            onValueChange={setRange}
-            onValueCommit={onChangeSlider}
-            title={'Number of cards'}
-            value={range}
-          />
+          <div className={style.sliderWrapper}>
+            <Slider
+              max={minMax?.max}
+              min={minMax?.min}
+              onValueChange={setRange}
+              onValueCommit={onChangeSlider}
+              title={'Number of cards'}
+              value={range}
+            />
+          </div>
 
           <Button className={style.button} onClick={onClearFilters} variant={'secondary'}>
             <FiTrash /> Clear Filter
