@@ -6,20 +6,13 @@
   border-collapse: collapse;
   width: 100%;
 
-  &.withActions {
-    display: block;
-  }
-
   .active {
     background-color: var(--color-dark-300) !important;
   }
 
   .th,
   .td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: middle;
+    padding: 6px 0 6px 15px;
   }
 
   .th {
@@ -36,7 +29,6 @@
 
   .td {
     .content {
-      overflow: hidden;
       display: flex;
       gap: 10px;
       align-items: center;
@@ -53,7 +45,6 @@
 
       .text {
         overflow: hidden;
-        flex-grow: 1;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
@@ -62,12 +53,12 @@
 
   .tdQuestion,
   .thQuestion {
-    width: 30%;
+    width: 28%;
   }
 
   .tdAnswer,
   .thAnswer {
-    width: 30%;
+    width: 28%;
   }
 
   .tdQuestion,
@@ -81,7 +72,7 @@
 
   .tdUpdated,
   .thUpdated {
-    width: 20%;
+    width: 14%;
   }
 
   .tdGrade,
@@ -98,8 +89,12 @@
     }
   }
 
+  .thActions {
+    padding-inline: 0;
+  }
+
   .tdActions {
-    width: 5%;
+    padding-inline: 0;
 
     div {
       display: flex;
@@ -131,6 +126,18 @@
           color: var(--color-danger-500);
         }
       }
+    }
+  }
+
+  @media (width < 1024px) {
+    .tdQuestion,
+    .thQuestion {
+      width: 25%;
+    }
+
+    .tdAnswer,
+    .thAnswer {
+      width: 25%;
     }
   }
 }

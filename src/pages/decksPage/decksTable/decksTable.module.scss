@@ -17,7 +17,7 @@
   }
 
   .td, .th {
-    padding: 6px 0 6px 20px;
+    padding: 6px 0 6px 15px;
   }
 
   .th {
@@ -101,6 +101,10 @@
     &.zero {
       color: var(--color-danger-700);
     }
+  }
+
+  .thActions {
+    padding-inline: 0;
   }
 
   .tdActions {
