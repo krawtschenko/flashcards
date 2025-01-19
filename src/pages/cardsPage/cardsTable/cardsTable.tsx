@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import clsx from 'clsx'
 import { FiEdit, FiTrash } from 'react-icons/fi'
@@ -27,8 +27,90 @@ type CardsTableProps = {
 export const CardsTable = (props: CardsTableProps) => {
   const { cards, className, isOwner, onDeleteCard, onUpdateCard, orderBy, setOrderBy } = props
 
+  const [isMobile, setIsMobile] = useState(false)
   const [openModalId, setOpenModalId] = useState<null | string>(null)
   const [openDeleteModalId, setOpenDeleteModalId] = useState<null | string>(null)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  if (isMobile) {
+    return (
+      <div className={style.wrapper}>
+        {cards?.map(({ answer, answerImg, grade, id, question, questionImg, updated }) => {
+          const updatedLocale = new Date(updated).toLocaleDateString('en-GB')
+
+          // Generate stars
+          const stars = Array.from({ length: 5 }, (_, index) =>
+            index < grade ? <IoIosStar key={index} /> : <IoIosStarOutline key={index} />
+          )
+
+          return (
+            <div className={style.card} key={id}>
+              <CardsDialog
+                answer={answer}
+                answerImg={answerImg}
+                onOpenChange={() => setOpenModalId(null)}
+                onSubmit={body => onUpdateCard({ id, ...body })}
+                open={openModalId === id}
+                question={question}
+                questionImg={questionImg}
+                title={'Edit Card'}
+              />
+
+              <CardDialogDelete
+                onOpenChange={() => setOpenDeleteModalId(null)}
+                onSubmit={() => onDeleteCard(id)}
+                open={openDeleteModalId === id}
+              />
+
+              <div className={style.wrapInfo}>
+                <div className={style.label}>Question</div>
+                <div className={style.value} title={question}>
+                  {question}
+                </div>
+
+                <div className={style.label}>Answer</div>
+                <div className={style.value} title={answer}>
+                  {answer}
+                </div>
+
+                <div className={style.label}>Last Updated</div>
+                <div className={style.value}>{updatedLocale}</div>
+
+                <div className={style.label}>Grade</div>
+                <div className={clsx(style.value, style.stars)}>{stars}</div>
+              </div>
+
+              {isOwner && (
+                <div className={style.buttons}>
+                  <Button
+                    className={clsx(style.button, style.edit)}
+                    onClick={() => setOpenModalId(id)}
+                  >
+                    <FiEdit />
+                  </Button>
+
+                  <Button
+                    className={clsx(style.button, style.trash)}
+                    onClick={() => setOpenDeleteModalId(id)}
+                  >
+                    <FiTrash />
+                  </Button>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
 
   return (
     <Table className={clsx(style.table, className)}>
@@ -67,14 +149,14 @@ export const CardsTable = (props: CardsTableProps) => {
             )}
             onClick={() => handleSort('updated', orderBy, setOrderBy)}
           >
-            <div>Last Updated {getSortIcon('updated', orderBy)}</div>
+            <div>Last Updated{getSortIcon('updated', orderBy)}</div>
           </Th>
 
           <Th
             className={clsx(style.th, style.thGrade, getSortIcon('grade', orderBy) && style.active)}
             onClick={() => handleSort('grade', orderBy, setOrderBy)}
           >
-            <div>Grade {getSortIcon('grade', orderBy)}</div>
+            <div>Grade{getSortIcon('grade', orderBy)}</div>
           </Th>
 
           {isOwner && <Th className={clsx(style.th, style.thActions)}></Th>}

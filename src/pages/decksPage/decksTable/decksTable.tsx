@@ -72,10 +72,12 @@ export const DecksTable = (props: DecksTableProps) => {
 
               <Link className={style.wrapInfo} to={`${path.decks}/${id}`}>
                 <div className={style.label}>Name</div>
-                <div className={style.value}>{name}</div>
+                <div className={clsx(style.value, style.name)}>{name}</div>
 
                 <div className={style.label}>Cards</div>
-                <div className={style.value}>{cardsCount}</div>
+                <div className={clsx(style.value, cardsCount === 0 && style.zero)}>
+                  {cardsCount}
+                </div>
 
                 <div className={style.label}>Last Updated</div>
                 <div className={style.value}>{updatedLocale}</div>
