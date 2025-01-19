@@ -30,70 +30,86 @@ type LoginFormProps = {
 export const LoginForm = ({ className, login }: LoginFormProps) => {
   const { control, handleSubmit } = useForm<LoginFormValues>({
     defaultValues: {
-      email: 'eugen.kravchenko@proinfo.poznan.pl',
-      password: '54321',
-      rememberMe: true,
+      email: '',
+      password: '',
+      rememberMe: false,
     },
     resolver: zodResolver(loginSchema),
   })
 
   return (
-    <Card className={clsx(style.card, className)}>
-      <Typography position={'center'} variant={'h1'}>
-        Sign In
-      </Typography>
+    <>
+      <Card className={clsx(style.card, className)}>
+        <Typography position={'center'} variant={'h1'}>
+          Sign In
+        </Typography>
 
-      <form className={style.form} onSubmit={handleSubmit(login)}>
-        <ControlledTextField
-          className={style.email}
-          control={control}
-          label={'Email'}
-          name={'email'}
-        />
+        <form className={style.form} onSubmit={handleSubmit(login)}>
+          <ControlledTextField
+            className={style.email}
+            control={control}
+            label={'Email'}
+            name={'email'}
+          />
 
-        <ControlledTextField
-          className={style.password}
-          control={control}
-          label={'Password'}
-          name={'password'}
-          type={'password'}
-        />
+          <ControlledTextField
+            className={style.password}
+            control={control}
+            label={'Password'}
+            name={'password'}
+            type={'password'}
+          />
 
-        <ControlledCheckbox
-          className={style.checkbox}
-          control={control}
-          label={'Remember me'}
-          name={'rememberMe'}
-        />
+          <ControlledCheckbox
+            className={style.checkbox}
+            control={control}
+            label={'Remember me'}
+            name={'rememberMe'}
+          />
+
+          <Typography
+            as={Link}
+            className={style.forgotLink}
+            position={'end'}
+            to={path.recovery}
+            variant={'body2'}
+          >
+            Forgot Password?
+          </Typography>
+
+          <Button className={style.buttonSubmit} fullWidth>
+            Sign In
+          </Button>
+        </form>
+
+        <Typography className={style.text} position={'center'} variant={'body2'}>
+          Do not have an account?
+        </Typography>
 
         <Typography
           as={Link}
-          className={style.forgotLink}
-          position={'end'}
-          to={path.recovery}
-          variant={'body2'}
+          className={style.link}
+          position={'center'}
+          to={path.registration}
+          variant={'subtitle1'}
         >
-          Forgot Password?
+          Sign Up
         </Typography>
+      </Card>
 
-        <Button className={style.buttonSubmit} fullWidth>
-          Sign In
-        </Button>
-      </form>
+      <div className={style.testData}>
+        <span>
+          You can use this login: <br />
+        </span>
 
-      <Typography className={style.text} position={'center'} variant={'body2'}>
-        Do not have an account?
-      </Typography>
+        <span style={{ color: 'darkgoldenrod' }}>
+          <li>eugen.kravchenko@proinfo.poznan.pl</li>
+        </span>
 
-      <Typography
-        as={Link}
-        className={style.link}
-        position={'center'}
-        to={path.registration}
-        variant={'subtitle1'}
-      >
-        Sign Up
-      </Typography>
-    </Card>
+        <span style={{ color: 'darkcyan' }}>
+          <li>54321</li>
+        </span>
+      </div>
+    </>
   )
 }
