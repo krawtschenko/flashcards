@@ -160,7 +160,7 @@ export const DecksTable = (props: DecksTableProps) => {
             <div>Created By {getSortIcon('author.name', orderBy)}</div>
           </Th>
 
-          <Th className={(style.th, style.thActions)}></Th>
+          <Th className={clsx(style.th, style.thActions)}></Th>
         </Tr>
       </Thead>
 

@@ -16,12 +16,8 @@
     }
   }
 
-  .th,
-  .td {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: middle;
+  .td, .th {
+    padding: 6px 0 6px 20px;
   }
 
   .th {
@@ -37,8 +33,11 @@
   }
 
   .td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
     .link {
-      overflow: hidden;
       display: flex;
       gap: 10px;
       align-items: center;
@@ -105,6 +104,8 @@
   }
 
   .tdActions {
+    padding-inline: 0;
+
     div {
       display: flex;
       column-gap: 10px;
